@@ -12,7 +12,7 @@ public class IndexController {
 	public String getIndex(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 		System.out.println("debug: into getIndex");
 		model.addAttribute("name", name);
-		return "index2";
+		return "index";
 	}
 
 }
