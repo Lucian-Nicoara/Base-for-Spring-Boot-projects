@@ -23,7 +23,6 @@
 }
 
 #main {
-	/*margin-left: 250px;*/
 	transition: margin-left .5s;
 	padding: 0px 20px 20px 20px;
 }
@@ -51,10 +50,10 @@
 /*(Desktop) On screens that are bigger than 700px wide, show the sidenav*/ 
 @media screen and (min-width: 701px) {
 	.sidenav {
-		width: 250px;
+		width: 200px;
 	}
 	#main {
-		margin-left: 250px;
+		margin-left: 200px;
 		transition: margin-left .5s;
 	}
 	#btnCloseSidenav{
