@@ -41,6 +41,12 @@
 	#btnCloseSidenav{
 		display: none;
 	}
+	#div-header-left{
+		display: none;
+	}
+	#div-header-center{
+		display: none;
+	}
 }
 /*(Desktop) On screens that are bigger than 700px wide, show the sidenav*/ 
 @media screen and (min-width: 701px) {
@@ -56,5 +62,11 @@
 	}
 	#btnMenu{
 		display: none;
+	}
+	#div-header-left{
+		display: block;
+	}
+	#div-header-center{
+		display: block;
 	}
 }
