@@ -8,13 +8,15 @@ $(window).on('resize', function () {
 		$("#btnCloseSidenav").fadeOut(500);
 		
 	}else{
-		$("#btnMenu").fadeIn(500);
-		$("#btnCloseSidenav").fadeIn(500);
-		if(!sideNavOpened){
+		if(sideNavOpened){
+			$("#main").css("margin-left", "250px");
+			$("#btnCloseSidenav").fadeIn(500);
+			$("#btnMenu").fadeOut(500);
+		}else{
 			$("#mySidenav").width("0px");
 			$("#main").css("margin-left", "0px");
-		}else{
-			$("#main").css("margin-left", "250px");
+			$("#btnCloseSidenav").fadeOut(500);
+			$("#btnMenu").fadeIn(500);
 		}
 	}
 });
@@ -26,6 +28,8 @@ function openNavOver() {
 	if($(window).width() > 700){
 		$("#main").css("margin-left", "250px");
 	}
+	$("#btnMenu").hide();
+	$("#btnCloseSidenav").show();
 }
 
 /* Set the width of the side navigation to 0 */
@@ -33,4 +37,6 @@ function closeNavOver() {
 	sideNavOpened = false;
 	$("#mySidenav").width("0px");
 	$("#main").css("margin-left", "0px");
+	$("#btnMenu").show();
+	$("#btnCloseSidenav").hide();
 }
