@@ -25,7 +25,26 @@ public class IndexController {
 		List<UserData> users = userDataProcess.getUserData();
 		model.addAttribute("name", users.get(0).getName());
 		
-		return "index";
+		return "index.html";
 	}
 
+	@GetMapping("/template.html")
+	public String getTemplate(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+		System.out.println("debug: into getTemplate");
+
+		List<UserData> users = userDataProcess.getUserData();
+		model.addAttribute("name", users.get(0).getName());
+
+		return "template.html";
+	}
+	
+	@GetMapping("/content1.html")
+	public String getContent1(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+		System.out.println("debug: into getContent1");
+
+		List<UserData> users = userDataProcess.getUserData();
+		model.addAttribute("name", users.get(0).getName());
+
+		return "content1.html";
+	}
 }
