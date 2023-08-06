@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-	<head th:replace="fragments/header :: header"></head>
+	<head th:replace="common/header :: header"></head>
 	
 	<body>
-		<div th:replace="fragments/topBar :: topBar"></div>
-		<div th:replace="fragments/sidenav :: sidenav"></div>
+		<div th:replace="common/topBar :: topBar"></div>
+		<div th:replace="common/sidenav :: sidenav"></div>
 		<section layout:fragment="content"></section>
 	</body>
 </html>

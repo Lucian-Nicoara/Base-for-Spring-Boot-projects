@@ -45,6 +45,6 @@ public class IndexController {
 		List<UserData> users = userDataProcess.getUserData();
 		model.addAttribute("name", users.get(0).getName());
 
-		return "content1.html";
+		return "pages/content1.html";
 	}
 }

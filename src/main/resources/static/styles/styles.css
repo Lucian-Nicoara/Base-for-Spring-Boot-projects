@@ -1,11 +1,11 @@
-.ln-container {
+.ln-main-banner {
 	position: relative;
 	text-align: left;
 	color: white;
 	overflow: hidden;
 }
 
-.ln-top-left {
+.ln-top-left-text {
 	position: absolute;
 	top: 8px;
 	left: 16px;
