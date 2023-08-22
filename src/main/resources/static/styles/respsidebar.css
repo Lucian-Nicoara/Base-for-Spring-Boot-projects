@@ -6,14 +6,16 @@
 	background-color: rgb(255, 255, 255);
 	overflow-x: hidden;
 	transition: 0.5s;
+	box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
 }
 
-#btnCloseSidenav:hover, #btnMenu:hover {
+#btnMenu:hover {
 	color: var(--bs-tertiary-color);
 	transition: 0.2s;
 }
 
 #main {
+	margin-left: 200px;
 	transition: margin-left .5s;
 }
 
@@ -64,24 +66,11 @@
 
 	#main {
 		margin-left: 0px;
-		transition: margin-left .5s;
-	}
-
-	#btnCloseSidenav {
-		display: none;
-	}
-
-	#div-header-left {
-		display: none;
-	}
-
-	#div-header-center {
-		display: none;
-	}
+	}	
 }
 
-/*(Desktop) On screens that are bigger than 700px wide, show the sidenav*/
-@media screen and (min-width: 701px) {
+/*(Desktop) On screens that are bigger than 700px wide, show the sidenav
+@media screen and (min-width: 600px) {
 	.sidenav {
 		width: 200px;
 	}
@@ -90,20 +79,5 @@
 		margin-left: 200px;
 		transition: margin-left .5s;
 	}
-
-	#btnCloseSidenav {
-		display: none;
-	}
-
-	#btnMenu {
-		display: none;
-	}
-
-	#div-header-left {
-		display: block;
-	}
-
-	#div-header-center {
-		display: block;
-	}
 }
+*/
