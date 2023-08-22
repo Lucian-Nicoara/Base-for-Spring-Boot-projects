@@ -36,4 +36,15 @@ public class IndexController {
 		model.addAttribute("name", "Lucian");
 		return "pages/signin.html";
 	}
+	
+	@GetMapping("/album.html")
+	public String album(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+		model.addAttribute("name", "Lucian");
+		return "pages/album.html";
+	}
+	@GetMapping("/pricing.html")
+	public String pricing(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+		model.addAttribute("name", "Lucian");
+		return "pages/pricing.html";
+	}
 }

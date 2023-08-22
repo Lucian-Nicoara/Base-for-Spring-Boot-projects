@@ -46,3 +46,8 @@
 	width: 1.5rem;
 	height: 100vh;
 }
+
+.bi {
+	vertical-align: -.125em;
+	fill: currentColor;
+}
