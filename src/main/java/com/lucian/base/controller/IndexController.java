@@ -1,50 +1,50 @@
 package com.lucian.base.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lucian.base.model.UserData;
-import com.lucian.base.process.UserDataProcess;
+import com.lucian.base.service.UserDataService;
 
 @Controller
 public class IndexController {
 	
 	@Autowired
-	UserDataProcess userDataProcess;
-	
+	UserDataService userDataService;
 	
 	@GetMapping("/")
 	public String getIndex(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-		List<UserData> users = userDataProcess.getUserData();
-		model.addAttribute("name", users.get(0).getName());
-		return "pages/homepage.html";
+		if(userDataService.getAuthUser() != null) {
+			System.out.println("debug authUserName: " + userDataService.getAuthUser().getUsername());
+			System.out.println("debug authUser: " + userDataService.getAuthUser().toString());
+			model.addAttribute("name", userDataService.getAuthUser().getFirstName());
+		}
+		return "/pages/homepage";
 	}
 	
-	@GetMapping("/signup.html")
+	@GetMapping("/signup")
 	public String signup(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
-		model.addAttribute("name", "Lucian");
-		return "pages/signup.html";
+		model.addAttribute("name", name);
+		return "/pages/signup";
 	}
 	
-	@GetMapping("/signin.html")
+	@GetMapping("/signin")
 	public String signin(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
 		model.addAttribute("name", "Lucian");
-		return "pages/signin.html";
+		return "/pages/signin";
 	}
 	
-	@GetMapping("/album.html")
+	@GetMapping("/album")
 	public String album(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
 		model.addAttribute("name", "Lucian");
-		return "pages/album.html";
+		return "/pages/album";
 	}
-	@GetMapping("/pricing.html")
+	
+	@GetMapping("/pricing")
 	public String pricing(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
 		model.addAttribute("name", "Lucian");
-		return "pages/pricing.html";
+		return "/pages/pricing";
 	}
 }

@@ -12,4 +12,10 @@ public interface UserDataMapper {
 	
 	@Select ("select * from user_data")
 	List<UserData> selectAll();
+	
+	@Select ("select * from user_data where id = #{id}")
+	UserData getById(String id);
+	
+	@Select ("select * from user_data where username = #{username}")
+	UserData getByUsername(String username);
 }
