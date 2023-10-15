@@ -3,8 +3,16 @@
 	<head th:replace="~{common/header :: header}"></head>
 	
 	<body>
-		<div th:replace="~{common/topBar :: topBar}"></div>
-		<div th:replace="~{common/sidenav :: sidenav}"></div>
-		<section layout:fragment="content"></section>
+		<div class="container">
+			<div th:replace="~{common/topBar :: topBar}"></div>
+			<div class="d-flex flex-row mb-3">
+				<div>
+					<div th:replace="~{common/sidenav :: sidenav}"></div>
+				</div>
+				<div class="w-100">
+					<section layout:fragment="content"></section>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

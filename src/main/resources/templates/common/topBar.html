@@ -4,7 +4,7 @@
 			<div class="col d-none d-md-block"><a th:href="@{/}" class="text-decoration-none link-dark"><h2>The Example Company</h2><span class="text-body-secondary"> Our solutions in your advantage!</span></a></div>
 			<div class="col-auto">
 				<div class="row row-cols-auto">
-					<div class="col-sm-auto"><input type="search" style="width:200px;" class="form-control" placeholder="Search..." aria-label="Search"></div>
+					<div class="col-sm-auto"><input type="search" id="topSearch" style="width:190px;" class="form-control" placeholder="Search..." aria-label="Search"></div>
 					<div class="col-sm-auto">
 						<a href="#" class="link-body-emphasis text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
 							<i class="fa-regular fa-circle-user" style="font-size: 38px; cursor: pointer;"></i>
@@ -15,7 +15,7 @@
 							<li>
 								<hr class="dropdown-divider">
 							</li>
-							<li><a class="dropdown-item" href="#">Sign out</a></li>
+							<li><a class="dropdown-item" th:href="@{/logout}">Sign out</a></li>
 						</ul>
 					</div>
 					<div class="col-md-auto d-md-none">

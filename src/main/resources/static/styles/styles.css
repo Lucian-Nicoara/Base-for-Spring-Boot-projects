@@ -1,14 +1,13 @@
 .ln-main-banner {
-	position: relative;
-	text-align: left;
-	color: white;
-	overflow: hidden;
+	width: 100%;
+	height: 300px;
+	background: url("/images/wallhaven-mpv1o8-crop.jpg") no-repeat center;
+	background-size: cover;
 }
-
-.ln-top-left-text {
-	position: absolute;
-	top: 8px;
-	left: 16px;
+.ln-signin-img {
+	min-height: 300px;
+	background: url("/images/signin1.jpg") no-repeat center;
+	background-size: contain;
 }
 
 .form-signin {

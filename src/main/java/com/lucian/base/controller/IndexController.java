@@ -20,6 +20,8 @@ public class IndexController {
 			System.out.println("debug authUserName: " + userDataService.getAuthUser().getUsername());
 			System.out.println("debug authUser: " + userDataService.getAuthUser().toString());
 			model.addAttribute("name", userDataService.getAuthUser().getFirstName());
+		}else {
+			System.out.println("debug no authUser");
 		}
 		return "/pages/homepage";
 	}

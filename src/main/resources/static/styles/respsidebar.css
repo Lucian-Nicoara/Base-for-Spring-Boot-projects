@@ -1,22 +1,18 @@
 .sidenav {
-	height: 100%;
-	position: fixed;
 	z-index: 1;
 	left: 0;
-	background-color: rgb(255, 255, 255);
 	overflow-x: hidden;
-	transition: 0.5s;
+	background-color: rgb(255, 255, 255);
+	/*transition: 0.5s;
+
+	height: 100%;
 	box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+	*/
 }
 
 #btnMenu:hover {
 	color: var(--bs-tertiary-color);
 	transition: 0.2s;
-}
-
-#main {
-	margin-left: 200px;
-	transition: margin-left .5s;
 }
 
 .btn-toggle-nav a {
