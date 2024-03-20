@@ -15,7 +15,7 @@ public class IndexController {
 	UserDataService userDataService;
 	
 	@GetMapping("/")
-	public String getIndex(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
+	public String getIndex(@RequestParam(required=false, defaultValue="World") String name, Model model) {
 		if(userDataService.getAuthUser() != null) {
 			System.out.println("debug authUserName: " + userDataService.getAuthUser().getUsername());
 			System.out.println("debug authUser: " + userDataService.getAuthUser().toString());
@@ -27,25 +27,25 @@ public class IndexController {
 	}
 	
 	@GetMapping("/signup")
-	public String signup(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+	public String signup(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
 		model.addAttribute("name", name);
 		return "/pages/signup";
 	}
 	
 	@GetMapping("/signin")
-	public String signin(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+	public String signin(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
 		model.addAttribute("name", "Lucian");
 		return "/pages/signin";
 	}
 	
 	@GetMapping("/album")
-	public String album(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+	public String album(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
 		model.addAttribute("name", "Lucian");
 		return "/pages/album";
 	}
 	
 	@GetMapping("/pricing")
-	public String pricing(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+	public String pricing(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
 		model.addAttribute("name", "Lucian");
 		return "/pages/pricing";
 	}
