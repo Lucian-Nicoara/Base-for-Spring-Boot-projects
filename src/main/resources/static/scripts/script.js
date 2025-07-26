@@ -32,7 +32,7 @@ function toggleSideNav(){
 		$("#mySidenav").css("height", "100%");
 		$("#mySidenav").css("top", "71px");
 		$("#mySidenav").css("position", "fixed");
-		$("#mySidenav").css("box-shadow", "30px 0px 30px rgba(100, 100, 100, 0.5)");
+		$("#mySidenav").css("box-shadow", "10px 10px 10px rgba(100, 100, 100, 0.5)");
 		$("#mySidenav").css("transition", "0.5s"); //animate only width
 		$("#mySidenav").width("200px"); //use 100% for full cover of screen		
 	}
