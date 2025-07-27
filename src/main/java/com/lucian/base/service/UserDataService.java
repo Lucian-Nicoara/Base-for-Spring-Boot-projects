@@ -22,6 +22,7 @@ public class UserDataService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserData user = userDataMapper.getByUsername(username);
 		if (user != null) {
+			user.setAuthorities(userDataMapper.getAuthoritiesByUserId(user.getId()));
 			return user;//new User(user.getUsername(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority("CUSTOMER"))); 
 		} else {
 			throw new UsernameNotFoundException("username");

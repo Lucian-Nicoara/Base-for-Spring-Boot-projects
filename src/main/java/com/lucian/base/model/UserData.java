@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserData implements UserDetails{
 	private static final long serialVersionUID = 1L;
-	private Long id;
+	private int id;
 	private String username;
 	private String password;
 	private String firstName;
@@ -54,10 +54,10 @@ public class UserData implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getFirstName() {

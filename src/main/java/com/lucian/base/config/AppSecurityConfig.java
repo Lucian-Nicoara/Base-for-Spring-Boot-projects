@@ -22,6 +22,8 @@ public class AppSecurityConfig {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
+				.requestMatchers("/super/**").hasAuthority("super")
+				.requestMatchers("/admin/**").hasAuthority("admin")
 				.requestMatchers("/restricted/**").authenticated()
 				.requestMatchers("/**").permitAll()
 				.anyRequest().authenticated()

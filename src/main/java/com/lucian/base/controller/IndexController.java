@@ -1,12 +1,22 @@
 package com.lucian.base.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lucian.base.model.UserData;
 import com.lucian.base.service.UserDataService;
+
+/*
+ * info:
+	https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial
+	
+TODOS: remember me: 
+	https://www.baeldung.com/spring-security-persistent-remember-me
+*/
+
 
 @Controller
 public class IndexController {
@@ -15,10 +25,12 @@ public class IndexController {
 	UserDataService userDataService;
 	
 	@GetMapping("/")
-	public String getIndex(@RequestParam(required=false, defaultValue="World") String name, Model model) {
+	public String getIndex(Model model) {
+		UserData user = null;
 		if(userDataService.getAuthUser() != null) {
-			System.out.println("debug authUserName: " + userDataService.getAuthUser().getUsername());
-			System.out.println("debug authUser: " + userDataService.getAuthUser().toString());
+			user = userDataService.getAuthUser();
+			System.out.println("debug authUserName: " + user.getUsername());
+			System.out.println("debug authUser: " + user.toString());
 			model.addAttribute("name", userDataService.getAuthUser().getFirstName());
 		}else {
 			System.out.println("debug no authUser");
@@ -27,26 +39,33 @@ public class IndexController {
 	}
 	
 	@GetMapping("/signup")
-	public String signup(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
-		model.addAttribute("name", name);
+	public String signup(Model model) {
 		return "/pages/signup";
 	}
 	
 	@GetMapping("/signin")
-	public String signin(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
-		model.addAttribute("name", "Lucian");
+	public String signin(Model model) {
 		return "/pages/signin";
 	}
 	
 	@GetMapping("/album")
-	public String album(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
-		model.addAttribute("name", "Lucian");
+	public String album(Model model) {
 		return "/pages/album";
 	}
 	
 	@GetMapping("/pricing")
-	public String pricing(@RequestParam(required = false, defaultValue = "World") String name, Model model) {
-		model.addAttribute("name", "Lucian");
+	public String pricing(Model model) {
 		return "/pages/pricing";
 	}
+	
+	@GetMapping("/super")
+	public String superuser(Model model) {
+		return "/pages/pricing";
+	}
+	
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		return "/pages/pricing";
+	}
+
 }
