@@ -15,6 +15,7 @@ import com.lucian.base.service.UserDataService;
 	
 TODOS: remember me: 
 	https://www.baeldung.com/spring-security-persistent-remember-me
+	https://www.youtube.com/watch?v=YNsDrOCV0L0&t=430s
 */
 
 
@@ -31,7 +32,7 @@ public class IndexController {
 			user = userDataService.getAuthUser();
 			System.out.println("debug authUserName: " + user.getUsername());
 			System.out.println("debug authUser: " + user.toString());
-			model.addAttribute("name", userDataService.getAuthUser().getFirstName());
+			model.addAttribute("name", user.getFirstName());
 		}else {
 			System.out.println("debug no authUser");
 		}
@@ -42,7 +43,7 @@ public class IndexController {
 	public String signup(Model model) {
 		return "/pages/signup";
 	}
-	
+		
 	@GetMapping("/signin")
 	public String signin(Model model) {
 		return "/pages/signin";
