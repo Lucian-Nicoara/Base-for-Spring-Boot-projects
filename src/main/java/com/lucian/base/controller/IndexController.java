@@ -49,6 +49,11 @@ public class IndexController {
 		return "/pages/signin";
 	}
 	
+	@GetMapping("/datatable")
+	public String datatable(Model model) {
+		return "/pages/datatable";
+	}
+	
 	@GetMapping("/album")
 	public String album(Model model) {
 		return "/pages/album";

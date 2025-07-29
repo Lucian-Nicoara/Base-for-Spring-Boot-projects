@@ -23,7 +23,7 @@ public class UserDataService implements UserDetailsService{
 		UserData user = userDataMapper.getByUsername(username);
 		if (user != null) {
 			user.setAuthorities(userDataMapper.getAuthoritiesByUserId(user.getId()));
-			return user;//new User(user.getUsername(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority("CUSTOMER"))); 
+			return user; 
 		} else {
 			throw new UsernameNotFoundException("username");
 		}
