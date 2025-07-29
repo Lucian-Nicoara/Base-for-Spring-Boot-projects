@@ -1,11 +1,13 @@
 package com.lucian.base.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.lucian.base.mapper.UserDataMapper;
 import com.lucian.base.model.UserData;
 import com.lucian.base.service.UserDataService;
 
@@ -20,10 +22,13 @@ TODOS: remember me:
 
 
 @Controller
-public class IndexController {
+public class PageController {
 	
 	@Autowired
 	UserDataService userDataService;
+	
+	@Autowired
+	UserDataMapper userDataMapper;
 	
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -53,7 +58,7 @@ public class IndexController {
 	public String datatable(Model model) {
 		return "/pages/datatable";
 	}
-	
+		
 	@GetMapping("/album")
 	public String album(Model model) {
 		return "/pages/album";
