@@ -3,27 +3,43 @@
 	<div id="main" layout:fragment="content">
 		<div class="container pt-3">
 			<div class="row">
-				<div class="col" style="font-size: 14px;">
-					<button onclick="postData();">Apasa!</button>
-					<br>
-					<table id="dtExample" class="hover" style="width: 100%; font-size: 14px;">
-						<thead>
-							<tr>
-								<th>1</th>
-								<th>2</th>
-								<th>4</th>
-								<th>5</th>
-								<th>6</th>
-								<th>7</th>
-								<th>8</th>
-								<th>9</th>
-								<th>10</th>
-								<th>11</th>
-							</tr>
-						</thead>
-						<tbod>
-						</tbody>
-					</table>
+				<div class="col">
+					<div class="rounded shadow py-2" style="position: relative; height: 50px;">
+						<div class="w-100 text-center" style="position: absolute; ">
+							<h3>Registrul hotărâri CJC</h3>
+						</div>
+						<div class="pe-2" style="width: 100%; position: absolute; text-align: right;">
+							<button type="button" class="btn btn-primary" onclick="postData();">Adaugă înregistrare nouă</button>
+						</div>
+					</div> 
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="rounded shadow py-2 px-2 mt-4">
+						<div class="row">
+							<div class="col">
+								<table id="dtExample" class="hover" style="width: 100%;">
+									<thead>
+										<tr>
+											<th>Nr. / Data</th>
+											<th>Emitent</th>
+											<th>Data comunicării</th>
+											<th>Compartimentul adresat</th>
+											<th>Persoana care a primit-o</th>
+											<th>Data primirii</th>
+											<th>Rezolvat</th>
+											<th>Fișier</th>
+											<th>10</th>
+											<th>11</th>
+										</tr>
+									</thead>
+									<tbod>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -42,6 +58,7 @@
 				url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/ro.json"
 			},
 			paging: true,
+			lengthChange: false,
 			ajax: "/getUserData",
 			columns: [
 			        { data: "id" },

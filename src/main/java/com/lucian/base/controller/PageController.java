@@ -54,9 +54,9 @@ public class PageController {
 		return "/pages/signin";
 	}
 	
-	@GetMapping("/datatable")
+	@GetMapping("/registrul-hcjc")
 	public String datatable(Model model) {
-		return "/pages/datatable";
+		return "/pages/registrul-hcjc";
 	}
 		
 	@GetMapping("/album")
