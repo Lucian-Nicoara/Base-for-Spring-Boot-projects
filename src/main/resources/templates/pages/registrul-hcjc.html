@@ -4,7 +4,7 @@
 		<div class="container pt-3">
 			<div class="row">
 				<div class="col">
-					<div class="rounded shadow py-2" style="position: relative; height: 50px;">
+					<div class="py-2" style="position: relative; height: 50px;">
 						<div class="w-100 text-center" style="position: absolute; ">
 							<h3>Registrul hotărâri CJC</h3>
 						</div>
@@ -22,16 +22,14 @@
 								<table id="dtExample" class="hover" style="width: 100%;">
 									<thead>
 										<tr>
-											<th>Nr. / Data</th>
+											<th>Nr.</th>
+											<th>Data</th>
 											<th>Emitent</th>
 											<th>Data comunicării</th>
 											<th>Compartimentul adresat</th>
 											<th>Persoana care a primit-o</th>
 											<th>Data primirii</th>
-											<th>Rezolvat</th>
-											<th>Fișier</th>
-											<th>10</th>
-											<th>11</th>
+											<th>Stadiu</th>
 										</tr>
 									</thead>
 									<tbod>
@@ -59,18 +57,16 @@
 			},
 			paging: true,
 			lengthChange: false,
-			ajax: "/getUserData",
+			ajax: "/getHotarariCJC",
 			columns: [
-			        { data: "id" },
-			        { data: "username" },
-			        { data: "firstName" },
-			        { data: "lastName" },
-			        { data: "registrationDate" },
-					{ data: "authorities"},
-					{ data: "enabled"},
-					{ data: "accountNonLocked"},
-					{ data: "accountNonExpired"},
-					{ data: "credentialsNonExpired"},
+			        { data: "nrHotarare" },
+			        { data: "dataHotarare" },
+			        { data: "emitent" },
+			        { data: "dataComunicarii" },
+			        { data: "compartimentulAdresat" },
+					{ data: "persoanaPrimire"},
+					{ data: "dataPrimirii"},
+					{ data: "stadiu"}
 			]
 		});
 	}
