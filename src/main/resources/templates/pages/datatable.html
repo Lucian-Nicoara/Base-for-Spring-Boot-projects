@@ -1,61 +1,81 @@
 <!doctype html>
 <html layout:decorate="template" lang="en" data-bs-theme="light">
 	<div id="main" layout:fragment="content">
-		<section class="py-5 text-center container">
-			<div class="row py-lg-5">
-				<div class="col-lg-6 col-md-8 mx-auto">
-					<h1 class="fw-light">Datatables example</h1>
-					<p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the
-						creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.
-					</p>
+		<div class="container pt-3">
+			<div class="row">
+				<div class="col" style="font-size: 14px;">
+					<button onclick="postData();">Apasa!</button>
+					<br>
+					<table id="dtExample" class="hover" style="width: 100%; font-size: 14px;">
+						<thead>
+							<tr>
+								<th>1</th>
+								<th>2</th>
+								<th>4</th>
+								<th>5</th>
+								<th>6</th>
+								<th>7</th>
+								<th>8</th>
+								<th>9</th>
+								<th>10</th>
+								<th>11</th>
+							</tr>
+						</thead>
+						<tbod>
+						</tbody>
+					</table>
 				</div>
 			</div>
-		</section>
-		<div class="container pt-3">
-			<table id="dtExample" class="hover">
-				<thead>
-					<tr>
-						<th>1</th>
-						<th>2</th>
-						<th>3</th>
-						<th>4</th>
-						<th>5</th>
-						<th>6</th>
-						<th>7</th>
-						<th>8</th>
-						<th>9</th>
-						<th>10</th>
-						<th>11</th>
-					</tr>
-				</thead>
-			<tbody>
-			</tbody>
-			</table>
 		</div>
 	</div>
 </html>
 <script>
+	var token = $("meta[name='_csrf']").attr("content");
+	
 	$(document).ready(function() {
 		console.log("ready!");
-		new DataTable('#dtExample', {
+		incarcaDtExample();
+	});
+	function incarcaDtExample(){
+		$("#dtExample").DataTable({
 			language: {
-				url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/ro.json'
+				url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/ro.json"
 			},
 			paging: true,
 			ajax: "/getUserData",
 			columns: [
-			        { data: 'id' },
-			        { data: 'username' },
-			        { data: 'password' },
-			        { data: 'firstName' },
-			        { data: 'lastName' },
-			        { data: 'registrationDate' },
+			        { data: "id" },
+			        { data: "username" },
+			        { data: "firstName" },
+			        { data: "lastName" },
+			        { data: "registrationDate" },
 					{ data: "authorities"},
 					{ data: "enabled"},
 					{ data: "accountNonLocked"},
 					{ data: "accountNonExpired"},
 					{ data: "credentialsNonExpired"},
-			    ]
+			]
 		});
-	});
+	}
+	
+	function postData(){
+		var dataModel = {
+				"id":"1", 
+				"username":"myuser"
+			};
+	
+		$.ajax({
+			url: "/postData",
+			type: "POST",
+			headers: {"X-CSRF-TOKEN": token},
+			contentType: "application/json",
+			data: JSON.stringify(dataModel),
+			success: function(response) {
+				
+			},
+			error: function(response){
+				alert("Eroare!");
+			}
+		});
+	}
 </script>
