@@ -53,3 +53,13 @@ html {
 	vertical-align: -.125em;
 	fill: currentColor;
 }
+
+/*fix pt. miscare continut pe modal open*/
+.modal-open {
+    overflow: visible;
+}
+
+.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+    padding-right:0px!important;
+}
+/*end fix pt. miscare continut pe modal open*/

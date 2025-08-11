@@ -8,8 +8,8 @@ public class TableData<T> {
 	private long recordsFiltered;
 	private List<T> data;
 	
-	public TableData(int draw, long recordsTotal, long recordsFiltered, List<T> data) {
-		this.draw = draw;
+	public TableData(long recordsTotal, long recordsFiltered, List<T> data) {
+		this.draw = 1;
 		this.recordsTotal = recordsTotal;
 		this.recordsFiltered = recordsFiltered;
 		this.data = data;

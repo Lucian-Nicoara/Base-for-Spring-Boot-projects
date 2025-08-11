@@ -9,7 +9,7 @@
 							<h3>Registrul hotărâri CJC</h3>
 						</div>
 						<div class="pe-2" style="width: 100%; position: absolute; text-align: right;">
-							<button type="button" class="btn btn-primary" onclick="postData();">Adaugă înregistrare nouă</button>
+							<button type="button" class="btn btn-primary" onclick="arataModalAdaugaInregHCJC();">Adaugă înregistrare nouă</button>
 						</div>
 					</div> 
 				</div>
@@ -19,7 +19,7 @@
 					<div class="rounded shadow py-2 px-2 mt-4">
 						<div class="row">
 							<div class="col">
-								<table id="dtExample" class="hover" style="width: 100%;">
+								<table id="dtHotarariCJC" class="hover" style="width: 100%;">
 									<thead>
 										<tr>
 											<th>Nr.</th>
@@ -41,17 +41,80 @@
 				</div>
 			</div>
 		</div>
+		<!-- Modal adaugare hotarareCJC-->
+		<div class="modal fade" id="modalAdaugaHotarareCJC" tabindex="-1" role="dialog" aria-labelledby="modalAdaugaHotarareCJC" aria-hidden="true">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Adaugă o hotărâre CJC</div>
+					</div>
+					<div class="modal-body">
+						<div class="row mb-2">
+							<div class="col-md-2">
+								<label for="nrHotarare" class="fw-bold">Nr. hotărare</label><br>
+								<input id="nrHotarare" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label for="dataHotarare" class="fw-bold">Dată hotărare</label><br>
+								<input id="dataHotarare" class="form-control" onchange="onChangeDataHotarare()">
+							</div>
+							<div class="col-md-8">
+								<label for="emitentHotarare" class="fw-bold">Emitent</label><br>
+								<input id="emitentHotarare" class="form-control">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<label for="dataCom" class="fw-bold">Data comunicării</label><br>
+								<input id="dataCom" class="form-control" onchange="onChangeDataComunicarii()">
+							</div>
+							<div class="col-md-3">
+								<label for="compartimentul" class="fw-bold">Compartimentul adresat</label><br>
+								<input id="compartimentul" class="form-control">
+							</div>
+							<div class="col-md-3">
+								<label for="persoanaPrimire" class="fw-bold">Persoana care a primit-o</label><br>
+								<input id="persoanaPrimire" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label for="dataPrimirii" class="fw-bold">Data primirii</label><br>
+								<input id="dataPrimirii" class="form-control" onchange="onChangeDataPrimirii()">
+							</div>
+							<div class="col-md-2">
+								<label for="selStadiuHotarare" class="fw-bold">Stadiu</label><br>
+								<select id="selStadiuHotarare" class="selectpicker w-100">
+									<option value="inLucru" selected>În lucru</option>
+									<option value="rezolvat">Rezolvată</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div id="divMesajAdaugaHotarare" class="col-md-12" style="color: red; font-weight: bold;"></div>
+						</div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button id="btnSalveazaHotarare" type="button" class="btn btn-success" onclick="salveazaHotarareCJC()">Salvează</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaHCJC()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div><!-- End modal adaugare hotarareCJC-->
 	</div>
 </html>
-<script>
+<script th:inline="javascript">
 	var token = $("meta[name='_csrf']").attr("content");
+	var mesajAdaugaHotarare = "";
+	var dtHotarariCJC = null;
 	
 	$(document).ready(function() {
 		console.log("ready!");
-		incarcaDtExample();
+		incarcaDtHotarariCJC();
 	});
-	function incarcaDtExample(){
-		$("#dtExample").DataTable({
+	function incarcaDtHotarariCJC(){
+		if ($.fn.DataTable.isDataTable('#dtHotarariCJC')) {
+			$('#dtHotarariCJC').DataTable().clear().destroy();
+		}
+		$("#dtHotarariCJC").DataTable({
 			language: {
 				url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/ro.json"
 			},
@@ -71,24 +134,139 @@
 		});
 	}
 	
-	function postData(){
-		var dataModel = {
-				"id":"1", 
-				"username":"myuser"
-			};
+	function arataModalAdaugaInregHCJC(){
+		$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
 	
-		$.ajax({
-			url: "/postData",
-			type: "POST",
-			headers: {"X-CSRF-TOKEN": token},
-			contentType: "application/json",
-			data: JSON.stringify(dataModel),
-			success: function(response) {
-				
-			},
-			error: function(response){
-				alert("Eroare!");
+	function inchideModalAdaugaHCJC(){
+		$("#modalAdaugaHotarareCJC").modal("hide");
+	}
+	
+	function verificaData(dataInput){
+		var dateArray = dataInput.split(".");
+		var ziuaOk = false;
+		var lunaOk = false;
+		var anulOk = false;
+		if(dateArray.length == 3){
+			if(parseInt(dateArray[0]) > 0 && parseInt(dateArray[0]) <= 31){
+				ziuaOk = true;
 			}
-		});
+			if(parseInt(dateArray[1]) > 0 && parseInt(dateArray[1]) <= 12){
+				lunaOk = true;
+			}
+			if(dateArray[2].length == 4 && parseInt(dateArray[2]) > 1900 && parseInt(dateArray[2]) <= 2199){
+				anulOk = true;
+			}
+		}else{
+			return "notok";
+		}
+		
+		if(!ziuaOk || !lunaOk || !anulOk){
+			return "notok";
+		}else{
+			return "ok";
+		}
+	}
+	
+	function onChangeDataHotarare(){
+		if(verificaData($("#dataHotarare").val()) != "ok"){
+			//$("#dataHotarare").val("dd.mm.yyyy");
+			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul dată hotărâre trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaHotarare").prop("disabled", true);
+		}else{
+			$("#divMesajAdaugaHotarare").html("");
+			$("#btnSalveazaHotarare").prop("disabled", false);
+		}
+	}
+	
+	function onChangeDataComunicarii(){
+		if(verificaData($("#dataCom").val()) != "ok"){
+			//$("#dataCom").val("dd.mm.yyyy");
+			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul data comunicării trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaHotarare").prop("disabled", true);
+		}else{
+			$("#divMesajAdaugaHotarare").html("");
+			$("#btnSalveazaHotarare").prop("disabled", false);
+		}
+	}
+	
+	function onChangeDataPrimirii(){
+		if(verificaData($("#dataPrimirii").val()) != "ok"){
+			//$("#dataPrimirii").val("dd.mm.yyyy");
+			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul data primirii trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaHotarare").prop("disabled", true);
+		}else{
+			$("#divMesajAdaugaHotarare").html("");
+			$("#btnSalveazaHotarare").prop("disabled", false);
+		}
+	}
+
+	function salveazaHotarareCJC(){
+		var eroareValidare = false;		
+		if(!$("#nrHotarare").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaHotarare").html("Completează câmpul nr. hotărâre");
+			return;
+		}
+		if(verificaData($("#dataHotarare").val()) != "ok"){
+			eroareValidare = true;
+			$("#divMesajAdaugaHotarare").html("Completează câmpul dată hotărâre");
+			return;
+		}
+		if(!$("#emitentHotarare").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaHotarare").html("Completează câmpul emitent");
+			return;
+		}
+		if(verificaData($("#dataCom").val()) != "ok"){
+			eroareValidare = true;
+			$("#divMesajAdaugaHotarare").html("Completează câmpul data comunicării");
+			return;
+		}
+		if(!$("#compartimentul").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaHotarare").html("Completează câmpul compartimentul adresat");
+			return;
+		}
+		if(!$("#persoanaPrimire").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaHotarare").html("Completează câmpul persoana primire");
+			return;
+		}
+		if(verificaData($("#dataPrimirii").val()) != "ok"){
+			eroareValidare = true;
+			$("#divMesajAdaugaHotarare").html("Completează câmpul data primirii");
+			return;
+		}
+		if(!eroareValidare){
+			var hotarareCJC = {
+					"nrHotarare": $("#nrHotarare").val(),
+					"dataHotarare": $("#dataHotarare").val(),
+					"emitent": $("#emitentHotarare").val(),
+					"dataComunicarii": $("#dataCom").val(),
+					"compartimentulAdresat": $("#compartimentul").val(),
+					"persoanaPrimire": $("#persoanaPrimire").val(),
+					"dataPrimirii": $("#dataPrimirii").val(),
+					"stadiu": $("#selStadiuHotarare").val(),
+				};
+			console.log("hotarareCJC");
+			console.log(hotarareCJC);
+			$.ajax({
+				url: "/postHotarareCJC",
+				type: "POST",
+				headers: {"X-CSRF-TOKEN": token},
+				contentType: "application/json",
+				data: JSON.stringify(hotarareCJC),
+				success: function(response) {
+					inchideModalAdaugaHCJC();
+					incarcaDtHotarariCJC();
+				},
+				error: function(response){
+					alert("Eroare!");
+				}
+			});
+		}else{
+			alert("Formularul nu este completat corect! Datele nu pot fi salvate.");
+		}
 	}
 </script>
