@@ -30,11 +30,21 @@ public class DataController {
 	}
 	
 	@PostMapping("/postHotarareCJC")
-	public String postData(@RequestBody HotarareCJC hotarareCJC) {
-		System.out.println("debug /hotarareCJC");
+	public String postHotarareCJC(@RequestBody HotarareCJC hotarareCJC) {
+		System.out.println("debug /postHotarareCJC");
 		System.out.println(hotarareCJC.toString());
 		if(hotarareCJC.getNrHotarare() != null && !hotarareCJC.getNrHotarare().isEmpty()) {
 			hotarariCjcService.postHotarareCJC(hotarareCJC);
+		}
+		return "ok";
+	}
+	
+	@PostMapping("/putHotarareCJC")
+	public String putHotarareCJC(@RequestBody HotarareCJC hotarareCJC) {
+		System.out.println("debug /putHotarareCJC");
+		System.out.println(hotarareCJC.toString());
+		if(hotarareCJC.getId() != null && !hotarareCJC.getId().isEmpty()) {
+			hotarariCjcService.putHotarareCJC(hotarareCJC);
 		}
 		return "ok";
 	}

@@ -1,6 +1,7 @@
 package com.lucian.base.model;
 
 public class HotarareCJC {
+	private String id;
 	private String nrHotarare;
 	private String dataHotarare;
 	private String emitent;
@@ -58,8 +59,15 @@ public class HotarareCJC {
 	public void setStadiu(String stadiu) {
 		this.stadiu = stadiu;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	@Override
 	public String toString() {
-		return "HotarareCJC [nrHotarare=" + nrHotarare + ", dataHotarare=" + dataHotarare + ", emitent=" + emitent + ", dataComunicarii=" + dataComunicarii + ", compartimentulAdresat=" + compartimentulAdresat + ", persoanaPrimire=" + persoanaPrimire + ", dataPrimirii=" + dataPrimirii + ", stadiu=" + stadiu + "]";
+		return "HotarareCJC [id=" + id + ", nrHotarare=" + nrHotarare + ", dataHotarare=" + dataHotarare + ", emitent=" + emitent + ", dataComunicarii=" + dataComunicarii + ", compartimentulAdresat=" + compartimentulAdresat + ", persoanaPrimire=" + persoanaPrimire + ", dataPrimirii=" + dataPrimirii + ", stadiu=" + stadiu + "]";
 	}
+	
 }

@@ -1,7 +1,5 @@
 package com.lucian.base.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,25 +61,4 @@ public class PageController {
 	public String consiliulDirector(Model model) {
 		return "/pages/consiliul-director";
 	}
-		
-	@GetMapping("/album")
-	public String album(Model model) {
-		return "/pages/album";
-	}
-	
-	@GetMapping("/pricing")
-	public String pricing(Model model) {
-		return "/pages/pricing";
-	}
-	
-	@GetMapping("/super")
-	public String superuser(Model model) {
-		return "/pages/pricing";
-	}
-	
-	@GetMapping("/admin")
-	public String admin(Model model) {
-		return "/pages/pricing";
-	}
-
 }

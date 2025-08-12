@@ -26,4 +26,8 @@ public class HotarariCjcService{
 		return registrulHcjcMapper.postHotarareCJC(hotarareCJC);
 	}
 	
+	public void putHotarareCJC(HotarareCJC hotarareCJC) {
+		registrulHcjcMapper.putHotarareCJC(hotarareCJC);
+	}
+	
 }

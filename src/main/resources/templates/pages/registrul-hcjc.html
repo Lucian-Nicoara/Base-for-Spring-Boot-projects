@@ -1,7 +1,7 @@
 <!doctype html>
 <html layout:decorate="template" lang="en" data-bs-theme="light">
 	<div id="main" layout:fragment="content">
-		<div class="container pt-3">
+		<div class="pt-3">
 			<div class="row">
 				<div class="col">
 					<div class="py-2" style="position: relative; height: 50px;">
@@ -30,7 +30,7 @@
 											<th>Persoana care a primit-o</th>
 											<th>Data primirii</th>
 											<th>Stadiu</th>
-											<th>Operații</th>
+											<th style="width:150px;">Operații</th>
 										</tr>
 									</thead>
 									<tbod>
@@ -84,8 +84,8 @@
 							<div class="col-md-2">
 								<label for="selStadiuHotarare" class="fw-bold">Stadiu</label><br>
 								<select id="selStadiuHotarare" class="selectpicker w-100">
-									<option value="inLucru" selected>În lucru</option>
-									<option value="rezolvat">Rezolvată</option>
+									<option value="ÎN LUCRU" selected>În lucru</option>
+									<option value="REZOLVATĂ">Rezolvată</option>
 								</select>
 							</div>
 						</div>
@@ -106,6 +106,7 @@
 	var token = $("meta[name='_csrf']").attr("content");
 	var mesajAdaugaHotarare = "";
 	var dtHotarariCJC = null;
+	var hotarareaCurenta = null;
 	
 	$(document).ready(function() {
 		console.log("Registul hotarari CJC - ready!");
@@ -118,7 +119,7 @@
 		if ($.fn.DataTable.isDataTable('#dtHotarariCJC')) {
 			$('#dtHotarariCJC').DataTable().clear().destroy();
 		}
-		$("#dtHotarariCJC").DataTable({
+		dtHotarariCJC = $("#dtHotarariCJC").DataTable({
 			language: {
 				url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/ro.json"
 			},
@@ -138,9 +139,9 @@
 					{ data: 
 						null, 
 						render: function (data, type, row, meta) {
-							return '<i class="fa-button fa-solid fa-pen-to-square" title="Editare"></i>'
-							+ '<i class="fa-button fa-regular fa-comment-dots" style="margin-left:20px;" title="Notițe"></i>'
-							+ '<i class="fa-button fa-solid fa-file-arrow-down" style="margin-left:20px;" title="Descarcă fișier"></i>';
+							return '<i class="fa-button fa-solid fa-pen-to-square" style="margin-right:15px;" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
+							+ '<i class="fa-button fa-regular fa-comment-dots" style="margin-right:15px;" title="Notițe"></i>'
+							+ '<i class="fa-button fa-solid fa-file-arrow-down" style="margin-right:15px;" title="Descarcă fișier"></i>';
 						}
 					}
 			]
@@ -215,7 +216,8 @@
 	}
 
 	function salveazaHotarareCJC(){
-		var eroareValidare = false;		
+		var eroareValidare = false;
+		var urlSalvare = "/postHotarareCJC";
 		if(!$("#nrHotarare").val()){
 			eroareValidare = true;
 			$("#divMesajAdaugaHotarare").html("Completează câmpul nr. hotărâre");
@@ -262,10 +264,12 @@
 					"dataPrimirii": $("#dataPrimirii").val(),
 					"stadiu": $("#selStadiuHotarare").val(),
 				};
-			console.log("hotarareCJC");
-			console.log(hotarareCJC);
+			if(hotarareaCurenta != null && hotarareaCurenta.id != null){
+				urlSalvare = "/putHotarareCJC";
+				hotarareCJC.id = hotarareaCurenta.id;
+			}
 			$.ajax({
-				url: "/postHotarareCJC",
+				url: urlSalvare,
 				type: "POST",
 				headers: {"X-CSRF-TOKEN": token},
 				contentType: "application/json",
@@ -281,5 +285,19 @@
 		}else{
 			alert("Formularul nu este completat corect! Datele nu pot fi salvate.");
 		}
+	}
+	
+	function editareHotarareCJC(rowIndex){
+		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
+		console.log(hotarareaCurenta);
+		$("#nrHotarare").val(hotarareaCurenta.nrHotarare);
+		$("#dataHotarare").val(hotarareaCurenta.dataHotarare);
+		$("#emitentHotarare").val(hotarareaCurenta.emitent);
+		$("#dataCom").val(hotarareaCurenta.dataComunicarii);
+		$("#compartimentul").val(hotarareaCurenta.compartimentulAdresat);
+		$("#persoanaPrimire").val(hotarareaCurenta.persoanaPrimire);
+		$("#dataPrimirii").val(hotarareaCurenta.dataPrimirii);
+		$("#selStadiuHotarare").val(hotarareaCurenta.stadiu);
+		arataModalAdaugaInregHCJC();
 	}
 </script>
