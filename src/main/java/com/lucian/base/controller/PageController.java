@@ -55,8 +55,13 @@ public class PageController {
 	}
 	
 	@GetMapping("/registrul-hcjc")
-	public String datatable(Model model) {
+	public String registrulHcjc(Model model) {
 		return "/pages/registrul-hcjc";
+	}
+	
+	@GetMapping("/consiliul-director")
+	public String consiliulDirector(Model model) {
+		return "/pages/consiliul-director";
 	}
 		
 	@GetMapping("/album")

@@ -24,6 +24,7 @@ public class DataController {
 	@GetMapping("/getHotarariCJC")
 	public TableData<HotarareCJC> getHotarariCJC() {
 		List<HotarareCJC> hotarariCJC = hotarariCjcService.getHotarariCJC();
+		System.out.println(hotarariCJC.toString());
 		TableData<HotarareCJC> tableData = new TableData<HotarareCJC>(hotarariCJC.size(), hotarariCJC.size(), hotarariCJC);
 		return tableData;
 	}
@@ -32,6 +33,9 @@ public class DataController {
 	public String postData(@RequestBody HotarareCJC hotarareCJC) {
 		System.out.println("debug /hotarareCJC");
 		System.out.println(hotarareCJC.toString());
+		if(hotarareCJC.getNrHotarare() != null && !hotarareCJC.getNrHotarare().isEmpty()) {
+			hotarariCjcService.postHotarareCJC(hotarareCJC);
+		}
 		return "ok";
 	}
 }

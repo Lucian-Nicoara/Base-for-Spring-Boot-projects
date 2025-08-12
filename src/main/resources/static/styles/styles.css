@@ -63,3 +63,14 @@ html {
     padding-right:0px!important;
 }
 /*end fix pt. miscare continut pe modal open*/
+
+
+.fa-button {
+	cursor: pointer;
+	font-size: 18px;
+}
+
+.fa-button:hover {
+	font-weight: bold;
+	color: blue;
+}

@@ -18,8 +18,12 @@ public class HotarariCjcService{
 		return registrulHcjcMapper.getHotarariCJC();
 	}
 	
-	public HotarareCJC getHotarareCjcById(String id) {
+	public HotarareCJC getHotarareCJCById(String id) {
 		return registrulHcjcMapper.getById(id);
+	}
+	
+	public Integer postHotarareCJC(HotarareCJC hotarareCJC) {
+		return registrulHcjcMapper.postHotarareCJC(hotarareCJC);
 	}
 	
 }

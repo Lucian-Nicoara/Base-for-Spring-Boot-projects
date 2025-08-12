@@ -6,7 +6,7 @@
 				<div class="col">
 					<div class="py-2" style="position: relative; height: 50px;">
 						<div class="w-100 text-center" style="position: absolute; ">
-							<h3>Registrul hotărâri CJC</h3>
+							<h3>Consiliul Director</h3>
 						</div>
 						<div class="pe-2" style="width: 100%; position: absolute; text-align: right;">
 							<button type="button" class="btn btn-primary" onclick="arataModalAdaugaInregHCJC();">Adaugă înregistrare nouă</button>
@@ -30,7 +30,6 @@
 											<th>Persoana care a primit-o</th>
 											<th>Data primirii</th>
 											<th>Stadiu</th>
-											<th>Operații</th>
 										</tr>
 									</thead>
 									<tbod>
@@ -108,10 +107,10 @@
 	var dtHotarariCJC = null;
 	
 	$(document).ready(function() {
-		console.log("Registul hotarari CJC - ready!");
+		console.log("Consiliul director ready!");
 		$(".btnMenu").removeClass("btn-primary");
-		$("#menuEntryRegHotCJC").removeClass("btn-light");
-		$("#menuEntryRegHotCJC").addClass("btn-primary");
+		$("#menuEntryConsDir").removeClass("btn-light");
+		$("#menuEntryConsDir").addClass("btn-primary");
 		incarcaDtHotarariCJC();
 	});
 	function incarcaDtHotarariCJC(){
@@ -134,15 +133,7 @@
 			        { data: "compartimentulAdresat" },
 					{ data: "persoanaPrimire"},
 					{ data: "dataPrimirii"},
-					{ data: "stadiu"},
-					{ data: 
-						null, 
-						render: function (data, type, row, meta) {
-							return '<i class="fa-button fa-solid fa-pen-to-square" title="Editare"></i>'
-							+ '<i class="fa-button fa-regular fa-comment-dots" style="margin-left:20px;" title="Notițe"></i>'
-							+ '<i class="fa-button fa-solid fa-file-arrow-down" style="margin-left:20px;" title="Descarcă fișier"></i>';
-						}
-					}
+					{ data: "stadiu"}
 			]
 		});
 	}
