@@ -19,7 +19,7 @@ public class HotarariCjcService{
 	}
 	
 	public HotarareCJC getHotarareCJCById(String id) {
-		return registrulHcjcMapper.getById(id);
+		return registrulHcjcMapper.getHotarareCJCById(id);
 	}
 	
 	public Integer postHotarareCJC(HotarareCJC hotarareCJC) {
@@ -28,6 +28,14 @@ public class HotarariCjcService{
 	
 	public void putHotarareCJC(HotarareCJC hotarareCJC) {
 		registrulHcjcMapper.putHotarareCJC(hotarareCJC);
+	}
+	
+	public void incarcaFisier(String idHotarare, String numeFisier, byte[] continutFisier) {
+		registrulHcjcMapper.incarcaFisier(idHotarare, numeFisier, continutFisier);
+	}
+	
+	public HotarareCJC getHotarareCuFisier(String idHotarare) {
+		return registrulHcjcMapper.getHotarareCuFisier(idHotarare);
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.lucian.base.model;
 
+import java.util.Arrays;
+
 public class HotarareCJC {
 	private String id;
 	private String nrHotarare;
@@ -9,6 +11,8 @@ public class HotarareCJC {
 	private String compartimentulAdresat;
 	private String persoanaPrimire;
 	private String dataPrimirii;
+	private byte[] fisier;
+	private String numeFisier;
 	private String stadiu;
 	
 	public String getNrHotarare() {
@@ -65,9 +69,20 @@ public class HotarareCJC {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public byte[] getFisier() {
+		return fisier;
+	}
+	public void setFisier(byte[] fisier) {
+		this.fisier = fisier;
+	}
+	public String getNumeFisier() {
+		return numeFisier;
+	}
+	public void setNumeFisier(String numeFisier) {
+		this.numeFisier = numeFisier;
+	}
 	@Override
 	public String toString() {
-		return "HotarareCJC [id=" + id + ", nrHotarare=" + nrHotarare + ", dataHotarare=" + dataHotarare + ", emitent=" + emitent + ", dataComunicarii=" + dataComunicarii + ", compartimentulAdresat=" + compartimentulAdresat + ", persoanaPrimire=" + persoanaPrimire + ", dataPrimirii=" + dataPrimirii + ", stadiu=" + stadiu + "]";
+		return "HotarareCJC [id=" + id + ", nrHotarare=" + nrHotarare + ", dataHotarare=" + dataHotarare + ", emitent=" + emitent + ", dataComunicarii=" + dataComunicarii + ", compartimentulAdresat=" + compartimentulAdresat + ", persoanaPrimire=" + persoanaPrimire + ", dataPrimirii=" + dataPrimirii + ", numeFisier=" + numeFisier + ", stadiu=" + stadiu + "]";
 	}
-	
 }

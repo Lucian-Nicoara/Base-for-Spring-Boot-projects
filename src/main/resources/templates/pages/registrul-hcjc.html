@@ -16,21 +16,21 @@
 			</div>
 			<div class="row">
 				<div class="col">
-					<div class="rounded shadow py-2 px-2 mt-4">
+					<div class="rounded  py-2 px-2 mt-4">
 						<div class="row">
 							<div class="col">
-								<table id="dtHotarariCJC" class="hover" style="width: 100%;">
-									<thead>
+								<table id="dtHotarariCJC" class="table table-striped" style="width: 100%;">
+									<thead style="background-color: #EEE;">
 										<tr>
-											<th>Nr.</th>
-											<th>Data</th>
-											<th>Emitent</th>
-											<th>Data comunicării</th>
-											<th>Compartimentul adresat</th>
-											<th>Persoana care a primit-o</th>
-											<th>Data primirii</th>
-											<th>Stadiu</th>
-											<th style="width:150px;">Operații</th>
+											<th style="background-color: #CCC;">Nr.</th>
+											<th style="background-color: #CCC;">Data</th>
+											<th style="background-color: #CCC;">Emitent</th>
+											<th style="background-color: #CCC;">Data comunicării</th>
+											<th style="background-color: #CCC;">Compartimentul adresat</th>
+											<th style="background-color: #CCC;">Persoana care a primit-o</th>
+											<th style="background-color: #CCC;">Data primirii</th>
+											<th style="background-color: #CCC;">Stadiu</th>
+											<th style="width:150px; background-color: #CCC;">Operații</th>
 										</tr>
 									</thead>
 									<tbod>
@@ -42,8 +42,30 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- Modal handle HTML Error -->
+		<div class="modal fade" id="modalHandleHtmlError" tabindex="-1" role="dialog" aria-labelledby="modalHandleHtmlError">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #F00;  font-weight: bold; color:#FFF;">
+						<div id="titluModal" style="width:100%; text-align: center;">Eroare de aplicatie!</div>
+					</div>
+					<div class="modal-body">
+						<span style="font-weight: bold; margin-bottom: 20px;">Vă rugăm să transmiteți această eroare administratorului IT</span>
+						<button class="btn btn-sm btn-success" style="margin-left: 20px;" onclick="copiazaEroarea()"> Copiază eroarea (similar CTRL+C) </button>
+						<br>
+						<div id="divEroareHtml" style="max-height: 400px; overflow: auto; margin-top:20px; padding-left: 30px; padding-right: 30px; background-color: #EEE;"></div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button type="button" class="btn btn-danger" onclick="inchideModalHandleHtmlError()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal incarca fisier hotarareCJC-->
+		
 		<!-- Modal adaugare hotarareCJC-->
-		<div class="modal fade" id="modalAdaugaHotarareCJC" tabindex="-1" role="dialog" aria-labelledby="modalAdaugaHotarareCJC" aria-hidden="true">
+		<div class="modal fade" id="modalAdaugaHotarareCJC" tabindex="-1" role="dialog" aria-labelledby="modalAdaugaHotarareCJC">
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
@@ -99,7 +121,31 @@
 					</div>
 				</div>
 			</div>
-		</div><!-- End modal adaugare hotarareCJC-->
+		</div>
+		<!-- End modal adaugare hotarareCJC-->
+		<!-- Modal incarca fisier hotarareCJC-->
+		<div class="modal fade" id="modalAdaugaFisierHotarareCJC" tabindex="-1" role="dialog" aria-labelledby="modalAdaugaFisierHotarareCJC" aria-hidden="true">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Adaugă fișier hotărâre CJC</div>
+					</div>
+					<form method="POST" enctype="multipart/form-data" id="formFisierHotarareCJC">
+					<div class="modal-body">
+						<div style="width: 100%; text-align: center; padding: 10px;">
+							<input type="file" id="fisierHotarareCJC" name="fisierHotarareCJC" style="width: 400px;"/>	
+						</div>
+					</div>
+					</form>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<!--<input type="submit" class="btn btn-success" value="Încarcă fișierul" />-->
+						<button id="btnSalveazaHotarare" type="button" class="btn btn-success" onclick="incarcaFisierul()">Salvează</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaFisierHCJC()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal incarca fisier hotarareCJC-->
 	</div>
 </html>
 <script th:inline="javascript">
@@ -115,6 +161,27 @@
 		$("#menuEntryRegHotCJC").addClass("btn-primary");
 		incarcaDtHotarariCJC();
 	});
+	
+	function handleHtmlError(htmlError){
+		$(".modal").modal("hide");
+		$("#divEroareHtml").html(htmlError);
+		$("#modalHandleHtmlError").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function inchideModalHandleHtmlError(){
+		$("#divEroareHtml").html("");
+		$("#modalHandleHtmlError").modal("hide");
+		window.location.reload();
+	}
+	
+	function copiazaEroarea(){
+		navigator.clipboard.writeText($("#divEroareHtml").html()).then(function () {
+		    alert("Textul a fost copiat. Poti folosi CTRL+V")
+		}, function () {
+		    alert("Textul nu a putut fi copiat. Trebuie selectat si copiat manual.")
+		});
+	}
+	
 	function incarcaDtHotarariCJC(){
 		if ($.fn.DataTable.isDataTable('#dtHotarariCJC')) {
 			$('#dtHotarariCJC').DataTable().clear().destroy();
@@ -122,6 +189,11 @@
 		dtHotarariCJC = $("#dtHotarariCJC").DataTable({
 			language: {
 				url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/ro.json"
+			},			
+			layout: {
+				topStart: {
+					buttons: ['excel', 'pdf']
+				}
 			},
 			paging: true,
 			order: false,
@@ -139,9 +211,14 @@
 					{ data: 
 						null, 
 						render: function (data, type, row, meta) {
-							return '<i class="fa-button fa-solid fa-pen-to-square" style="margin-right:15px;" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
-							+ '<i class="fa-button fa-regular fa-comment-dots" style="margin-right:15px;" title="Notițe"></i>'
-							+ '<i class="fa-button fa-solid fa-file-arrow-down" style="margin-right:15px;" title="Descarcă fișier"></i>';
+							var arataDownloadFisier = "";
+							if(data.numeFisier != null && data.numeFisier != ""){
+								arataDownloadFisier = '<a href="/downloadFisier/'+ data.id +'"><i class="fa-button fa-solid fa-file-arrow-down" style="margin-right:15px;" title="Descarcă fișier"></i></a>';
+							}
+							return '<i class="fa-button fa-solid fa-pen-to-square" style="margin-right:15px; color:green;" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
+							+ '<i class="fa-button fa-regular fa-comment-dots" style="margin-right:15px; color:orange;" title="Notițe"></i>'
+							+ '<i class="fa-button fa-solid fa-file-arrow-up" style="margin-right:15px; color:purple;" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
+							+ arataDownloadFisier;
 						}
 					}
 			]
@@ -149,6 +226,14 @@
 	}
 	
 	function arataModalAdaugaInregHCJC(){
+		$("#nrHotarare").val("");
+		$("#dataHotarare").val("");
+		$("#emitentHotarare").val("");
+		$("#dataCom").val("");
+		$("#compartimentul").val("");
+		$("#persoanaPrimire").val("");
+		$("#dataPrimirii").val("");
+		$("#selStadiuHotarare").val("ÎN LUCRU").selectpicker("destroy").selectpicker();
 		$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
 	}
 	
@@ -279,7 +364,7 @@
 					incarcaDtHotarariCJC();
 				},
 				error: function(response){
-					alert("Eroare!");
+					handleHtmlError(response.responseText);
 				}
 			});
 		}else{
@@ -289,7 +374,6 @@
 	
 	function editareHotarareCJC(rowIndex){
 		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
-		console.log(hotarareaCurenta);
 		$("#nrHotarare").val(hotarareaCurenta.nrHotarare);
 		$("#dataHotarare").val(hotarareaCurenta.dataHotarare);
 		$("#emitentHotarare").val(hotarareaCurenta.emitent);
@@ -297,7 +381,46 @@
 		$("#compartimentul").val(hotarareaCurenta.compartimentulAdresat);
 		$("#persoanaPrimire").val(hotarareaCurenta.persoanaPrimire);
 		$("#dataPrimirii").val(hotarareaCurenta.dataPrimirii);
-		$("#selStadiuHotarare").val(hotarareaCurenta.stadiu);
-		arataModalAdaugaInregHCJC();
+		$("#selStadiuHotarare").val(hotarareaCurenta.stadiu).selectpicker("destroy").selectpicker();
+		$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function arataModalAdaugaFisierHCJC(rowIndex){
+		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
+		$("#fisierHotarareCJC").val("");
+		$("#modalAdaugaFisierHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+
+	function inchideModalAdaugaFisierHCJC(){
+		$("#fisierHotarareCJC").val("");
+		$("#modalAdaugaFisierHotarareCJC").modal("hide");
+	}
+	
+	function incarcaFisierul(rowIndex){
+		console.log("debug incarcaFisierul");
+		var form = $('#formFisierHotarareCJC')[0];
+		var data = new FormData(form);
+		data.append("idHotarare", hotarareaCurenta.id);
+
+		$.ajax({
+			url : '/incarcaFisier',
+			headers: {"X-CSRF-TOKEN": token},
+			type : 'POST',
+			data: data,
+			enctype: 'multipart/form-data',
+			processData: false,  // tell jQuery not to process the data
+			contentType: false,  // tell jQuery not to set contentType
+			cache: false,
+			success : function(data) {
+				console.log(data);
+				if(data == "ok"){
+					inchideModalAdaugaFisierHCJC();
+					dtHotarariCJC.ajax.reload(null, false);
+				}
+			},
+			error: function(eroare) {
+				handleHtmlError(response.responseText);
+			}
+		});
 	}
 </script>

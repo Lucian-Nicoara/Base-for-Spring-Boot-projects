@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lucian</groupId>
-	<artifactId>base</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>base</name>
-	<description>base for spring boot projects</description>
+	<artifactId>dgaspc</artifactId>
+	<version>25.8.19</version>
+	<name>dgaspc</name>
+	<description>DGASPC - Management intern</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
