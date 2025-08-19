@@ -35,6 +35,19 @@
 									</thead>
 									<tbod>
 									</tbody>
+									<tfoot>
+										<tr>
+											<th>nr</th>
+											<th>data</th>
+											<th>emitent</th>
+											<th>data comunicarii</th>
+											<th>compartimentul</th>
+											<th>persoana</th>
+											<th>data primirii</th>
+											<th>stadiu</th>
+											<th></th>
+										</tr>
+									</tfoot>
 								</table>
 							</div>
 						</div>
@@ -310,8 +323,8 @@
 	}
 	
 	function incarcaDtHotarariCJC(){
-		if ($.fn.DataTable.isDataTable('#dtHotarariCJC')) {
-			$('#dtHotarariCJC').DataTable().clear().destroy();
+		if ($.fn.DataTable.isDataTable("#dtHotarariCJC")) {
+			$("#dtHotarariCJC").DataTable().clear().destroy();
 		}
 		dtHotarariCJC = $("#dtHotarariCJC").DataTable({
 			language: {
@@ -319,13 +332,13 @@
 			},			
 			layout: {
 				topStart: {
-					buttons: ['excel', 'pdf']
+					buttons: ["excel", "pdf"]
 				}
 			},
 			paging: true,
 			order: false,
 			lengthChange: false,
-			ajax: "/getHotarariCJC",
+			ajax: "/hotarariHCJC/getHotarariCJC",
 			columns: [
 			        { data: "nrHotarare" },
 			        { data: "dataHotarare" },
@@ -340,7 +353,7 @@
 						render: function (data, type, row, meta) {
 							var arataDownloadFisier = "";
 							if(data.numeFisier != null && data.numeFisier != ""){
-								arataDownloadFisier = '<a href="/downloadFisier/'+ data.id +'"><i class="fa-button fa-solid fa-file-arrow-down" style="margin-right:15px;" title="Descarcă fișier"></i></a>';
+								arataDownloadFisier = '<a href="/hotarariHCJC/downloadFisier/'+ data.id +'"><i class="fa-button fa-solid fa-file-arrow-down" style="margin-right:15px;" title="Descarcă fișier"></i></a>';
 							}
 							return '<i class="fa-button fa-solid fa-pen-to-square" style="margin-right:15px; color:green;" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
 							+ '<i class="fa-button fa-regular fa-comment-dots" style="margin-right:15px; color:orange;" title="Notițe" onclick="arataModalNotiteHCJC(' + meta.row + ')"></i>'
@@ -349,6 +362,16 @@
 						}
 					}
 			]
+		});
+		//adauga filtre coloane
+		$("#dtHotarariCJC tfoot th").each(function (i) {
+			if(i < ($("#dtHotarariCJC tfoot th").length - 1)){
+				var title = $("#dtHotarariCJC thead th").eq($(this).index()).text();
+				$(this).html('<input class="form-control" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
+			}			
+		});
+		$("#dtHotarariCJC").on("keyup", "tfoot input",function () {
+			dtHotarariCJC.column($(this).data('index')).search(this.value).draw();
 		});
 	}
 	
@@ -525,16 +548,16 @@
 	
 	function incarcaFisierul(rowIndex){
 		console.log("debug incarcaFisierul");
-		var form = $('#formFisierHotarareCJC')[0];
+		var form = $("#formFisierHotarareCJC")[0];
 		var data = new FormData(form);
 		data.append("idHotarare", hotarareaCurenta.id);
 
 		$.ajax({
-			url : '/incarcaFisier',
+			url : "/hotarariHCJC/incarcaFisier",
 			headers: {"X-CSRF-TOKEN": token},
-			type : 'POST',
+			type : "POST",
 			data: data,
-			enctype: 'multipart/form-data',
+			enctype: "multipart/form-data",
 			processData: false,  // tell jQuery not to process the data
 			contentType: false,  // tell jQuery not to set contentType
 			cache: false,

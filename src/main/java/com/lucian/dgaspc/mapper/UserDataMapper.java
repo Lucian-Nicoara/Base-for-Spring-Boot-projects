@@ -1,12 +1,12 @@
-package com.lucian.base.mapper;
+package com.lucian.dgaspc.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.lucian.base.model.UserData;
-import com.lucian.base.model.UserRole;
+import com.lucian.dgaspc.model.UserData;
+import com.lucian.dgaspc.model.UserRole;
 
 @Mapper
 public interface UserDataMapper {

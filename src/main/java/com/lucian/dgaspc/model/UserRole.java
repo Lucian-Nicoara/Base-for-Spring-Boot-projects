@@ -1,4 +1,4 @@
-package com.lucian.base.model;
+package com.lucian.dgaspc.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

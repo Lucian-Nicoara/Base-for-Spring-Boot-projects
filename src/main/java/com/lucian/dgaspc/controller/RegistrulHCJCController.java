@@ -1,4 +1,4 @@
-package com.lucian.base.controller;
+package com.lucian.dgaspc.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,19 +15,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lucian.base.model.HotarareCJC;
-import com.lucian.base.model.TableData;
-import com.lucian.base.service.HotarariCjcService;
+import com.lucian.dgaspc.model.HotarareCJC;
+import com.lucian.dgaspc.model.TableData;
+import com.lucian.dgaspc.service.HotarariCjcService;
 
 /*
  * https://blog.stackpuz.com/create-an-api-for-datatables-with-spring-boot/
 */
 @RestController
-public class DataController {
+@RequestMapping("/hotarariHCJC")
+public class RegistrulHCJCController {
 	
 	@Autowired
 	HotarariCjcService hotarariCjcService;
@@ -62,22 +64,8 @@ public class DataController {
 	
 	@PostMapping("/incarcaFisier")
 	public ResponseEntity<String> uploadFile(@RequestParam() MultipartFile fisierHotarareCJC, @RequestParam() String idHotarare) throws IOException {
-		System.out.println("debug fisierHotarareCJC = " + fisierHotarareCJC.getOriginalFilename());
-		System.out.println("debug fisierHotarareCJC size = " + fisierHotarareCJC.getSize());
-		System.out.println("debug idHotarare = " + idHotarare);
-		String message = "";
 		hotarariCjcService.incarcaFisier(idHotarare, fisierHotarareCJC.getOriginalFilename(), fisierHotarareCJC.getBytes());
-		message = "ok";
-		return ResponseEntity.status(HttpStatus.OK).body(message);
-		
-		/*try {
-			hotarariCjcService.incarcaFisier(fisierHotarareCJC.getBytes(), idHotarare);		
-			message = "ok";
-			return ResponseEntity.status(HttpStatus.OK).body(message);
-		} catch (Exception e) {
-			message = "eroare";
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
-		}*/
+		return ResponseEntity.status(HttpStatus.OK).body("ok");
 	}
 	
 	@GetMapping("/downloadFisier/{idHotarare}")

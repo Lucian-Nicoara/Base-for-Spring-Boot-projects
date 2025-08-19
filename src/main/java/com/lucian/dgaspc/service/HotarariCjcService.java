@@ -1,12 +1,12 @@
-package com.lucian.base.service;
+package com.lucian.dgaspc.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lucian.base.mapper.RegistrulHcjcMapper;
-import com.lucian.base.model.HotarareCJC;
+import com.lucian.dgaspc.mapper.RegistrulHcjcMapper;
+import com.lucian.dgaspc.model.HotarareCJC;
 
 @Service
 public class HotarariCjcService{

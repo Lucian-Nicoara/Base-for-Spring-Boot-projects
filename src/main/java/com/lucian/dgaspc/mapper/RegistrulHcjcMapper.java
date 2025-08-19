@@ -1,4 +1,4 @@
-package com.lucian.base.mapper;
+package com.lucian.dgaspc.mapper;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.lucian.base.model.HotarareCJC;
+import com.lucian.dgaspc.model.HotarareCJC;
 
 
 @Mapper

@@ -1,4 +1,4 @@
-package com.lucian.base.service;
+package com.lucian.dgaspc.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.lucian.base.mapper.UserDataMapper;
-import com.lucian.base.model.UserData;
+import com.lucian.dgaspc.mapper.UserDataMapper;
+import com.lucian.dgaspc.model.UserData;
 
 @Service
 public class UserDataService implements UserDetailsService{

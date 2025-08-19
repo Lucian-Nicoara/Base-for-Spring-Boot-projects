@@ -1,13 +1,13 @@
-package com.lucian.base.controller;
+package com.lucian.dgaspc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.lucian.base.mapper.UserDataMapper;
-import com.lucian.base.model.UserData;
-import com.lucian.base.service.UserDataService;
+import com.lucian.dgaspc.mapper.UserDataMapper;
+import com.lucian.dgaspc.model.UserData;
+import com.lucian.dgaspc.service.UserDataService;
 
 /*
  * info:
@@ -20,7 +20,7 @@ TODOS: remember me:
 
 
 @Controller
-public class PageController {
+public class MainController {
 	
 	@Autowired
 	UserDataService userDataService;

@@ -1,4 +1,4 @@
-package com.lucian.base.config;
+package com.lucian.dgaspc.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
