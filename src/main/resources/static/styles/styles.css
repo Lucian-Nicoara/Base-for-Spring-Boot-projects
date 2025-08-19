@@ -1,58 +1,6 @@
 html {
     font-size: 14px;
 }
-.ln-main-banner {
-	width: 100%;
-	height: 300px;
-	background: url("/images/wallhaven-mpv1o8-crop.jpg") no-repeat center;
-	background-size: cover;
-}
-.ln-signin-img {
-	min-height: 300px;
-	background: url("/images/signin1.jpg") no-repeat center;
-	background-size: contain;
-}
-
-.form-signin {
-	padding: 1rem;
-}
-
-.form-signin .form-floating:focus-within {
-	z-index: 2;
-}
-
-.form-signin input[type="email"] {
-	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-	margin-bottom: 10px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-}
-
-/*vertical divider with shadow*/
-.divider {
-	width: 100%;
-	height: 3rem;
-	background-color: rgba(0, 0, 0, .1);
-	border: solid rgba(0, 0, 0, .15);
-	border-width: 1px 0;
-	box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-}
-
-.divider-vr {
-	flex-shrink: 0;
-	width: 1.5rem;
-	height: 100vh;
-}
-
-.bi {
-	vertical-align: -.125em;
-	fill: currentColor;
-}
 
 /*fix pt. miscare continut pe modal open*/
 .modal-open {
@@ -64,16 +12,16 @@ html {
 }
 /*end fix pt. miscare continut pe modal open*/
 
-
 .fa-button {
 	cursor: pointer;
 	font-size: 18px;
+	transition: 0.3s;
 }
 
 .fa-button:hover {
-	font-weight: bold;
-	color: blue;
+	text-shadow: #444 0 0 10px;
 }
+
 #dt-search-0 {
 	width:400px;
 	margin-left: 10px;
