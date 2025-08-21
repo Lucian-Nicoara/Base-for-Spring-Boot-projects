@@ -12,8 +12,9 @@ public class UserData implements UserDetails{
 	private int id;
 	private String username;
 	private String password;
-	private String firstName;
-	private String lastName;
+	private String nume;
+	private String prenume;
+	private String compartiment;
 	private Date registrationDate;
 	private List<UserRole> authorities;
 	
@@ -38,6 +39,24 @@ public class UserData implements UserDetails{
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public String getNume() {
+		return nume;
+	}
+	public void setNume(String nume) {
+		this.nume = nume;
+	}
+	public String getPrenume() {
+		return prenume;
+	}
+	public void setPrenume(String prenume) {
+		this.prenume = prenume;
+	}
+	public String getCompartiment() {
+		return compartiment;
+	}
+	public void setCompartiment(String compartiment) {
+		this.compartiment = compartiment;
+	}
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -60,29 +79,14 @@ public class UserData implements UserDetails{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 	public Date getRegistrationDate() {
 		return registrationDate;
 	}
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
-	
 	@Override
 	public String toString() {
-		return "UserData [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", registrationDate=" + registrationDate + ", authorities=" + authorities + "]";
+		return "UserData [id=" + id + ", username=" + username + ", password=" + password + ", nume=" + nume + ", prenume=" + prenume + ", compartiment=" + compartiment + ", registrationDate=" + registrationDate + ", authorities=" + authorities + "]";
 	}
-	
-
 }

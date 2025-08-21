@@ -35,7 +35,7 @@ public class MainController {
 			user = userDataService.getAuthUser();
 			System.out.println("debug authUserName: " + user.getUsername());
 			System.out.println("debug authUser: " + user.toString());
-			model.addAttribute("name", user.getFirstName());
+			model.addAttribute("name", user.getPrenume());
 		}else {
 			System.out.println("debug no authUser");
 		}

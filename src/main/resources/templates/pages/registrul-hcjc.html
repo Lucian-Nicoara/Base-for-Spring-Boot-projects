@@ -172,7 +172,7 @@
 		<!-- End modal incarca fisier hotarareCJC-->
 		
 		<!-- Modal adaugare hotarareCJC-->
-		<div class="modal fade" id="modalNotiteHCJC" tabindex="-1" role="dialog" aria-labelledby="modalNotiteHCJC">
+		<div class="modal fade" id="modalNoteHCJC" tabindex="-1" role="dialog" aria-labelledby="modalNoteHCJC">
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: lightgoldenrodyellow;  font-weight: bold;">
@@ -217,79 +217,25 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row mx-0">
 							<div class="col-9">
-								<div class="container d-flex flex-wrap border p-2" style="overflow: auto; max-height: 450px;"> 
-									<div class="card text-dark bg-warning mb-3" style="width: 300px; margin-right: 10px;">
-										<div class="card-header">Header</div>
-										<div class="card-body">
-											<h5 class="card-title">Warning card title</h5>
-											<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-										</div>
-									</div>
+								<div id="divNoteHCJC" class="container d-flex flex-wrap p-2" style="overflow: auto; max-height: 450px;"> 
 									
-									<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px;">
-										<div class="card-header">Header</div>
-										<div class="card-body">
-											<h5 class="card-title">Warning card title</h5>
-											<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-										</div>
-									</div>
-									
-									<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px;">
-										<div class="card-header">Header</div>
-										<div class="card-body">
-											<h5 class="card-title">Warning card title</h5>
-											<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-										</div>
-									</div>
-									
-									<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px;">
-										<div class="card-header">Header</div>
-										<div class="card-body">
-											<h5 class="card-title">Warning card title</h5>
-											<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-										</div>
-									</div>
-									
-									<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px;">
-										<div class="card-header">Header</div>
-										<div class="card-body">
-											<h5 class="card-title">Warning card title</h5>
-											<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-										</div>
-									</div>
-									
-									<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px;">
-										<div class="card-header">Header</div>
-										<div class="card-body">
-											<h5 class="card-title">Warning card title</h5>
-											<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-										</div>
-									</div>
-									
-									<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px;">
-										<div class="card-header">Header</div>
-										<div class="card-body">
-											<h5 class="card-title">Warning card title</h5>
-											<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-										</div>
-									</div>
 								</div>								
 							</div>
-							<div class="col-3 text-center" >
-								<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px; margin-top: 20px;">
+							<div class="col-3" style="text-align: center;">
+								<div class="card text-dark bg-warning mb-2 mt-2" style="text-align: center;">
 									<div class="card-header fw-bold">Adaugă notiță nouă</div>
 									<div class="card-body">
 										<textarea class="form-control" style="width: 100%; height: 200px;" placeholder="Conținut notiță"></textarea>
 									</div>
 								</div>
-								<button id="btnSalveazaHotarare" type="button" class="btn btn-warning" onclick="adaugaNotitaHCJC()">Salvează notița</button>
+								<button id="btnSalveazaHotarare" type="button" class="btn btn-warning mb-2" onclick="adaugaNotitaHCJC()">Salvează notița</button>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer" style="background-color: #EEE;">
-						<button type="button" class="btn btn-danger" onclick="inchideModalNotiteHCJC()">Închide</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalNoteHCJC()">Închide</button>
 					</div>
 				</div>
 			</div>
@@ -366,7 +312,7 @@
 								arataDownloadFisier = '<a href="/hotarariHCJC/downloadFisier/'+ data.id +'"><i class="fa-button fa-solid fa-file-arrow-down" style="margin-right:15px;" title="Descarcă fișier"></i></a>';
 							}
 							return '<i class="fa-button fa-solid fa-pen-to-square" style="margin-right:15px; color:green;" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
-							+ '<i class="fa-button fa-regular fa-comment-dots" style="margin-right:15px; color:orange;" title="Notițe" onclick="arataModalNotiteHCJC(' + meta.row + ')"></i>'
+							+ '<i class="fa-button fa-regular fa-comment-dots" style="margin-right:15px; color:orange;" title="Notițe" onclick="arataModalNoteHCJC(' + meta.row + ')"></i>'
 							+ '<i class="fa-button fa-solid fa-file-arrow-up" style="margin-right:15px; color:purple;" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
 							+ arataDownloadFisier;
 						}
@@ -584,7 +530,7 @@
 		});
 	}
 	
-	function arataModalNotiteHCJC(rowIndex){
+	function arataModalNoteHCJC(rowIndex){
 		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
 		$("#divNrHotarare1").html(hotarareaCurenta.nrHotarare);
 		$("#divDataHotarare1").html(hotarareaCurenta.dataHotarare);
@@ -595,10 +541,32 @@
 		$("#divDataPrimirii1").html(hotarareaCurenta.dataPrimirii);
 		$("#divStadiuHotarare1").html(hotarareaCurenta.stadiu);
 		
-		$("#modalNotiteHCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+		$.ajax({
+			url: "/note/getNote",
+			type: "GET",
+			success: function(response) {
+				console.log(response);
+				console.log(response.length);
+				var htmlNote = "";
+				for (const nota of response) {
+					htmlNote += '<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px;">'
+						+ '<div class="card-header fw-bold ">' + nota.data + ' ' + nota.persoana.prenume + ' ' + nota.persoana.nume + ':</div>'
+						+ '<div class="card-body">'
+						+	'<p class="card-text">' + nota.text + '</p>'
+						+ '</div>'
+					+'</div>';
+				}
+				
+				$("#divNoteHCJC").html(htmlNote);
+				$("#modalNoteHCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+			},
+			error: function(response){
+				handleHtmlError(response.responseText);
+			}
+		});
 	}
 	
-	function inchideModalNotiteHCJC(){
-		$("#modalNotiteHCJC").modal("hide");
+	function inchideModalNoteHCJC(){
+		$("#modalNoteHCJC").modal("hide");
 	}
 </script>
