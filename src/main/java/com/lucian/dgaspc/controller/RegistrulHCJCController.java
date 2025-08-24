@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lucian.dgaspc.mapper.CompartimenteMapper;
+import com.lucian.dgaspc.mapper.UserDataMapper;
 import com.lucian.dgaspc.model.HotarareCJC;
 import com.lucian.dgaspc.model.TableData;
 import com.lucian.dgaspc.service.HotarariCjcService;
@@ -32,7 +34,7 @@ import com.lucian.dgaspc.service.HotarariCjcService;
 public class RegistrulHCJCController {
 	
 	@Autowired
-	HotarariCjcService hotarariCjcService;
+	private HotarariCjcService hotarariCjcService;
 	
 	@GetMapping("/getHotarariCJC")
 	public TableData<HotarareCJC> getHotarariCJC() {

@@ -14,7 +14,8 @@ public class UserData implements UserDetails{
 	private String password;
 	private String nume;
 	private String prenume;
-	private String compartiment;
+	private String idCompartiment;
+	private Compartiment compartiment;
 	private Date registrationDate;
 	private List<UserRole> authorities;
 	
@@ -51,11 +52,11 @@ public class UserData implements UserDetails{
 	public void setPrenume(String prenume) {
 		this.prenume = prenume;
 	}
-	public String getCompartiment() {
-		return compartiment;
+	public String getIdCompartiment() {
+		return idCompartiment;
 	}
-	public void setCompartiment(String compartiment) {
-		this.compartiment = compartiment;
+	public void setIdCompartiment(String idCompartiment) {
+		this.idCompartiment = idCompartiment;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
@@ -85,8 +86,14 @@ public class UserData implements UserDetails{
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
+	public Compartiment getCompartiment() {
+		return compartiment;
+	}
+	public void setCompartiment(Compartiment compartiment) {
+		this.compartiment = compartiment;
+	}
 	@Override
 	public String toString() {
-		return "UserData [id=" + id + ", username=" + username + ", password=" + password + ", nume=" + nume + ", prenume=" + prenume + ", compartiment=" + compartiment + ", registrationDate=" + registrationDate + ", authorities=" + authorities + "]";
+		return "UserData [id=" + id + ", username=" + username + ", password=" + password + ", nume=" + nume + ", prenume=" + prenume + ", idCompartiment=" + idCompartiment + ", compartiment=" + compartiment + ", registrationDate=" + registrationDate + ", authorities=" + authorities + "]";
 	}
 }

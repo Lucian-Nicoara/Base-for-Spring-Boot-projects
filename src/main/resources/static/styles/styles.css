@@ -1,6 +1,26 @@
-html {
+/*html {
     font-size: 14px;
+}*/
+
+body {
+    font-family: "Muli","Helvetica","Tahoma","Geneva","Arial",sans-serif;
+    letter-spacing: -.03rem;
+    font-weight: 400
 }
+
+/*Select2 fix*/
+.select2-container--bootstrap-5.select2-container--focus .select2-selection, .select2-container--bootstrap-5.select2-container--open .select2-selection{
+	box-shadow: none;
+}
+.select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field{
+	box-shadow: none !important;
+	transition: border-color .15s ease-in-out
+}
+.select2-container--bootstrap-5 .select2-dropdown .select2-search{
+	padding: 5px;
+}
+/*end: Select2 fix*/
+
 
 /*fix pt. miscare continut pe modal open*/
 .modal-open {

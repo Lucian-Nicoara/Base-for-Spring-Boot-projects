@@ -37,5 +37,4 @@ public class HotarariCjcService{
 	public HotarareCJC getHotarareCuFisier(String idHotarare) {
 		return registrulHcjcMapper.getHotarareCuFisier(idHotarare);
 	}
-	
 }

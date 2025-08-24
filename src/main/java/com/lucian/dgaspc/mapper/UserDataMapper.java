@@ -23,9 +23,9 @@ public interface UserDataMapper {
 	@Select ("select * from user_roles where userId = #{id}")
 	List<UserRole> getAuthoritiesByUserId(int id);
 	
-	@Select ("select id, nume, prenume, compartiment from user_data")
+	@Select ("select id, nume, prenume, idCompartiment from user_data")
 	List<UserData> getPersoane();
 	
-	@Select ("select id, nume, prenume, compartiment from user_data where id = #{id}")
+	@Select ("select id, nume, prenume, idCompartiment from user_data where id = #{id}")
 	UserData getPersoanaById(String id);
 }
