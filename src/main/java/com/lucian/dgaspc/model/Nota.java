@@ -4,6 +4,7 @@ public class Nota {
 	private String id;
 	private String idUser;
 	private String data;
+	private String idEntitate;
 	private String entitate;
 	private String text;
 	private UserData persoana;
@@ -63,9 +64,16 @@ public class Nota {
 		this.persoana = persoana;
 	}
 
-	@Override
-	public String toString() {
-		return "Nota [id=" + id + ", idUser=" + idUser + ", data=" + data + ", entitate=" + entitate + ", text=" + text + ", persoana=" + persoana + "]";
+	public String getIdEntitate() {
+		return idEntitate;
 	}
 
+	public void setIdEntitate(String idEntitate) {
+		this.idEntitate = idEntitate;
+	}
+
+	@Override
+	public String toString() {
+		return "Nota [id=" + id + ", idUser=" + idUser + ", data=" + data + ", idEntitate=" + idEntitate + ", entitate=" + entitate + ", text=" + text + ", persoana=" + persoana + "]";
+	}
 }

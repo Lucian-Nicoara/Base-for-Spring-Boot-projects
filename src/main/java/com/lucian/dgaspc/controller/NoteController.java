@@ -7,12 +7,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lucian.dgaspc.mapper.CompartimenteMapper;
 import com.lucian.dgaspc.mapper.UserDataMapper;
 import com.lucian.dgaspc.model.Compartiment;
+import com.lucian.dgaspc.model.HotarareCJC;
 import com.lucian.dgaspc.model.Nota;
 import com.lucian.dgaspc.service.NoteService;
 
@@ -30,9 +34,23 @@ public class NoteController {
 	private UserDataMapper userDataMapper;
 	
 	@GetMapping("/getNote")
-	public List<Nota> getNote() {
-		List<Nota> listaNote = noteService.getNote();
-		return listaNote;
+	public List<Nota> getNote(@RequestParam String id, @RequestParam String entitate) {
+		System.out.println("debug + id=" + id);
+		if(id != null && !id.isEmpty() && entitate != null && !entitate.isEmpty()) {
+			List<Nota> listaNote = noteService.getNote(id, entitate);
+			return listaNote;
+		}else {
+			return null;
+		}
+	}
+	
+	@PostMapping("/postNota")
+	public String postNota(@RequestBody Nota nota) {
+		System.out.println("debug /postNota");
+		System.out.println(nota.toString());
+		noteService.postNota(nota);
+		
+		return "ok";
 	}
 	
 	@GetMapping("/getCompartimente")

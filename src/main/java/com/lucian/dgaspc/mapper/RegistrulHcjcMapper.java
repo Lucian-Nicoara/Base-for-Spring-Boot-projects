@@ -20,8 +20,8 @@ public interface RegistrulHcjcMapper {
 	HotarareCJC getHotarareCJCById(String id);
 	
 	@Insert("insert into registrul_hcjc(nrHotarare, dataHotarare, emitent, dataComunicarii, idCompartiment, compartimentulAdresat, idPersoanaPrimire, persoanaPrimire, dataPrimirii, fisier, numeFisier, stadiu)"
-			+ "values(#{nrHotarare}, STR_TO_DATE(#{dataHotarare}, '%d.%m.%Y'), #{emitent} , STR_TO_DATE(#{dataComunicarii}, '%d.%m.%Y'), #{idComp[artiment}, #{compartimentulAdresat}, #{idPersoanaPrimire}, #{persoanaPrimire}, STR_TO_DATE(#{dataPrimirii}, '%d.%m.%Y'), null, null, #{stadiu})")
-	Integer postHotarareCJC(HotarareCJC hotarareCJC); 
+			+ "values(#{nrHotarare}, STR_TO_DATE(#{dataHotarare}, '%d.%m.%Y'), #{emitent} , STR_TO_DATE(#{dataComunicarii}, '%d.%m.%Y'), #{idCompartiment}, #{compartimentulAdresat}, #{idPersoanaPrimire}, #{persoanaPrimire}, STR_TO_DATE(#{dataPrimirii}, '%d.%m.%Y'), null, null, #{stadiu})")
+	Integer postHotarareCJC(HotarareCJC hotarareCJC);
 	
 	@Update("update registrul_hcjc set nrHotarare = #{nrHotarare}, dataHotarare = STR_TO_DATE(#{dataHotarare}, '%d.%m.%Y'), emitent = #{emitent}, dataComunicarii = STR_TO_DATE(#{dataComunicarii}, '%d.%m.%Y'), idCompartiment = #{idCompartiment}, compartimentulAdresat = #{compartimentulAdresat}, idPersoanaPrimire = #{idPersoanaPrimire}, persoanaPrimire = #{persoanaPrimire}, dataPrimirii = STR_TO_DATE(#{dataPrimirii}, '%d.%m.%Y'), stadiu = #{stadiu} where id = #{id}")
 	void putHotarareCJC(HotarareCJC hotarareCJC);
