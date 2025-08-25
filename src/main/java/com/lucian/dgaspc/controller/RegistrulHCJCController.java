@@ -7,10 +7,13 @@ import java.io.ByteArrayInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,6 +86,39 @@ public class RegistrulHCJCController {
 				.contentLength(bytes.length)
 				.contentType(MediaType.APPLICATION_OCTET_STREAM)
 				.body(resource);
+		}else {
+			return ResponseEntity.badRequest().body(null);
+		}
+	}
+	
+	@GetMapping("/arataFisier/{idHotarare}")
+	public ResponseEntity<Resource> arataFisier(@PathVariable String idHotarare) {
+		HotarareCJC hotarare = hotarariCjcService.getHotarareCuFisier(idHotarare);
+		if(hotarare.getNumeFisier() != null && hotarare.getFisier() != null && hotarare.getFisier().length > 0) {
+			byte[] bytes = hotarare.getFisier();
+			InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bytes));
+			MediaType mediaType = MediaTypeFactory
+					.getMediaType(hotarare.getNumeFisier())
+					.orElse(MediaType.APPLICATION_OCTET_STREAM);
+
+			if(mediaType.isCompatibleWith(MediaType.APPLICATION_PDF) || mediaType.isCompatibleWith(MediaType.parseMediaType("image/*"))) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(mediaType);
+	
+				ContentDisposition disposition = ContentDisposition
+						.inline()
+						.filename(hotarare.getNumeFisier())
+						.build();
+				headers.setContentDisposition(disposition);
+				return ResponseEntity.ok()
+					.headers(headers)
+					.contentLength(bytes.length)
+					.contentType(mediaType)
+					.body(resource);
+			}else {
+				resource = new InputStreamResource(new ByteArrayInputStream("Fișierul nu poate fi afișat în browser, vă rugăm să descărcați fișierul și să-l deschideți în aplicația asociată acestuia.".getBytes()));
+				return ResponseEntity.ok().body(resource);
+			}			
 		}else {
 			return ResponseEntity.badRequest().body(null);
 		}

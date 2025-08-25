@@ -29,6 +29,6 @@ public interface RegistrulHcjcMapper {
 	@Update("update registrul_hcjc set numeFisier = #{numeFisier}, fisier = #{continutFisier} where id = #{idHotarare}")
 	void incarcaFisier(String idHotarare, String numeFisier, byte[] continutFisier);
 	
-	@Select ("select id, nrHotarare, DATE_FORMAT(dataHotarare, '%d.%m.%Y') as dataHotarare, emitent, DATE_FORMAT(dataComunicarii, '%d.%m.%Y') as dataComunicarii, idCompartiment, , idPersoanaPrimire, persoanaPrimire, DATE_FORMAT(dataPrimirii, '%d.%m.%Y') as dataPrimirii, numeFisier, fisier, stadiu from registrul_hcjc where id = #{id}")
+	@Select ("select id, nrHotarare, DATE_FORMAT(dataHotarare, '%d.%m.%Y') as dataHotarare, emitent, DATE_FORMAT(dataComunicarii, '%d.%m.%Y') as dataComunicarii, idCompartiment, compartimentulAdresat, idPersoanaPrimire, persoanaPrimire, DATE_FORMAT(dataPrimirii, '%d.%m.%Y') as dataPrimirii, numeFisier, fisier, stadiu from registrul_hcjc where id = #{id}")
 	HotarareCJC getHotarareCuFisier(String id);
 }

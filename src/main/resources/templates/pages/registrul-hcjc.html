@@ -9,7 +9,7 @@
 							<h3>Registrul hotărâri CJC</h3>
 						</div>
 						<div class="pe-2" style="width: 100%; position: absolute; text-align: right;">
-							<button type="button" class="btn btn-primary" onclick="arataModalAdaugaInregHCJC();">Adaugă înregistrare nouă</button>
+							<!--<button type="button" class="btn btn-primary" onclick="arataModalAdaugaInregHCJC();">Adaugă înregistrare nouă</button>-->
 						</div>
 					</div> 
 				</div>
@@ -140,7 +140,7 @@
 		<!-- End modal adaugare hotarareCJC-->
 		
 		<!-- Modal incarca fisier hotarareCJC-->
-		<div class="modal fade" id="modalAdaugaFisierHotarareCJC" role="dialog" aria-labelledby="modalAdaugaFisierHotarareCJC" aria-hidden="true">
+		<div class="modal fade" id="modalAdaugaFisierHotarareCJC" role="dialog" aria-labelledby="modalAdaugaFisierHotarareCJC">
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
@@ -163,47 +163,56 @@
 		</div>
 		<!-- End modal incarca fisier hotarareCJC-->
 		
+		<!-- Modal arata fisier hotarareCJC-->
+		<div class="modal fade" id="modalArataFisierHCJC" role="dialog" aria-labelledby="modalArataFisierHCJC">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Fișier hotărâre CJC</div>
+					</div>
+					<div class="modal-body">
+						<iframe id="embedFisierHCJC" class="w-100" style="height:600px;"></iframe>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<a id="linkBtnDescarcaFisierHCJC" href="" ><button id="btnDescarcaFisierHCJC" type="button" class="btn btn-success">Descarcă fișierul</button></a>
+						<button type="button" class="btn btn-danger" onclick="inchideModalArataFisierHCJC()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal arata fisier hotarareCJC-->
+		
 		<!-- Modal adaugare hotarareCJC-->
 		<div class="modal fade" id="modalNoteHCJC" role="dialog" aria-labelledby="modalNoteHCJC">
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
-					<div class="modal-header" style="padding: 5px; background-color: lightgoldenrodyellow;  font-weight: bold;">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
 						<div id="titluModal" style="width:100%; text-align: center;">Notițe hotărâre CJC</div>
 					</div>
-					<div class="modal-body" style="padding: 0px; background-color: #EEE; max-height: 600px;">
-						<div style="padding: 15px; background-color: lightyellow">
+					<div class="modal-body" style="padding: 0px; max-height: 600px;">
+						<div style="padding: 15px; box-shadow: 0 8px 6px -6px #eee;">
 							<div class="row mb-2">
-								<div class="col-md-2">
+								<div class="col">
 									<label class="fw-bold">Nr. hotărare</label><br>
 									<span id="divNrHotarare1"></span>
 								</div>
-								<div class="col-md-2">
-									<label class="fw-bold">Dată hotărare</label><br>
-									<span id="divDataHotarare1"></span>
-								</div>
-								<div class="col-md-8">
+								<div class="col">
 									<label class="fw-bold">Emitent</label><br>
 									<span id="divEmitentHotarare1"></span>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-2">
+								<div class="col">
 									<label class="fw-bold">Data comunicării</label><br>
 									<span id="divDataCom1"></span>
 								</div>
 								<div class="col-md-3">
-									<label class="fw-bold">Compartimentul adresat</label><br>
+									<label class="fw-bold">Comp./pers. adresată</label><br>
 									<span id="divCompartimentul1"></span>
 								</div>
-								<div class="col-md-3">
-									<label class="fw-bold">Persoana care a primit-o</label><br>
-									<span id="divPersoanaPrimire1"></span>
-								</div>
-								<div class="col-md-2">
+								<div class="col">
 									<label class="fw-bold">Data primirii</label><br>
 									<span id="divDataPrimirii1"></span>
 								</div>
-								<div class="col-md-2">
+								<div class="col">
 									<label class="fw-bold">Stadiu</label><br>
 									<span id="divStadiuHotarare1"></span>
 								</div>
@@ -211,18 +220,19 @@
 						</div>
 						<div class="row mx-0">
 							<div class="col-9">
-								<div id="divNoteHCJC" class="container d-flex flex-wrap p-2" style="overflow: auto; max-height: 450px;"> 
+								<div id="divNoteHCJC" class="container d-flex flex-wrap px-3 py-2" style="overflow: auto; max-height: 450px;"> 
 									
 								</div>								
 							</div>
 							<div class="col-3" style="text-align: center;">
-								<div class="card text-dark bg-warning mb-2 mt-2" style="text-align: center;">
+								<div class="card text-dark bg-light mb-2 mt-2 shadow" style="text-align: center;">
 									<div class="card-header fw-bold">Adaugă notiță nouă</div>
 									<div class="card-body">
-										<textarea class="form-control" style="width: 100%; height: 200px;" placeholder="Conținut notiță"></textarea>
+										<textarea id="continutNota" class="form-control mb-2" style="width: 100%; height: 200px;" placeholder="Conținut notiță"></textarea>
+										<button id="btnSalveazaNota" type="button" class="btn btn-light shadow" onclick="adaugaNotitaHCJC()">Salvează notița</button>
 									</div>
 								</div>
-								<button id="btnSalveazaHotarare" type="button" class="btn btn-warning mb-2" onclick="adaugaNotitaHCJC()">Salvează notița</button>
+								
 							</div>
 						</div>
 					</div>
@@ -281,6 +291,12 @@
 			layout: {
 				topStart: {
 					buttons: [
+						{
+							text: 'Adaugă înregistrare nouă',
+							action: function (e, dt, node, config) {
+								arataModalAdaugaInregHCJC();
+							}
+						},
 						"excel", 
 						{extend: 'pdfHtml5',
                     		orientation: 'landscape',
@@ -309,15 +325,15 @@
 					{ data: 
 						null, 
 						render: function (data, type, row, meta) {
-							var arataDownloadFisier = "";
+							var arataBtnArataFisier = "";
 							if(data.numeFisier != null && data.numeFisier != ""){
-								arataDownloadFisier = '<a href="/hotarariHCJC/downloadFisier/'+ data.id +'"><i class="fa-button bi bi-file-earmark-arrow-down" style="margin-right:15px;" title="Descarcă fișier"></i></a>';
+								arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" title="Afișează fișierul" onclick="arataModalArataFisierHCJC(' + meta.row + ')"></i>';
 							}
 							return ''
 							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
 							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" title="Notițe" onclick="arataModalNoteHCJC(' + meta.row + ')"></i>'
 							+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
-							+ arataDownloadFisier;
+							+ arataBtnArataFisier;
 						}
 					}
 			]
@@ -600,12 +616,10 @@
 	
 	function arataModalNoteHCJC(rowIndex){
 		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
-		$("#divNrHotarare1").html(hotarareaCurenta.nrHotarare);
-		$("#divDataHotarare1").html(hotarareaCurenta.dataHotarare);
+		$("#divNrHotarare1").html(hotarareaCurenta.nrHotarare + " / " + hotarareaCurenta.dataHotarare);
 		$("#divEmitentHotarare1").html(hotarareaCurenta.emitent);
 		$("#divDataCom1").html(hotarareaCurenta.dataComunicarii);
-		$("#divCompartimentul1").html(hotarareaCurenta.compartimentulAdresat);
-		$("#divPersoanaPrimire1").html(hotarareaCurenta.persoanaPrimire);
+		$("#divCompartimentul1").html(hotarareaCurenta.compartimentulAdresat + " / " + hotarareaCurenta.persoanaPrimire);
 		$("#divDataPrimirii1").html(hotarareaCurenta.dataPrimirii);
 		$("#divStadiuHotarare1").html(hotarareaCurenta.stadiu);
 		
@@ -613,11 +627,9 @@
 			url: "/note/getNote",
 			type: "GET",
 			success: function(response) {
-				console.log(response);
-				console.log(response.length);
 				var htmlNote = "";
 				for (const nota of response) {
-					htmlNote += '<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; margin-right: 10px;">'
+					htmlNote += '<div class="card text-dark bg-light mb-3 shadow" style="max-width: 18rem; margin-right: 20px;">'
 						+ '<div class="card-header fw-bold ">' + nota.data + ' ' + nota.persoana.prenume + ' ' + nota.persoana.nume + ':</div>'
 						+ '<div class="card-body">'
 						+	'<p class="card-text">' + nota.text + '</p>'
@@ -637,4 +649,17 @@
 	function inchideModalNoteHCJC(){
 		$("#modalNoteHCJC").modal("hide");
 	}
+	
+	function arataModalArataFisierHCJC(rowIndex){
+		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
+		$("#embedFisierHCJC").attr("src", "/hotarariHCJC/arataFisier/"+hotarareaCurenta.id);
+		$("#linkBtnDescarcaFisierHCJC").attr("href", "/hotarariHCJC/downloadFisier/"+hotarareaCurenta.id);
+		
+		$("#modalArataFisierHCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function inchideModalArataFisierHCJC(){
+		$("#modalArataFisierHCJC").modal("hide");
+	}
+	
 </script>
