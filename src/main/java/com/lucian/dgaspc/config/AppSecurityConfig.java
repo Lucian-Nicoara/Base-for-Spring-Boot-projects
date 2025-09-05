@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter.Mode;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -35,7 +34,10 @@ public class AppSecurityConfig {
 			auth -> auth.requestMatchers("/signin", "/signup").permitAll()
 			.requestMatchers("/super/**", "/superapps/**").hasAuthority("SUPER")
 			.requestMatchers("/admin/**").hasAuthority("ADMIN")
-			.requestMatchers("/**").permitAll()
+			.requestMatchers("/images/**").permitAll()
+			.requestMatchers("/scripts/**").permitAll()
+			.requestMatchers("/styles/**").permitAll()
+			//.requestMatchers("/**").permitAll()
 			.anyRequest().authenticated()
 		)
 		.formLogin(formLogin -> formLogin

@@ -35,22 +35,13 @@ public class NoteController {
 	
 	@GetMapping("/getNote")
 	public List<Nota> getNote(@RequestParam String id, @RequestParam String entitate) {
-		System.out.println("debug + id=" + id);
-		if(id != null && !id.isEmpty() && entitate != null && !entitate.isEmpty()) {
-			List<Nota> listaNote = noteService.getNote(id, entitate);
-			return listaNote;
-		}else {
-			return null;
-		}
+		List<Nota> listaNote = noteService.getNote(id, entitate);
+		return listaNote;
 	}
 	
 	@PostMapping("/postNota")
 	public String postNota(@RequestBody Nota nota) {
-		System.out.println("debug /postNota");
-		System.out.println(nota.toString());
-		noteService.postNota(nota);
-		
-		return "ok";
+		return noteService.postNota(nota);
 	}
 	
 	@GetMapping("/getCompartimente")
@@ -66,5 +57,4 @@ public class NoteController {
 		listeDeValori.put("listaPersoane", userDataMapper.getPersoane());
 		return listeDeValori;
 	}
-	
 }

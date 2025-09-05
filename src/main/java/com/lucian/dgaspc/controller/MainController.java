@@ -36,10 +36,11 @@ public class MainController {
 			System.out.println("debug authUserName: " + user.getUsername());
 			System.out.println("debug authUser: " + user.toString());
 			model.addAttribute("name", user.getPrenume());
+			return "/pages/homepage";
 		}else {
 			System.out.println("debug no authUser");
+			return "/pages/signin";
 		}
-		return "/pages/homepage";
 	}
 	
 	@GetMapping("/signup")

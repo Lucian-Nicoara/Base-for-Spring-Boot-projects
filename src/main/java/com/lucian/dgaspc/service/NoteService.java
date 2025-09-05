@@ -22,17 +22,21 @@ public class NoteService {
 	UserDataService userDataService;
 	
 	public List<Nota> getNote(String id, String entitate){
-		List<Nota> listaNote = noteMapper.getNote(id, entitate);
-		for(Nota n : listaNote) {
-			n.setPersoana(userMapper.getPersoanaById(n.getIdUser()));
+		if(id != null && !id.isEmpty() && entitate != null && !entitate.isEmpty()) {
+			List<Nota> listaNote = noteMapper.getNote(id, entitate);
+			for(Nota n : listaNote) {
+				n.setPersoana(userMapper.getPersoanaById(n.getIdUser()));
+			}
+			return listaNote;	
+		}else {
+			return null;
 		}
-		return listaNote;
+		
 	}
 	
 	public String postNota(Nota nota) {
 		if(nota.getIdEntitate() != null && !nota.getIdEntitate().isEmpty() && nota.getEntitate() != null && !nota.getEntitate().isEmpty() && nota.getText() != null && !nota.getText().isEmpty()) {
 			UserData user = userDataService.getAuthUser();
-			System.out.println(user.toString());
 			if(user != null) {
 				nota.setIdUser(String.valueOf(user.getId()));
 				noteMapper.postNota(nota);
@@ -40,7 +44,6 @@ public class NoteService {
 			}else {
 				return "fara-drepturi";
 			}
-			
 		}else {
 			return "eroare";
 		}
