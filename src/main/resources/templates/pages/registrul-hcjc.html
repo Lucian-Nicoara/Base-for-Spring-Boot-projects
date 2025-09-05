@@ -30,7 +30,7 @@
 											<th style="background-color: #ccc;">Persoana care a primit-o</th>
 											<th style="width:100px; background-color: #ccc;">Data primirii</th>
 											<th style="width:100px; background-color: #ccc;">Stadiu</th>
-											<th style="width:160px; background-color: #ccc;">Operații</th>
+											<th style="width:190px; background-color: #ccc;">Operații</th>
 										</tr>
 									</thead>
 									<tbod>
@@ -282,6 +282,13 @@
 	
 	$(document).ready(function() {
 		console.log("Registul hotarari CJC - ready!");
+		
+		<!--Activare bootstrap tooltips-->
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl)
+		});
+			
 		$(".btnMenu").removeClass("btn-primary");
 		$("#menuEntryRegHotCJC").removeClass("btn-light");
 		$("#menuEntryRegHotCJC").addClass("btn-primary");
@@ -341,6 +348,12 @@
 			order: false,
 			lengthChange: false,
 			ajax: "/hotarariHCJC/getHotarariCJC",
+			drawCallback:function(){
+				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+					return new bootstrap.Tooltip(tooltipTriggerEl)
+				});
+			},
 			columns: [
 			        { data: "nrHotarare" },
 			        { data: "dataHotarare" },
@@ -355,13 +368,14 @@
 						render: function (data, type, row, meta) {
 							var arataBtnArataFisier = "";
 							if(data.numeFisier != null && data.numeFisier != ""){
-								arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" title="Afișează fișierul" onclick="arataModalArataFisierHCJC(' + meta.row + ')"></i>';
+								arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Afișează fișierul" onclick="arataModalArataFisierHCJC(' + meta.row + ')"></i>';
 							}
 							return ''
-							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
-							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
-							+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
-							+ arataBtnArataFisier;
+							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
+							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
+							+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
+							+ arataBtnArataFisier
+							+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeHotarareCJC(' + meta.row + ')"></i>';
 						}
 					}
 			]
@@ -724,6 +738,47 @@
 		}else{
 			alert("Completați conținutul! Nota nu a fost salvată.");
 		}
+	}
+	
+	function stergeHotarareCJC(rowIndex){
+		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
+		bootbox.confirm({
+			title: "Șterg?",
+			message: "Sunteți sigur că doriți ștergerea acestei poziții ?",
+			buttons: {
+				confirm: {
+					label: 'Da',
+					className: 'btn-danger'
+				},
+				cancel: {
+					label: 'Nu',
+					className: 'btn-success'
+				}
+			},
+			callback: function(confirmare){
+				if(confirmare){
+					$.ajax({
+						url: "/hotarariHCJC/stergeHotarareHCJC",
+						type: "POST",
+						headers: {"X-CSRF-TOKEN": token},
+						contentType: "application/json",
+						data: {
+							idHotarareHCJC: hotarareaCurenta.id
+						},
+						success: function(response) {
+							if(response == "ok"){
+								dtHotarariCJC.ajax.reload(null, false);
+							}else{
+								alert("Ștergerea nu a fost efectuată! Eroare de aplicație.");
+							}
+						},
+						error: function(response){
+							handleHtmlError(response.responseText);
+						}
+					});
+				}
+			}
+		});
 	}
 	
 	function arataModalArataFisierHCJC(rowIndex){
