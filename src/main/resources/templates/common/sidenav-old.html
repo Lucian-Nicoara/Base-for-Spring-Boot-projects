@@ -1,0 +1,17 @@
+		<!--SIDENAV MENU-->
+		<div th:fragment="sidenav" id="mySidenav" class="sidenav sticky-top" style="margin-top: 80px;">
+			<div class="flex-shrink-0" style="width: 200px; padding-right: 12px;">
+				<ul class="list-unstyled ps-0">
+					<li class="mb-1">
+						<a th:href="@{/registrul-hcjc}">
+							<button id="menuEntryRegHotCJC" class="btn btn-light w-100 btnMenu">Registrul hotărâri CJC</button>
+						</a>
+					</li>
+					<li class="mb-1">
+						<a th:href="@{/consiliul-director}">
+							<button id="menuEntryConsDir" class="btn btn-light w-100 btnMenu">Consiliul director</button>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>

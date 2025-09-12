@@ -1,30 +1,28 @@
-		<!-- TOP BAR -->
-		<div th:fragment="topBar" class="row sticky-top mx-0 justify-content-end align-items-center" style="background-color: white; min-height: 71px;">
-			<div class="col-auto d-none d-lg-block">
-				<img src="/images/hfs1.jpg" class="rounded float-left" style="width:100px; margin-left: 30px; margin-right: 34px;">
-			</div>
-			<div class="col d-md-block">
-				<a th:href="@{/}" class="text-decoration-none link-dark">
-					<h2>DGASPC Călărași</h2>
-					<span class="text-body-secondary">management intern</span>
-				</a>
-			</div>
-			<div class="col-auto">
-				<div class="row row-cols-auto">
-					<div class="col-sm-auto"></div>
-					<div class="col-sm-auto">
-						<a href="#" class="link-body-emphasis text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="bi bi-person-circle" style="font-size: 38px; cursor: pointer;"></i>
-						</a>
-						<ul class="dropdown-menu text-small shadow">
-							<li><a class="dropdown-item" th:href="@{/signin}">Login</a></li>
-							<li><a class="dropdown-item" th:href="@{/signup}">Register</a></li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
-							<li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
-						</ul>
-					</div>
-				</div>
+<nav th:fragment="topBar" class="navbar navbar-expand-lg" style="box-shadow: 0px 6px 4px -6px grey;">
+	<div class="container-fluid">
+		<div class="d-flex">
+			<img src="/images/hfs1.jpg" style="width:60px;">
+			<div>
+				<span class="fs-2">DGASPC Călărași</span><br>
+				<span class="fs-6">Registre electronice</span>
 			</div>
 		</div>
+		<div class="d-flex fs-3">
+			<span id="divTitluPagina">Registrul Hotarâri CJC</span>
+		</div>
+		<div class="d-flex">
+			<span class="navbar-text me-2" style="margin-left: 150px;">
+				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span class="me-2"> [[${user.prenume} + ' ' + ${user.nume}]] </span> 
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</span>
+		</div>
+	</div>
+</nav>

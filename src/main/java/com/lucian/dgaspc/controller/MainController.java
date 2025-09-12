@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.lucian.dgaspc.mapper.UserDataMapper;
 import com.lucian.dgaspc.model.UserData;
 import com.lucian.dgaspc.service.UserDataService;
 
@@ -22,20 +21,18 @@ TODOS: remember me:
 @Controller
 public class MainController {
 	
-	@Autowired
-	UserDataService userDataService;
+	private UserData user;
 	
 	@Autowired
-	UserDataMapper userDataMapper;
+	private UserDataService userDataService;
 	
 	@GetMapping("/")
 	public String getIndex(Model model) {
-		UserData user = null;
 		if(userDataService.getAuthUser() != null) {
 			user = userDataService.getAuthUser();
 			System.out.println("debug authUserName: " + user.getUsername());
 			System.out.println("debug authUser: " + user.toString());
-			model.addAttribute("name", user.getPrenume());
+			model.addAttribute("user", user);
 			return "/pages/homepage";
 		}else {
 			System.out.println("debug no authUser");
@@ -55,11 +52,13 @@ public class MainController {
 	
 	@GetMapping("/registrul-hcjc")
 	public String registrulHcjc(Model model) {
+		model.addAttribute("user", user);
 		return "/pages/registrul-hcjc";
 	}
 	
 	@GetMapping("/consiliul-director")
 	public String consiliulDirector(Model model) {
+		model.addAttribute("user", user);
 		return "/pages/consiliul-director";
 	}
 }
