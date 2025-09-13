@@ -46,3 +46,16 @@ body {
 	width:400px;
 	margin-left: 10px;
 }
+
+.boldOnHover:hover{
+	font-weight: bold;
+}
+
+.italicOnHover:hover{
+	font-style: italic;
+}
+
+.underlineOnHover:hover{
+	text-decoration: underline;
+}
+

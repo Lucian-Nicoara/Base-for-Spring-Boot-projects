@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lucian.dgaspc.mapper.CompartimenteMapper;
 import com.lucian.dgaspc.mapper.UserDataMapper;
 import com.lucian.dgaspc.model.Compartiment;
-import com.lucian.dgaspc.model.HotarareCJC;
 import com.lucian.dgaspc.model.Nota;
 import com.lucian.dgaspc.service.NoteService;
 

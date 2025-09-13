@@ -30,9 +30,7 @@ public class MainController {
 	public String getIndex(Model model) {
 		if(userDataService.getAuthUser() != null) {
 			user = userDataService.getAuthUser();
-			System.out.println("debug authUserName: " + user.getUsername());
 			System.out.println("debug authUser: " + user.toString());
-			model.addAttribute("user", user);
 			return "/pages/homepage";
 		}else {
 			System.out.println("debug no authUser");
@@ -52,13 +50,11 @@ public class MainController {
 	
 	@GetMapping("/registrul-hcjc")
 	public String registrulHcjc(Model model) {
-		model.addAttribute("user", user);
 		return "/pages/registrul-hcjc";
 	}
 	
 	@GetMapping("/consiliul-director")
 	public String consiliulDirector(Model model) {
-		model.addAttribute("user", user);
 		return "/pages/consiliul-director";
 	}
 }

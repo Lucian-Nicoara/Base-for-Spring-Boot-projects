@@ -184,7 +184,7 @@
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
 						<div id="titluModal" style="width:100%; text-align: center;">Fișier hotărâre CJC</div>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" style="padding: 0px;">
 						<iframe id="embedFisierHCJC" class="w-100" style="height:600px;"></iframe>
 					</div>
 					<div class="modal-footer" style="background-color: #EEE;">
@@ -730,7 +730,7 @@
 		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
 		bootbox.confirm({
 			title: "Șterg?",
-			message: "Sunteți sigur că doriți ștergerea acestei poziții ?",
+			message: "Sunteți sigur că doriți ștergerea hotărârii nr. " + hotarareaCurenta.nrHotarare + " / " + hotarareaCurenta.dataHotarare + " ?",
 			buttons: {
 				confirm: {
 					label: 'Da',

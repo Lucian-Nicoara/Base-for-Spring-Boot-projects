@@ -1,24 +1,24 @@
 <nav th:fragment="topBar" class="navbar navbar-expand-lg" style="box-shadow: 0px 6px 4px -6px grey;">
 	<div class="container-fluid">
 		<div class="d-flex">
-			<img src="/images/hfs1.jpg" style="width:60px;">
+			<a href="/"><img src="/images/hfs1.jpg" style="width:60px;"></a>
 			<div>
-				<span class="fs-2">DGASPC Călărași</span><br>
-				<span class="fs-6">Registre electronice</span>
+				<span class="fs-2 text-primary-emphasis" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">DGASPC Călărași</span><br>
+				<span class="fs-6 text-secondary" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">Registre electronice</span>
 			</div>
 		</div>
 		<div class="d-flex fs-3">
-			<span id="divTitluPagina">Registrul Hotarâri CJC</span>
+			<span id="divTitluPagina" class="fw-bolder" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">Registrul Hotărâri CJC</span>
 		</div>
 		<div class="d-flex">
 			<span class="navbar-text me-2" style="margin-left: 150px;">
 				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<span class="me-2"> [[${user.prenume} + ' ' + ${user.nume}]] </span> 
+						<a class="nav-link dropdown-toggle text-primary-emphasis" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span class="me-2 underlineOnHover"> [[${#authentication.principal.prenume} + ' ' + ${#authentication.principal.nume}]] </span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+							<li><a class="dropdown-item text-primary-emphasis" th:href="@{/logout}">Logout</a></li>
 						</ul>
 					</li>
 				</ul>
