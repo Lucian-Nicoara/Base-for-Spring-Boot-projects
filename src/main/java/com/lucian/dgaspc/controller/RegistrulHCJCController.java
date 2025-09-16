@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ import com.lucian.dgaspc.service.HotarariCjcService;
  * https://blog.stackpuz.com/create-an-api-for-datatables-with-spring-boot/
 */
 @RestController
+@PreAuthorize("hasAuthority('OpRegHCJC')")
 @RequestMapping("/hotarariHCJC")
 public class RegistrulHCJCController {
 	
@@ -39,15 +41,12 @@ public class RegistrulHCJCController {
 	@GetMapping("/getHotarariCJC")
 	public TableData<HotarareCJC> getHotarariCJC() {
 		List<HotarareCJC> hotarariCJC = hotarariCjcService.getHotarariCJC();
-		System.out.println(hotarariCJC.toString());
 		TableData<HotarareCJC> tableData = new TableData<HotarareCJC>(hotarariCJC.size(), hotarariCJC.size(), hotarariCJC);
 		return tableData;
 	}
 	
 	@PostMapping("/postHotarareCJC")
 	public String postHotarareCJC(@RequestBody HotarareCJC hotarareCJC) {
-		System.out.println("debug /postHotarareCJC");
-		System.out.println(hotarareCJC.toString());
 		if(hotarareCJC.getNrHotarare() != null && !hotarareCJC.getNrHotarare().isEmpty()) {
 			hotarariCjcService.postHotarareCJC(hotarareCJC);
 		}
@@ -56,8 +55,6 @@ public class RegistrulHCJCController {
 	
 	@PostMapping("/putHotarareCJC")
 	public String putHotarareCJC(@RequestBody HotarareCJC hotarareCJC) {
-		System.out.println("debug /putHotarareCJC");
-		System.out.println(hotarareCJC.toString());
 		if(hotarareCJC.getId() != null && !hotarareCJC.getId().isEmpty()) {
 			hotarariCjcService.putHotarareCJC(hotarareCJC);
 		}

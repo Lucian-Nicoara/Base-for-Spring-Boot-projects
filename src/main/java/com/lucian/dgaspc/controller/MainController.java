@@ -1,22 +1,13 @@
 package com.lucian.dgaspc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.lucian.dgaspc.model.UserData;
 import com.lucian.dgaspc.service.UserDataService;
-
-/*
- * info:
-	https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial
-	
-TODOS: remember me: 
-	https://www.baeldung.com/spring-security-persistent-remember-me
-	https://www.youtube.com/watch?v=YNsDrOCV0L0&t=430s
-*/
-
 
 @Controller
 public class MainController {
@@ -38,21 +29,18 @@ public class MainController {
 		}
 	}
 	
-	@GetMapping("/signup")
-	public String signup(Model model) {
-		return "/pages/signup";
-	}
-		
 	@GetMapping("/signin")
 	public String signin(Model model) {
 		return "/pages/signin";
 	}
 	
+	@PreAuthorize("hasAuthority('OpRegHCJC')")
 	@GetMapping("/registrul-hcjc")
 	public String registrulHcjc(Model model) {
 		return "/pages/registrul-hcjc";
 	}
 	
+	@PreAuthorize("hasAuthority('OpRegConsDir')")
 	@GetMapping("/consiliul-director")
 	public String consiliulDirector(Model model) {
 		return "/pages/consiliul-director";
