@@ -648,14 +648,14 @@
 			contentType: false,  // tell jQuery not to set contentType
 			cache: false,
 			success : function(data) {
-				console.log(data);
 				if(data == "ok"){
 					inchideModalAdaugaFisierHCJC();
 					dtHotarariCJC.ajax.reload(null, false);
 					//incarcaDtHotarariCJC();
 				}
 			},
-			error: function(eroare) {
+			error: function(response) {
+				alert(response.status);
 				handleHtmlError(response.responseText);
 			}
 		});
