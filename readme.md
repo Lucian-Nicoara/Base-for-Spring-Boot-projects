@@ -4,7 +4,7 @@ Config file:
 Mysql:
 	user: root
 	password: [none]
-	jdbc:mysql://localhost:3306/mydatabase
+	jdbc:mysql://localhost:3306/dgaspc_app_db
 
 Apache tomcat: 
 	http://localhost:8080/

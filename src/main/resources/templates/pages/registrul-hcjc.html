@@ -319,9 +319,16 @@
 								arataModalAdaugaInregHCJC();
 							}
 						},
-						"excel", 
+						//"excel",
+						{extend: 'excelHtml5',
+							title: 'DGASPC_Hotarari_CJC_' + getTodayDate(),
+							exportOptions: {
+								columns: [0, 1, 2, 3, 4, 5, 6, 7]
+							}
+						},
 						{extend: 'pdfHtml5',
-                    		orientation: 'landscape',
+							title: 'DGASPC_Hotarari_CJC_' + getTodayDate(),
+							orientation: 'landscape',
                     		pageSize: 'A4',
 							exportOptions: {
 								columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -730,18 +737,20 @@
 	function stergeHotarareCJC(rowIndex){
 		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
 		bootbox.confirm({
+			size: "large",
 			title: "Șterg?",
 			message: "Sunteți sigur că doriți ștergerea hotărârii nr. " + hotarareaCurenta.nrHotarare + " / " + hotarareaCurenta.dataHotarare + " ?",
 			buttons: {
 				confirm: {
 					label: 'Da',
-					className: 'btn-danger'
+					className: 'btn-success'
 				},
 				cancel: {
-					label: 'Nu',
-					className: 'btn-success'
+					label: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+					className: 'btn-danger'
 				}
 			},
+			swapButtonOrder: true,
 			callback: function(confirmare){
 				if(confirmare){
 					$.ajax({

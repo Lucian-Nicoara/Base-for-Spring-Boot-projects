@@ -67,7 +67,7 @@
 					<div class="modal-body">
 						<div class="row mb-2">
 							<div class="col-md-2">
-								<label class="fw-bold">Ședință CD</label><br>
+								<label class="fw-bold">Tip ședință CD</label><br>
 								<input id="sedintaCD" class="form-control">
 							</div>
 							<div class="col-md-2">
@@ -88,7 +88,7 @@
 								<label class="fw-bold">Hotărâre/Aviz</label><br>
 								<select id="selHotarareSedinta" class="w-100">
 									<option value="În lucru" selected>În lucru</option>
-									<option value="Aviz" selected>Avizată</option>
+									<option value="Avizată" selected>Avizată</option>
 									<option value="Optiunea1">Optiunea1</option>
 									<option value="Optiunea2">Optiunea2</option>
 								</select>
@@ -291,9 +291,16 @@
 								arataModalAdaugaInregSCD();
 							}
 						},
-						"excel", 
+						//"excel",
+						{extend: 'excelHtml5',
+							title: 'DGASPC_Consiliul_Director_' + getTodayDate(),
+							exportOptions: {
+								columns: [0, 1, 2, 3, 4]
+							}
+						},
 						{extend: 'pdfHtml5',
-                    		orientation: 'landscape',
+                    		title: 'DGASPC_Consiliul_Director_' + getTodayDate(),
+							orientation: 'portrait',
                     		pageSize: 'A4',
 							exportOptions: {
 								columns: [0, 1, 2, 3, 4]
@@ -474,7 +481,8 @@
 	
 	function arataModalAdaugaFisierSCD(rowIndex){
 		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
-		$("#divSedintaCD").html(sedintaCdCurenta.sedinta + " / " + sedintaCdCurenta.dataSedinta);
+		$("#divSedintaCD").html(sedintaCdCurenta.sedinta);
+		$("#divDataSedintaCD").html(sedintaCdCurenta.dataSedinta);
 		$("#divSubiectSedintaCD").html(sedintaCdCurenta.subiect);
 		$("#divNoteSedintaCD").html(sedintaCdCurenta.noteDeFundamentare);
 		$("#divHotarareSedintaCD").html(sedintaCdCurenta.hotarareAviz);
@@ -491,7 +499,7 @@
 	function incarcaFisierul(rowIndex){
 		var form = $("#formFisierSedintaCD")[0];
 		var data = new FormData(form);
-		data.append("idSedinta", sedintaCdCurenta.id);
+		data.append("idSedintaCD", sedintaCdCurenta.id);
 
 		$.ajax({
 			url : "/sedinteCD/incarcaFisier",
@@ -508,7 +516,7 @@
 					dtConsiliulDirector.ajax.reload(null, false);
 				}
 			},
-			error: function(eroare) {
+			error: function(response) {
 				handleHtmlError(response.responseText);
 			}
 		});
@@ -516,10 +524,11 @@
 	
 	function arataModalNote(rowIndex){
 		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
-		$("#divSedintaCD").html(sedintaCdCurenta.sedinta + " / " + sedintaCdCurenta.dataSedinta);
-		$("#divSubiectSedintaCD").html(sedintaCdCurenta.subiect);
-		$("#divNoteSedintaCD").html(sedintaCdCurenta.noteDeFundamentare);
-		$("#divHotarareSedintaCD").html(sedintaCdCurenta.hotarareAviz);
+		$("#divSedintaCD1").html(sedintaCdCurenta.sedinta);
+		$("#divDataSedintaCD1").html(sedintaCdCurenta.dataSedinta);
+		$("#divSubiectSedintaCD1").html(sedintaCdCurenta.subiect);
+		$("#divNoteSedintaCD1").html(sedintaCdCurenta.noteDeFundamentare);
+		$("#divHotarareSedintaCD1").html(sedintaCdCurenta.hotarareAviz);
 		
 		incarcaNote(sedintaCdCurenta.id, "registrulSCD");
 	}
@@ -588,18 +597,20 @@
 	function stergeSedintaCD(rowIndex){
 		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
 		bootbox.confirm({
+			size: "large",
 			title: "Șterg?",
-			message: "Sunteți sigur că doriți ștergerea ședinței " + sedintaCdCurenta.sedinta + " / " + sedintaCdCurenta.dataSedinta + " ?",
+			message: "Sunteți sigur că doriți ștergerea ședinței " + sedintaCdCurenta.sedinta + " din " + sedintaCdCurenta.dataSedinta + " ?",
 			buttons: {
-				confirm: {
-					label: 'Da',
+				cancel: {
+					label: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
 					className: 'btn-danger'
 				},
-				cancel: {
-					label: 'Nu',
+				confirm: {
+					label: 'Da',
 					className: 'btn-success'
 				}
 			},
+			swapButtonOrder: true,
 			callback: function(confirmare){
 				if(confirmare){
 					$.ajax({

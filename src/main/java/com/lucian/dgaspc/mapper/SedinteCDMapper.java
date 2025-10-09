@@ -13,10 +13,10 @@ import com.lucian.dgaspc.model.SedintaCD;
 @Mapper
 public interface SedinteCDMapper {
 	
-	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz from consiliul_director order by id desc")
+	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz, numeFisier from consiliul_director where sters is null order by id desc")
 	List<SedintaCD> getSedinteCD();
 	
-	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz from consiliul_director where id = #{id}")
+	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz, numeFisier from consiliul_director where id = #{id} and sters is null ")
 	SedintaCD getSedintaCDById(String id);
 	
 	@Insert("insert into consiliul_director(sedinta, dataSedinta, subiect, noteDeFundamentare, hotarareAviz)"
@@ -29,9 +29,13 @@ public interface SedinteCDMapper {
 	@Update("update consiliul_director set numeFisier = #{numeFisier}, fisier = #{continutFisier} where id = #{idSedintaCD}")
 	void incarcaFisier(String idSedintaCD, String numeFisier, byte[] continutFisier);
 	
-	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz, numeFisier, fisier, stadiu from consiliul_director where id = #{id}")
+	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz, numeFisier, fisier from consiliul_director where id = #{id} and sters is null ")
 	SedintaCD getSedintaCDCuFisier(String id);
 	
-	@Delete("delete from cosiliul_director where id = #{id}")
+	/*
+	 * @Delete("delete from consiliul_director where id = #{id}") void
+	 * stergeSedintaCD(String id);
+	 */
+	@Update("update consiliul_director set sters = 'DA' where id = #{id}")
 	void stergeSedintaCD(String id);
 }

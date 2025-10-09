@@ -22,23 +22,23 @@ public class SedinteCDService{
 		return sedinteCDMapper.getSedintaCDById(id);
 	}
 	
-	public Integer postSedintaCD(SedintaCD hotarareCJC) {
-		return sedinteCDMapper.postSedintaCD(hotarareCJC);
+	public Integer postSedintaCD(SedintaCD sedintaCD) {
+		return sedinteCDMapper.postSedintaCD(sedintaCD);
 	}
 	
 	public void stergeSedintaCD(String id) {
 		sedinteCDMapper.stergeSedintaCD(id);
 	}
 	
-	public void putSedintaCD(SedintaCD hotarareCJC) {
-		sedinteCDMapper.putSedintaCD(hotarareCJC);
+	public void putSedintaCD(SedintaCD sedintaCD) {
+		sedinteCDMapper.putSedintaCD(sedintaCD);
 	}
 	
-	public void incarcaFisier(String idHotarare, String numeFisier, byte[] continutFisier) {
-		sedinteCDMapper.incarcaFisier(idHotarare, numeFisier, continutFisier);
+	public void incarcaFisier(String idSedintaCD, String numeFisier, byte[] continutFisier) {
+		sedinteCDMapper.incarcaFisier(idSedintaCD, numeFisier, continutFisier);
 	}
 	
-	public SedintaCD getHotarareCuFisier(String idHotarare) {
-		return sedinteCDMapper.getSedintaCDCuFisier(idHotarare);
+	public SedintaCD getSedintaCDCuFisier(String idSedintaCD) {
+		return sedinteCDMapper.getSedintaCDCuFisier(idSedintaCD);
 	}
 }

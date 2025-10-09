@@ -37,8 +37,8 @@ public class SedinteCDController {
 	
 	@GetMapping("/getSedinteCD")
 	public TableData<SedintaCD> getSedinteCD() {
-		List<SedintaCD> hotarariCJC = sedinteCDService.getSedinteCD();
-		TableData<SedintaCD> tableData = new TableData<SedintaCD>(hotarariCJC.size(), hotarariCJC.size(), hotarariCJC);
+		List<SedintaCD> sedinteCD = sedinteCDService.getSedinteCD();
+		TableData<SedintaCD> tableData = new TableData<SedintaCD>(sedinteCD.size(), sedinteCD.size(), sedinteCD);
 		return tableData;
 	}
 	
@@ -74,9 +74,9 @@ public class SedinteCDController {
 		return ResponseEntity.status(HttpStatus.OK).body("ok");
 	}
 	
-	@GetMapping("/downloadFisier/{idHotarare}")
+	@GetMapping("/downloadFisier/{idSedintaCD}")
 	public ResponseEntity<Resource> downloadFisier(@PathVariable String idSedintaCD) {
-		SedintaCD sedintaCD = sedinteCDService.getHotarareCuFisier(idSedintaCD);
+		SedintaCD sedintaCD = sedinteCDService.getSedintaCDCuFisier(idSedintaCD);
 		if(sedintaCD.getNumeFisier() != null && sedintaCD.getFisier() != null && sedintaCD.getFisier().length > 0) {
 			byte[] bytes = sedintaCD.getFisier();
 			InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bytes));
@@ -94,7 +94,7 @@ public class SedinteCDController {
 	
 	@GetMapping("/arataFisier/{idSedintaCD}")
 	public ResponseEntity<Resource> arataFisier(@PathVariable String idSedintaCD) {
-		SedintaCD sedintaCD = sedinteCDService.getHotarareCuFisier(idSedintaCD);
+		SedintaCD sedintaCD = sedinteCDService.getSedintaCDCuFisier(idSedintaCD);
 		if(sedintaCD.getNumeFisier() != null && sedintaCD.getFisier() != null && sedintaCD.getFisier().length > 0) {
 			byte[] bytes = sedintaCD.getFisier();
 			InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bytes));
