@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.lucian</groupId>
 	<artifactId>dgaspc</artifactId>
-	<version>25.8.19</version>
+	<version>25.10.9</version>
 	<name>dgaspc</name>
-	<description>DGASPC - Management intern</description>
+	<description>DGASPC - Registre electronice</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
