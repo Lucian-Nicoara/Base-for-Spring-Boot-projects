@@ -22,27 +22,27 @@ public class MainController {
 		if(userDataService.getAuthUser() != null) {
 			user = userDataService.getAuthUser();
 			System.out.println("debug authUser: " + user.toString());
-			return "/pages/homepage";
+			return "pages/homepage";
 		}else {
 			System.out.println("debug no authUser");
-			return "/pages/signin";
+			return "pages/signin";
 		}
 	}
 	
 	@GetMapping("/signin")
 	public String signin(Model model) {
-		return "/pages/signin";
+		return "pages/signin";
 	}
 	
 	@PreAuthorize("hasAuthority('OpRegHCJC')")
 	@GetMapping("/registrul-hcjc")
 	public String registrulHcjc(Model model) {
-		return "/pages/registrul-hcjc";
+		return "pages/registrul-hcjc";
 	}
 	
 	@PreAuthorize("hasAuthority('OpRegConsDir')")
 	@GetMapping("/consiliul-director")
 	public String consiliulDirector(Model model) {
-		return "/pages/consiliul-director";
+		return "pages/consiliul-director";
 	}
 }
