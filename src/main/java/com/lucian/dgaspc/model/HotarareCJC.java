@@ -17,6 +17,7 @@ public class HotarareCJC {
 	private byte[] fisier;
 	private String numeFisier;
 	private String stadiu;
+	
 	public String getId() {
 		return id;
 	}

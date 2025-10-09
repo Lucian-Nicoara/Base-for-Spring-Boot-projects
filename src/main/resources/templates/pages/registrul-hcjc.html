@@ -268,6 +268,7 @@
 	
 	$(document).ready(function() {
 		console.log("Registul hotarari CJC - ready!");
+		$("#divTitluPagina").html("Registrul Hotărâri CJC");
 		
 		<!--Activare bootstrap tooltips-->
 		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -333,7 +334,7 @@
 			paging: true,
 			order: false,
 			lengthChange: false,
-			ajax: "/hotarariHCJC/getHotarariCJC",
+			ajax: "/hotarariCJC/getHotarariCJC",
 			drawCallback:function(){
 				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -487,7 +488,7 @@
 
 	function salveazaHotarareCJC(){
 		var eroareValidare = false;
-		var urlSalvare = "/hotarariHCJC/postHotarareCJC";
+		var urlSalvare = "/hotarariCJC/postHotarareCJC";
 		if(!$("#nrHotarare").val()){
 			eroareValidare = true;
 			$("#divMesajAdaugaHotarare").html("Completează câmpul nr. hotărâre");
@@ -538,7 +539,7 @@
 				};
 			var resetPaging = true;
 			if(hotarareaCurenta != null && hotarareaCurenta.id != null){
-				urlSalvare = "/hotarariHCJC/putHotarareCJC";
+				urlSalvare = "/hotarariCJC/putHotarareCJC";
 				hotarareCJC.id = hotarareaCurenta.id;
 				resetPaging = false;
 			}
@@ -631,7 +632,7 @@
 		data.append("idHotarare", hotarareaCurenta.id);
 
 		$.ajax({
-			url : "/hotarariHCJC/incarcaFisier",
+			url : "/hotarariCJC/incarcaFisier",
 			headers: {"X-CSRF-TOKEN": token},
 			type : "POST",
 			data: data,
@@ -744,13 +745,11 @@
 			callback: function(confirmare){
 				if(confirmare){
 					$.ajax({
-						url: "/hotarariHCJC/stergeHotarareHCJC",
+						url: "/hotarariCJC/stergeHotarareCJC",
 						type: "POST",
 						headers: {"X-CSRF-TOKEN": token},
 						contentType: "application/json",
-						data: {
-							idHotarareHCJC: hotarareaCurenta.id
-						},
+						data: hotarareaCurenta.id,
 						success: function(response) {
 							if(response == "ok"){
 								dtHotarariCJC.ajax.reload(null, false);
@@ -769,8 +768,8 @@
 	
 	function arataModalArataFisierHCJC(rowIndex){
 		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
-		$("#embedFisierHCJC").attr("src", "/hotarariHCJC/arataFisier/"+hotarareaCurenta.id);
-		$("#linkBtnDescarcaFisierHCJC").attr("href", "/hotarariHCJC/downloadFisier/"+hotarareaCurenta.id);
+		$("#embedFisierHCJC").attr("src", "/hotarariCJC/arataFisier/"+hotarareaCurenta.id);
+		$("#linkBtnDescarcaFisierHCJC").attr("href", "/hotarariCJC/downloadFisier/"+hotarareaCurenta.id);
 		
 		$("#modalArataFisierHCJC").modal({backdrop: "static", keyboard: false}).modal("show");
 	}

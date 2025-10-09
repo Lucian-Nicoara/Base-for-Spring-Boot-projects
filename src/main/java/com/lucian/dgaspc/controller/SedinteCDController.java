@@ -23,48 +23,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lucian.dgaspc.model.HotarareCJC;
+import com.lucian.dgaspc.model.SedintaCD;
 import com.lucian.dgaspc.model.TableData;
-import com.lucian.dgaspc.service.HotarariCjcService;
+import com.lucian.dgaspc.service.SedinteCDService;
 
-/*
- * https://blog.stackpuz.com/create-an-api-for-datatables-with-spring-boot/
-*/
 @RestController
-@PreAuthorize("hasAuthority('OpRegHCJC')")
-@RequestMapping("/hotarariCJC")
-public class RegistrulHCJCController {
+@PreAuthorize("hasAuthority('OpRegConsDir')")
+@RequestMapping("/sedinteCD")
+public class SedinteCDController {
 	
 	@Autowired
-	private HotarariCjcService hotarariCjcService;
+	private SedinteCDService sedinteCDService;
 	
-	@GetMapping("/getHotarariCJC")
-	public TableData<HotarareCJC> getHotarariCJC() {
-		List<HotarareCJC> hotarariCJC = hotarariCjcService.getHotarariCJC();
-		TableData<HotarareCJC> tableData = new TableData<HotarareCJC>(hotarariCJC.size(), hotarariCJC.size(), hotarariCJC);
+	@GetMapping("/getSedinteCD")
+	public TableData<SedintaCD> getSedinteCD() {
+		List<SedintaCD> hotarariCJC = sedinteCDService.getSedinteCD();
+		TableData<SedintaCD> tableData = new TableData<SedintaCD>(hotarariCJC.size(), hotarariCJC.size(), hotarariCJC);
 		return tableData;
 	}
 	
-	@PostMapping("/postHotarareCJC")
-	public String postHotarareCJC(@RequestBody HotarareCJC hotarareCJC) {
-		if(hotarareCJC.getNrHotarare() != null && !hotarareCJC.getNrHotarare().isEmpty()) {
-			hotarariCjcService.postHotarareCJC(hotarareCJC);
+	@PostMapping("/postSedintaCD")
+	public String postSedintaCD(@RequestBody SedintaCD sedintaCD) {
+		if(sedintaCD.getSedinta() != null && !sedintaCD.getSedinta().isEmpty()) {
+			sedinteCDService.postSedintaCD(sedintaCD);
 		}
 		return "ok";
 	}
 	
-	@PostMapping("/putHotarareCJC")
-	public String putHotarareCJC(@RequestBody HotarareCJC hotarareCJC) {
-		if(hotarareCJC.getId() != null && !hotarareCJC.getId().isEmpty()) {
-			hotarariCjcService.putHotarareCJC(hotarareCJC);
+	@PostMapping("/putSedintaCD")
+	public String putSedintaCD(@RequestBody SedintaCD sedintaCD) {
+		if(sedintaCD.getId() != null && !sedintaCD.getId().isEmpty()) {
+			sedinteCDService.putSedintaCD(sedintaCD);
 		}
 		return "ok";
 	}
 	
-	@PostMapping("/stergeHotarareCJC")
-	public String stergeHotarareCJC(@RequestBody String id) {
+	@PostMapping("/stergeSedintaCD")
+	public String stergeSedintaCD(@RequestBody String id) {
 		if(id != null && !id.isEmpty()) {
-			hotarariCjcService.stergeHotarareCJC(id);
+			sedinteCDService.stergeSedintaCD(id);
 			return "ok";
 		}else {
 			return "error";
@@ -72,19 +69,19 @@ public class RegistrulHCJCController {
 	}
 	
 	@PostMapping("/incarcaFisier")
-	public ResponseEntity<String> uploadFile(@RequestParam() MultipartFile fisierHotarareCJC, @RequestParam() String idHotarare) throws IOException {
-		hotarariCjcService.incarcaFisier(idHotarare, fisierHotarareCJC.getOriginalFilename(), fisierHotarareCJC.getBytes());
+	public ResponseEntity<String> uploadFile(@RequestParam() MultipartFile fisierSedintaCD, @RequestParam() String idSedintaCD) throws IOException {
+		sedinteCDService.incarcaFisier(idSedintaCD, fisierSedintaCD.getOriginalFilename(), fisierSedintaCD.getBytes());
 		return ResponseEntity.status(HttpStatus.OK).body("ok");
 	}
 	
 	@GetMapping("/downloadFisier/{idHotarare}")
-	public ResponseEntity<Resource> downloadFisier(@PathVariable String idHotarare) {
-		HotarareCJC hotarare = hotarariCjcService.getHotarareCuFisier(idHotarare);
-		if(hotarare.getNumeFisier() != null && hotarare.getFisier() != null && hotarare.getFisier().length > 0) {
-			byte[] bytes = hotarare.getFisier();
+	public ResponseEntity<Resource> downloadFisier(@PathVariable String idSedintaCD) {
+		SedintaCD sedintaCD = sedinteCDService.getHotarareCuFisier(idSedintaCD);
+		if(sedintaCD.getNumeFisier() != null && sedintaCD.getFisier() != null && sedintaCD.getFisier().length > 0) {
+			byte[] bytes = sedintaCD.getFisier();
 			InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bytes));
 			HttpHeaders headers = new HttpHeaders();
-			headers.set("Content-Disposition", String.format("attachment; filename=" + hotarare.getNumeFisier()));
+			headers.set("Content-Disposition", String.format("attachment; filename=" + sedintaCD.getNumeFisier()));
 			return ResponseEntity.ok()
 				.headers(headers)
 				.contentLength(bytes.length)
@@ -95,14 +92,14 @@ public class RegistrulHCJCController {
 		}
 	}
 	
-	@GetMapping("/arataFisier/{idHotarare}")
-	public ResponseEntity<Resource> arataFisier(@PathVariable String idHotarare) {
-		HotarareCJC hotarare = hotarariCjcService.getHotarareCuFisier(idHotarare);
-		if(hotarare.getNumeFisier() != null && hotarare.getFisier() != null && hotarare.getFisier().length > 0) {
-			byte[] bytes = hotarare.getFisier();
+	@GetMapping("/arataFisier/{idSedintaCD}")
+	public ResponseEntity<Resource> arataFisier(@PathVariable String idSedintaCD) {
+		SedintaCD sedintaCD = sedinteCDService.getHotarareCuFisier(idSedintaCD);
+		if(sedintaCD.getNumeFisier() != null && sedintaCD.getFisier() != null && sedintaCD.getFisier().length > 0) {
+			byte[] bytes = sedintaCD.getFisier();
 			InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bytes));
 			MediaType mediaType = MediaTypeFactory
-					.getMediaType(hotarare.getNumeFisier())
+					.getMediaType(sedintaCD.getNumeFisier())
 					.orElse(MediaType.APPLICATION_OCTET_STREAM);
 
 			if(mediaType.isCompatibleWith(MediaType.APPLICATION_PDF) || mediaType.isCompatibleWith(MediaType.parseMediaType("image/*"))) {
@@ -111,7 +108,7 @@ public class RegistrulHCJCController {
 	
 				ContentDisposition disposition = ContentDisposition
 						.inline()
-						.filename(hotarare.getNumeFisier())
+						.filename(sedintaCD.getNumeFisier())
 						.build();
 				headers.setContentDisposition(disposition);
 				return ResponseEntity.ok()

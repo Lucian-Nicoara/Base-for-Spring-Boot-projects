@@ -1,149 +1,371 @@
 <!doctype html>
 <html layout:decorate="template" lang="en" data-bs-theme="light">
 	<div id="main" layout:fragment="content">
-		<div class="container pt-3">
-			<div class="row">
-				<div class="col">
-					<div class="py-2" style="position: relative; height: 50px;">
-						<div class="w-100 text-center" style="position: absolute; ">
-							<h3>Consiliul Director</h3>
-						</div>
-						<div class="pe-2" style="width: 100%; position: absolute; text-align: right;">
-							<button type="button" class="btn btn-primary" onclick="arataModalAdaugaInregHCJC();">Adaugă înregistrare nouă</button>
-						</div>
-					</div> 
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<div class="rounded shadow py-2 px-2 mt-4">
-						<div class="row">
-							<div class="col">
-								<table id="dtHotarariCJC" class="hover" style="width: 100%;">
-									<thead>
-										<tr>
-											<th>Nr.</th>
-											<th>Data</th>
-											<th>Emitent</th>
-											<th>Data comunicării</th>
-											<th>Compartimentul adresat</th>
-											<th>Persoana care a primit-o</th>
-											<th>Data primirii</th>
-											<th>Stadiu</th>
-										</tr>
-									</thead>
-									<tbod>
-									</tbody>
-								</table>
-							</div>
+		<div class="row">
+			<div class="col">
+				<div class="rounded  py-2 px-2">
+					<div class="row">
+						<div class="col">
+							<table id="dtConsiliulDirector" class="display" style="width: 100%;">
+								<thead>
+									<tr>
+										<th style="width:100px; background-color: #ccc;">Ședință</th>
+										<th style="width:100px; background-color: #ccc;">Dată ședință</th>
+										<th style="width:200px; background-color: #ccc;">Subiect</th>
+										<th style="background-color: #ccc;">Note de fundamentare</th>
+										<th style="width:100px; background-color: #ccc;">Hotărâre aviz</th>
+										<th style="width:190px; background-color: #ccc;">Operații</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<tfoot>
+									<tr>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+									</tr>
+								</tfoot>
+							</table>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Modal adaugare hotarareCJC-->
-		<div class="modal fade" id="modalAdaugaHotarareCJC" tabindex="-1" role="dialog" aria-labelledby="modalAdaugaHotarareCJC" aria-hidden="true">
+		
+		<!-- Modal handle HTML Error -->
+		<div class="modal fade" id="modalHandleHtmlError" role="dialog" aria-labelledby="modalHandleHtmlError">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #F00;  font-weight: bold; color:#FFF;">
+						<div id="titluModal" style="width:100%; text-align: center;">Eroare de aplicatie!</div>
+					</div>
+					<div class="modal-body">
+						<span style="font-weight: bold; margin-bottom: 20px;">Vă rugăm să transmiteți această eroare administratorului IT</span>
+						<button class="btn btn-sm btn-success" style="margin-left: 20px;" onclick="copiazaEroarea()"> Copiază eroarea (similar CTRL+C) </button>
+						<br>
+						<div id="divEroareHtml" style="max-height: 400px; overflow: auto; margin-top:20px; padding-left: 30px; padding-right: 30px; background-color: #EEE;"></div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button type="button" class="btn btn-danger" onclick="inchideModalHandleHtmlError()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal incarca fisier sedintaCD-->
+		
+		<!-- Modal adaugare sedintaCD-->
+		<div class="modal fade" id="modalAdaugaSedintaCD" role="dialog" aria-labelledby="modalAdaugaSedintaCD">
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
-						<div id="titluModal" style="width:100%; text-align: center;">Adaugă o hotărâre CJC</div>
+						<div id="titluModal" style="width:100%; text-align: center;">Adaugă o ședință CD</div>
 					</div>
 					<div class="modal-body">
 						<div class="row mb-2">
 							<div class="col-md-2">
-								<label for="nrHotarare" class="fw-bold">Nr. hotărare</label><br>
-								<input id="nrHotarare" class="form-control">
+								<label class="fw-bold">Ședință CD</label><br>
+								<input id="sedintaCD" class="form-control">
 							</div>
 							<div class="col-md-2">
-								<label for="dataHotarare" class="fw-bold">Dată hotărare</label><br>
-								<input id="dataHotarare" class="form-control" onchange="onChangeDataHotarare()">
+								<label class="fw-bold">Dată ședință</label><br>
+								<input id="dataSedintaCD" class="form-control" onchange="onChangeDataSedintaCD()">
 							</div>
 							<div class="col-md-8">
-								<label for="emitentHotarare" class="fw-bold">Emitent</label><br>
-								<input id="emitentHotarare" class="form-control">
+								<label class="fw-bold">Subiect</label><br>
+								<input id="subiectSedintaCD" class="form-control">
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-2">
-								<label for="dataCom" class="fw-bold">Data comunicării</label><br>
-								<input id="dataCom" class="form-control" onchange="onChangeDataComunicarii()">
-							</div>
-							<div class="col-md-3">
-								<label for="compartimentul" class="fw-bold">Compartimentul adresat</label><br>
-								<input id="compartimentul" class="form-control">
-							</div>
-							<div class="col-md-3">
-								<label for="persoanaPrimire" class="fw-bold">Persoana care a primit-o</label><br>
-								<input id="persoanaPrimire" class="form-control">
+							<div class="col-md-10">
+								<label class="fw-bold">Note de fundamentare</label><br>
+								<input id="noteSCD" class="form-control">
 							</div>
 							<div class="col-md-2">
-								<label for="dataPrimirii" class="fw-bold">Data primirii</label><br>
-								<input id="dataPrimirii" class="form-control" onchange="onChangeDataPrimirii()">
-							</div>
-							<div class="col-md-2">
-								<label for="selStadiuHotarare" class="fw-bold">Stadiu</label><br>
-								<select id="selStadiuHotarare" class="selectpicker w-100">
-									<option value="inLucru" selected>În lucru</option>
-									<option value="rezolvat">Rezolvată</option>
+								<label class="fw-bold">Hotărâre/Aviz</label><br>
+								<select id="selHotarareSedinta" class="w-100">
+									<option value="În lucru" selected>În lucru</option>
+									<option value="Aviz" selected>Avizată</option>
+									<option value="Optiunea1">Optiunea1</option>
+									<option value="Optiunea2">Optiunea2</option>
 								</select>
 							</div>
 						</div>
 						<div class="row">
-							<div id="divMesajAdaugaHotarare" class="col-md-12" style="color: red; font-weight: bold;"></div>
+							<div id="divMesajAdaugaSedinta" class="col-md-12" style="color: red; font-weight: bold;"></div>
 						</div>
 					</div>
 					<div class="modal-footer" style="background-color: #EEE;">
-						<button id="btnSalveazaHotarare" type="button" class="btn btn-success" onclick="salveazaHotarareCJC()">Salvează</button>
-						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaHCJC()">Închide</button>
+						<button id="btnSalveazaSedintaCD" type="button" class="btn btn-success" onclick="salveazaSedintaCD()">Salvează</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaSCD()">Închide</button>
 					</div>
 				</div>
 			</div>
-		</div><!-- End modal adaugare hotarareCJC-->
+		</div>
+		<!-- End modal adaugare SedintaCD-->
+		
+		<!-- Modal incarca fisier SedintaCD-->
+		<div class="modal fade" id="modalAdaugaFisierSedintaCD" role="dialog" aria-labelledby="modalAdaugaFisierSedintaCD">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Adaugă fișier ședință CD</div>
+					</div>
+					<form method="POST" enctype="multipart/form-data" id="formFisierSedintaCD">
+					<div class="modal-body">
+						<div style="padding: 15px; box-shadow: 0 8px 6px -6px #eee;">
+							<div class="row mb-2">
+								<div class="col">
+									<label class="fw-bold">Ședință</label><br>
+									<span id="divSedintaCD"></span>
+								</div>
+								<div class="col">
+									<label class="fw-bold">Data</label><br>
+									<span id="divDataSedintaCD"></span>
+								</div>
+								<div class="col">
+									<label class="fw-bold">Subiect</label><br>
+									<span id="divSubiectSedintaCD"></span>
+								</div>
+								<div class="col-md-3">
+									<label class="fw-bold">Note de fundamentare</label><br>
+									<span id="divNoteSedintaCD"></span>
+								</div>
+								<div class="col">
+									<label class="fw-bold">Hotărâre/Aviz</label><br>
+									<span id="divHotarareSedintaCD"></span>
+								</div>
+							</div>
+						</div>
+						<div style="width: 100%; text-align: center; padding: 30px;">
+							<label class="fw-bold">Alege fișierul:</label>
+							<input type="file" id="fisierSedintaCD" name="fisierSedintaCD" style="width: 400px;"/>	
+						</div>
+					</div>
+					</form>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button id="btnSalveazaFisierSedintaCD" type="button" class="btn btn-success" onclick="incarcaFisierul()">Salvează</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaFisierSCD()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal incarca fisier SedintaCD-->
+		
+		<!-- Modal arata fisier SedintaCD-->
+		<div class="modal fade" id="modalArataFisierSCD" role="dialog" aria-labelledby="modalArataFisierSCD">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Fișier ședință CD</div>
+					</div>
+					<div class="modal-body" style="padding: 0px;">
+						<iframe id="embedFisierSCD" class="w-100" style="height:600px;"></iframe>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<a id="linkBtnDescarcaFisierSCD" href="" ><button id="btnDescarcaFisierSCD" type="button" class="btn btn-success">Descarcă fișierul</button></a>
+						<button type="button" class="btn btn-danger" onclick="inchideModalArataFisierSCD()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal arata fisier SedintaCD-->
+		
+		<!-- Modal adaugare note SedintaCD-->
+		<div class="modal fade" id="modalNote" role="dialog" aria-labelledby="modalNote">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Notițe ședință CD</div>
+					</div>
+					<div class="modal-body" style="padding: 0px; max-height: 600px;">
+						<div style="padding: 15px; box-shadow: 0 8px 6px -6px #eee;">
+							<div class="row mb-2">
+								<div class="col">
+									<label class="fw-bold">Ședință</label><br>
+									<span id="divSedintaCD1"></span>
+								</div>
+								<div class="col">
+									<label class="fw-bold">Data</label><br>
+									<span id="divDataSedintaCD1"></span>
+								</div>
+								<div class="col">
+									<label class="fw-bold">Subiect</label><br>
+									<span id="divSubiectSedintaCD1"></span>
+								</div>
+								<div class="col-md-3">
+									<label class="fw-bold">Note de fundamentare</label><br>
+									<span id="divNoteSedintaCD1"></span>
+								</div>
+								<div class="col">
+									<label class="fw-bold">Hotărâre/Aviz</label><br>
+									<span id="divHotarareSedintaCD1"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row mx-0">
+							<div class="col-9">
+								<div id="divNote" class="container d-flex flex-wrap px-3 py-2" style="overflow: auto; max-height: 450px;"> 
+									
+								</div>								
+							</div>
+							<div class="col-3" style="text-align: center;">
+								<div class="card text-dark bg-light mb-2 mt-2 shadow" style="text-align: center;">
+									<div class="card-header fw-bold">Adaugă notiță nouă</div>
+									<div class="card-body">
+										<textarea id="continutNota" class="form-control mb-2" style="width: 100%; height: 200px;" placeholder="Conținut notiță"></textarea>
+										<button id="btnSalveazaNota" type="button" class="btn btn-light shadow" onclick="adaugaNota()">Salvează notița</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button type="button" class="btn btn-danger" onclick="inchideModalNote()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal adaugare SedintaCD-->
+		
 	</div>
 </html>
 <script th:inline="javascript">
 	var token = $("meta[name='_csrf']").attr("content");
-	var mesajAdaugaHotarare = "";
-	var dtHotarariCJC = null;
+	//var mesajAdaugaSedinta = "";
+	var dtConsiliulDirector = null;
+	var sedintaCdCurenta = null;
 	
 	$(document).ready(function() {
-		console.log("Consiliul director ready!");
+		console.log("Sedinte consiliul director - ready!");
+		$("#divTitluPagina").html("Ședințe Consiliul Director");
+		<!--Activare bootstrap tooltips-->
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl)
+		});
+			
 		$(".btnMenu").removeClass("btn-primary");
 		$("#menuEntryConsDir").removeClass("btn-light");
 		$("#menuEntryConsDir").addClass("btn-primary");
-		incarcaDtHotarariCJC();
+		incarcaDtConsiliulDirector();
 	});
-	function incarcaDtHotarariCJC(){
-		if ($.fn.DataTable.isDataTable('#dtHotarariCJC')) {
-			$('#dtHotarariCJC').DataTable().clear().destroy();
-		}
-		$("#dtHotarariCJC").DataTable({
-			language: {
-				url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/ro.json"
-			},
-			paging: true,
-			order: false,
-			lengthChange: false,
-			ajax: "/getHotarariCJC",
-			columns: [
-			        { data: "nrHotarare" },
-			        { data: "dataHotarare" },
-			        { data: "emitent" },
-			        { data: "dataComunicarii" },
-			        { data: "compartimentulAdresat" },
-					{ data: "persoanaPrimire"},
-					{ data: "dataPrimirii"},
-					{ data: "stadiu"}
-			]
+	
+	function handleHtmlError(htmlError){
+		$(".modal").modal("hide");
+		$("#divEroareHtml").html(htmlError);
+		$("#modalHandleHtmlError").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function inchideModalHandleHtmlError(){
+		$("#divEroareHtml").html("");
+		$("#modalHandleHtmlError").modal("hide");
+		window.location.reload();
+	}
+	
+	function copiazaEroarea(){
+		navigator.clipboard.writeText($("#divEroareHtml").html()).then(function () {
+		    alert("Textul a fost copiat. Poti folosi CTRL+V")
+		}, function () {
+		    alert("Textul nu a putut fi copiat. Trebuie selectat si copiat manual.")
 		});
 	}
 	
-	function arataModalAdaugaInregHCJC(){
-		$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+	function incarcaDtConsiliulDirector(){
+		if ($.fn.DataTable.isDataTable("#dtConsiliulDirector")) {
+			$("#dtConsiliulDirector").DataTable().clear().destroy();
+		}
+		dtConsiliulDirector = $("#dtConsiliulDirector").DataTable({
+			language: {
+				url: 'https://cdn.datatables.net/plug-ins/2.3.3/i18n/ro.json',
+			},
+			layout: {
+				topStart: {
+					buttons: [
+						{
+							text: 'Adaugă înregistrare nouă',
+							action: function (e, dt, node, config) {
+								arataModalAdaugaInregSCD();
+							}
+						},
+						"excel", 
+						{extend: 'pdfHtml5',
+                    		orientation: 'landscape',
+                    		pageSize: 'A4',
+							exportOptions: {
+								columns: [0, 1, 2, 3, 4]
+							}
+                    	}
+                    ]
+				}
+			},
+			autoWidth: false,
+			paging: true,
+			order: false,
+			lengthChange: false,
+			ajax: "/sedinteCD/getSedinteCD",
+			drawCallback:function(){
+				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+					return new bootstrap.Tooltip(tooltipTriggerEl)
+				});
+			},
+			columns: [
+			        { data: "sedinta" },
+			        { data: "dataSedinta" },
+			        { data: "subiect" },
+			        { data: "noteDeFundamentare" },
+			        { data: "hotarareAviz" },
+					{ data: 
+						null, 
+						render: function (data, type, row, meta) {
+							var arataBtnArataFisier = "";
+							if(data.numeFisier != null && data.numeFisier != ""){
+								arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Afișează fișierul" onclick="arataModalArataFisierSCD(' + meta.row + ')"></i>';
+							}
+							return ''
+							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareSedintaCD(' + meta.row + ')"></i>'
+							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
+							+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Încarcă fișier" onclick="arataModalAdaugaFisierSCD(' + meta.row + ')"></i>'
+							+ arataBtnArataFisier
+							+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeSedintaCD(' + meta.row + ')"></i>';
+						}
+					}
+			]
+		});
+		//adauga filtre coloane
+		$("#dtConsiliulDirector tfoot th").each(function (i) {
+			if(i < ($("#dtConsiliulDirector tfoot th").length - 1)){
+				var title = $("#dtConsiliulDirector thead th").eq($(this).index()).text();
+				$(this).html('<input class="form-control" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
+			}
+		});
+		$("#dtConsiliulDirector").on("keyup", "tfoot input",function () {
+			dtConsiliulDirector.column($(this).data('index')).search(this.value).draw();
+		});
 	}
 	
-	function inchideModalAdaugaHCJC(){
-		$("#modalAdaugaHotarareCJC").modal("hide");
+	function arataModalAdaugaInregSCD(){
+		$("#sedintaCD").val("");
+		$("#dataSedintaCD").val("");
+		$("#subiectSedintaCD").val("");
+		$("#noteSCD").val("");
+		$("#selHotarareSedinta").val("În lucru").select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaSedintaCD"), 
+			minimumResultsForSearch: -1
+		});
+		$("#modalAdaugaSedintaCD").modal({backdrop: "static", keyboard: false}).modal("show");
+		setTimeout(function(){
+			$("#sedintaCD").focus();
+		}, 200);
+	}
+	
+	function inchideModalAdaugaSCD(){
+		$("#modalAdaugaSedintaCD").modal("hide");
 	}
 	
 	function verificaData(dataInput){
@@ -172,105 +394,247 @@
 		}
 	}
 	
-	function onChangeDataHotarare(){
-		if(verificaData($("#dataHotarare").val()) != "ok"){
-			//$("#dataHotarare").val("dd.mm.yyyy");
-			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul dată hotărâre trebuie să fie în formatul dd.mm.yyyy!");
-			$("#btnSalveazaHotarare").prop("disabled", true);
+	function onChangeDataSedintaCD(){
+		if(verificaData($("#dataSedintaCD").val()) != "ok"){
+			$("#divMesajAdaugaSedinta").html("Eroare!<br>Câmpul dată hotărâre trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaSedintaCD").prop("disabled", true);
 		}else{
-			$("#divMesajAdaugaHotarare").html("");
-			$("#btnSalveazaHotarare").prop("disabled", false);
+			$("#divMesajAdaugaSedinta").html("");
+			$("#btnSalveazaSedintaCD").prop("disabled", false);
 		}
 	}
 	
-	function onChangeDataComunicarii(){
-		if(verificaData($("#dataCom").val()) != "ok"){
-			//$("#dataCom").val("dd.mm.yyyy");
-			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul data comunicării trebuie să fie în formatul dd.mm.yyyy!");
-			$("#btnSalveazaHotarare").prop("disabled", true);
-		}else{
-			$("#divMesajAdaugaHotarare").html("");
-			$("#btnSalveazaHotarare").prop("disabled", false);
-		}
-	}
-	
-	function onChangeDataPrimirii(){
-		if(verificaData($("#dataPrimirii").val()) != "ok"){
-			//$("#dataPrimirii").val("dd.mm.yyyy");
-			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul data primirii trebuie să fie în formatul dd.mm.yyyy!");
-			$("#btnSalveazaHotarare").prop("disabled", true);
-		}else{
-			$("#divMesajAdaugaHotarare").html("");
-			$("#btnSalveazaHotarare").prop("disabled", false);
-		}
-	}
-
-	function salveazaHotarareCJC(){
-		var eroareValidare = false;		
-		if(!$("#nrHotarare").val()){
+	function salveazaSedintaCD(){
+		var eroareValidare = false;
+		var urlSalvare = "/sedinteCD/postSedintaCD";
+		if(!$("#sedintaCD").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul nr. hotărâre");
+			$("#divMesajAdaugaSedinta").html("Completează câmpul ședință");
 			return;
 		}
-		if(verificaData($("#dataHotarare").val()) != "ok"){
+		if(verificaData($("#dataSedintaCD").val()) != "ok"){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul dată hotărâre");
+			$("#divMesajAdaugaSedinta").html("Completează câmpul dată ședință");
 			return;
 		}
-		if(!$("#emitentHotarare").val()){
+		if(!$("#subiectSedintaCD").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul emitent");
+			$("#divMesajAdaugaSedinta").html("Completează câmpul subiect");
 			return;
 		}
-		if(verificaData($("#dataCom").val()) != "ok"){
-			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul data comunicării");
-			return;
-		}
-		if(!$("#compartimentul").val()){
-			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul compartimentul adresat");
-			return;
-		}
-		if(!$("#persoanaPrimire").val()){
-			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul persoana primire");
-			return;
-		}
-		if(verificaData($("#dataPrimirii").val()) != "ok"){
-			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul data primirii");
-			return;
-		}
+		
 		if(!eroareValidare){
-			var hotarareCJC = {
-					"nrHotarare": $("#nrHotarare").val(),
-					"dataHotarare": $("#dataHotarare").val(),
-					"emitent": $("#emitentHotarare").val(),
-					"dataComunicarii": $("#dataCom").val(),
-					"compartimentulAdresat": $("#compartimentul").val(),
-					"persoanaPrimire": $("#persoanaPrimire").val(),
-					"dataPrimirii": $("#dataPrimirii").val(),
-					"stadiu": $("#selStadiuHotarare").val(),
+			var sedintaCD = {
+					"sedinta": $("#sedintaCD").val(),
+					"dataSedinta": $("#dataSedintaCD").val(),
+					"subiect": $("#subiectSedintaCD").val(),
+					"noteDeFundamentare": $("#noteSCD").val(),
+					"hotarareAviz": $("#selHotarareSedinta").val()
 				};
-			console.log("hotarareCJC");
-			console.log(hotarareCJC);
+			var resetPaging = true;
+			if(sedintaCdCurenta != null && sedintaCdCurenta.id != null){
+				urlSalvare = "/sedinteCD/putSedintaCD";
+				sedintaCD.id = sedintaCdCurenta.id;
+				resetPaging = false;
+			}
 			$.ajax({
-				url: "/postHotarareCJC",
+				url: urlSalvare,
 				type: "POST",
 				headers: {"X-CSRF-TOKEN": token},
 				contentType: "application/json",
-				data: JSON.stringify(hotarareCJC),
+				data: JSON.stringify(sedintaCD),
 				success: function(response) {
-					inchideModalAdaugaHCJC();
-					incarcaDtHotarariCJC();
+					inchideModalAdaugaSCD();
+					dtConsiliulDirector.ajax.reload(null, resetPaging);
 				},
 				error: function(response){
-					alert("Eroare!");
+					handleHtmlError(response.responseText);
 				}
 			});
 		}else{
 			alert("Formularul nu este completat corect! Datele nu pot fi salvate.");
 		}
 	}
+	
+	function editareSedintaCD(rowIndex){
+		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
+		
+		$("#sedintaCD").val(sedintaCdCurenta.sedinta);
+		$("#dataSedintaCD").val(sedintaCdCurenta.dataSedinta);
+		$("#subiectSedintaCD").val(sedintaCdCurenta.subiect);
+		$("#noteSCD").val(sedintaCdCurenta.noteDeFundamentare);
+		$("#selHotarareSedinta").val(sedintaCdCurenta.hotarareAviz).select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaSedintaCD"),
+			minimumResultsForSearch: -1
+		});
+		
+		$("#modalAdaugaSedintaCD").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function arataModalAdaugaFisierSCD(rowIndex){
+		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
+		$("#divSedintaCD").html(sedintaCdCurenta.sedinta + " / " + sedintaCdCurenta.dataSedinta);
+		$("#divSubiectSedintaCD").html(sedintaCdCurenta.subiect);
+		$("#divNoteSedintaCD").html(sedintaCdCurenta.noteDeFundamentare);
+		$("#divHotarareSedintaCD").html(sedintaCdCurenta.hotarareAviz);
+		
+		$("#fisierSedintaCD").val("");
+		$("#modalAdaugaFisierSedintaCD").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+
+	function inchideModalAdaugaFisierSCD(){
+		$("#fisierSedintaCD").val("");
+		$("#modalAdaugaFisierSedintaCD").modal("hide");
+	}
+	
+	function incarcaFisierul(rowIndex){
+		var form = $("#formFisierSedintaCD")[0];
+		var data = new FormData(form);
+		data.append("idSedinta", sedintaCdCurenta.id);
+
+		$.ajax({
+			url : "/sedinteCD/incarcaFisier",
+			headers: {"X-CSRF-TOKEN": token},
+			type : "POST",
+			data: data,
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			cache: false,
+			success : function(data) {
+				if(data == "ok"){
+					inchideModalAdaugaFisierSCD();
+					dtConsiliulDirector.ajax.reload(null, false);
+				}
+			},
+			error: function(eroare) {
+				handleHtmlError(response.responseText);
+			}
+		});
+	}
+	
+	function arataModalNote(rowIndex){
+		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
+		$("#divSedintaCD").html(sedintaCdCurenta.sedinta + " / " + sedintaCdCurenta.dataSedinta);
+		$("#divSubiectSedintaCD").html(sedintaCdCurenta.subiect);
+		$("#divNoteSedintaCD").html(sedintaCdCurenta.noteDeFundamentare);
+		$("#divHotarareSedintaCD").html(sedintaCdCurenta.hotarareAviz);
+		
+		incarcaNote(sedintaCdCurenta.id, "registrulSCD");
+	}
+	
+	function incarcaNote(id, entitate){
+		$.ajax({
+			url: "/note/getNote?id=" + id + "&entitate=" + entitate,
+			type: "GET",
+			success: function(response) {
+				var htmlNote = "";
+				for (const nota of response) {
+					htmlNote += '<div class="card text-dark bg-light mb-3 shadow" style="max-width: 18rem; margin-right: 20px;">'
+						+ '<div class="card-header fw-bold ">' + nota.data + ' ' + nota.persoana.prenume + ' ' + nota.persoana.nume + ':</div>'
+						+ '<div class="card-body">'
+						+	'<p class="card-text">' + nota.text + '</p>'
+						+ '</div>'
+					+'</div>';
+				}
+				
+				$("#divNote").html(htmlNote);
+				$("#modalNote").modal({backdrop: "static", keyboard: false}).modal("show");
+			},
+			error: function(response){
+				handleHtmlError(response.responseText);
+			}
+		});
+	}
+	
+	function inchideModalNote(){
+		$("#divNote").html("");
+		$("#continutNota").val("");
+		$("#modalNote").modal("hide");
+		sedintaCdCurenta = null;
+	}
+	
+	function adaugaNota(){
+		if($("#continutNota").val()){
+			var nota = {
+					"idEntitate": sedintaCdCurenta.id,
+					"entitate": "registrulSCD",
+					"text": $("#continutNota").val(),
+				};
+			$.ajax({
+				url: "/note/postNota",
+				type: "POST",
+				headers: {"X-CSRF-TOKEN": token},
+				contentType: "application/json",
+				data: JSON.stringify(nota),
+				success: function(response) {
+					if(response == "ok"){
+						$("#continutNota").val("");
+						incarcaNote(sedintaCdCurenta.id, "registrulSCD");
+					}else{
+						alert("Nota nu a fost salvata! Eroare de aplicatie.");
+					}
+				},
+				error: function(response){
+					handleHtmlError(response.responseText);
+				}
+			});
+		}else{
+			alert("Completați conținutul! Nota nu a fost salvată.");
+		}
+	}
+	
+	function stergeSedintaCD(rowIndex){
+		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
+		bootbox.confirm({
+			title: "Șterg?",
+			message: "Sunteți sigur că doriți ștergerea ședinței " + sedintaCdCurenta.sedinta + " / " + sedintaCdCurenta.dataSedinta + " ?",
+			buttons: {
+				confirm: {
+					label: 'Da',
+					className: 'btn-danger'
+				},
+				cancel: {
+					label: 'Nu',
+					className: 'btn-success'
+				}
+			},
+			callback: function(confirmare){
+				if(confirmare){
+					$.ajax({
+						url: "/sedinteCD/stergeSedintaCD",
+						type: "POST",
+						headers: {"X-CSRF-TOKEN": token},
+						contentType: "application/json",
+						data: sedintaCdCurenta.id,
+						success: function(response) {
+							if(response == "ok"){
+								dtConsiliulDirector.ajax.reload(null, false);
+							}else{
+								alert("Ștergerea nu a fost efectuată! Eroare de aplicație.");
+							}
+						},
+						error: function(response){
+							handleHtmlError(response.responseText);
+						}
+					});
+				}
+			}
+		});
+	}
+	
+	function arataModalArataFisierSCD(rowIndex){
+		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
+		$("#embedFisierSCD").attr("src", "/sedinteCD/arataFisier/"+sedintaCdCurenta.id);
+		$("#linkBtnDescarcaFisierSCD").attr("href", "/sedinteCD/downloadFisier/"+sedintaCdCurenta.id);
+		
+		$("#modalArataFisierSCD").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function inchideModalArataFisierSCD(){
+		$("#modalArataFisierSCD").modal("hide");
+		sedintaCdCurenta = null;
+	}
+	
 </script>
