@@ -45,4 +45,10 @@ public class MainController {
 	public String consiliulDirector(Model model) {
 		return "pages/consiliul-director";
 	}
+	
+	@PreAuthorize("hasAuthority('OpEvidentaCH')")
+	@GetMapping("/evidenta-ch")
+	public String evidentaCH(Model model) {
+		return "pages/evidenta-ch";
+	}
 }

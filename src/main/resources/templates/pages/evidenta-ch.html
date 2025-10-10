@@ -322,7 +322,7 @@
 			paging: true,
 			order: false,
 			lengthChange: false,
-			ajax: "/evidentaCH/getEvidentaCH",
+			ajax: "/evidenta-ch/getEvidentaCH",
 			drawCallback:function(){
 				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -433,7 +433,7 @@
 	
 	function salveazaCH(){
 		var eroareValidare = false;
-		var urlSalvare = "/evidentaCH/postCH";
+		var urlSalvare = "/evidenta-ch/postCH";
 		if(verificaData($("#dataComisieCH").val()) != "ok"){
 			eroareValidare = true;
 			$("#divMesajAdaugaCH").html("Completează câmpul dată ședință");
@@ -473,7 +473,7 @@
 				};
 			var resetPaging = true;
 			if(copilCurent != null && copilCurent.id != null){
-				urlSalvare = "/evidentaCH/putCH";
+				urlSalvare = "/evidenta-ch/putCH";
 				sedintaCD.id = copilCurent.id;
 				resetPaging = false;
 			}
@@ -617,7 +617,7 @@
 			callback: function(confirmare){
 				if(confirmare){
 					$.ajax({
-						url: "/evidentaCH/stergeCH",
+						url: "/evidenta-ch/stergeCH",
 						type: "POST",
 						headers: {"X-CSRF-TOKEN": token},
 						contentType: "application/json",
