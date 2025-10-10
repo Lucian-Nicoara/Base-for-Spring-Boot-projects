@@ -1,0 +1,640 @@
+<!doctype html>
+<html layout:decorate="template" lang="en" data-bs-theme="light">
+	<div id="main" layout:fragment="content">
+		<div class="row">
+			<div class="col">
+				<div class="rounded  py-2 px-2">
+					<div class="row">
+						<div class="col">
+							<table id="dtEvidentaCH" class="display" style="width: 100%;">
+								<thead>
+									<tr>
+										<th style="width:100px; background-color: #ccc;">Nr. crt.</th>
+										<th style="width:100px; background-color: #ccc;">Dată comisie</th>
+										<th style="width:200px; background-color: #ccc;">Nume</th>
+										<th style="width:200px; background-color: #ccc;">Prenume</th>
+										<th style="width:100px; background-color: #ccc;">Sex</th>
+										<th style="width:100px; background-color: #ccc;">Data nașterii</th>
+										<th style="width:100px; background-color: #ccc;">CNP</th>
+										<th style="width:100px; background-color: #ccc;">Domiciliu</th>
+										<th style="width:100px; background-color: #ccc;">Diagnostic</th>
+										<th style="width:100px; background-color: #ccc;">COD CIM</th>
+										<th style="width:100px; background-color: #ccc;">Tip handicap</th>
+										<th style="width:100px; background-color: #ccc;">Grad handicap</th>
+										<th style="width:100px; background-color: #ccc;">Însoțitor</th>
+										<th style="width:100px; background-color: #ccc;">Școlarizat</th>
+										<th style="width:100px; background-color: #ccc;">Vârstă</th>
+										<th style="width:100px; background-color: #ccc;">Caz nou</th>
+										<th style="width:100px; background-color: #ccc;">Locul unde se află</th>
+										<th style="width:100px; background-color: #ccc;">Categorie afecțiune</th>
+										<th style="width:100px; background-color: #ccc;">Valabilitate certificat</th>
+										<th style="width:100px; background-color: #ccc;">Valabil în prezent</th>
+										<th style="width:100px; background-color: #ccc;">Status transfer</th>
+										<th style="width:190px; background-color: #ccc;">Operații</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<tfoot>
+									<tr>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Modal handle HTML Error -->
+		<div class="modal fade" id="modalHandleHtmlError" role="dialog" aria-labelledby="modalHandleHtmlError">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #F00;  font-weight: bold; color:#FFF;">
+						<div id="titluModal" style="width:100%; text-align: center;">Eroare de aplicatie!</div>
+					</div>
+					<div class="modal-body">
+						<span style="font-weight: bold; margin-bottom: 20px;">Vă rugăm să transmiteți această eroare administratorului IT</span>
+						<button class="btn btn-sm btn-success" style="margin-left: 20px;" onclick="copiazaEroarea()"> Copiază eroarea (similar CTRL+C) </button>
+						<br>
+						<div id="divEroareHtml" style="max-height: 400px; overflow: auto; margin-top:20px; padding-left: 30px; padding-right: 30px; background-color: #EEE;"></div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button type="button" class="btn btn-danger" onclick="inchideModalHandleHtmlError()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal HTML Error-->
+		
+		<!-- Modal adaugare-->
+		<div class="modal fade" id="modalAdaugaCH" role="dialog" aria-labelledby="modalAdaugaCH">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Adaugă copil cu handicap</div>
+					</div>
+					<div class="modal-body">
+						<div class="row mb-2">
+							<div class="col-md-2">
+								<label class="fw-bold">Dată comisie</label><br>
+								<input id="dataComisieCH" class="form-control" onchange="onChangeDataComisieCH()">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Nume</label><br>
+								<input id="numeCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Prenume</label><br>
+								<input id="prenumeCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Sex</label><br>
+								<select id="selSexCH" class="w-100">
+									<option value="M" selected>M</option>
+									<option value="F">F</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Dată nașterii</label><br>
+								<input id="dataNasteriiCH" class="form-control" onchange="onChangeDataNasteriiCH()">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">CNP</label><br>
+								<input id="cnpCH" class="form-control">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<label class="fw-bold">Domiciliu</label><br>
+								<input id="domiciliuCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Diagnostic</label><br>
+								<input id="diagnosticCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Cod CIM</label><br>
+								<input id="codCimCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Tip handicap</label><br>
+								<input id="tipHandicapCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Grad handicap</label><br>
+								<input id="gradHandicapCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Însoțitor</label><br>
+								<input id="insotitorCH" class="form-control">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<label class="fw-bold">Școlarizat</label><br>
+								<input id="scolarizatCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Caz nou</label><br>
+								<input id="cazNouCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Locul unde se află</label><br>
+								<input id="loculCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Categorie afecțiune</label><br>
+								<input id="categorieAfectiuneCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Valabilitate certificat</label><br>
+								<input id="valabilitateCertificatCH" class="form-control">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Status transfer</label><br>
+								<select id="selHotarareSedinta" class="w-100">
+									<option value="În evidență" selected>În evidență</option>
+									<option value="Transferat">Transferat</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div id="divMesajAdaugaCH" class="col-md-12" style="color: red; font-weight: bold;"></div>
+						</div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button id="btnSalveazaCH" type="button" class="btn btn-success" onclick="salveazaCH()">Salvează</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaCH()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal adaugare-->
+		
+		<!-- Modal adaugare note-->
+		<div class="modal fade" id="modalNote" role="dialog" aria-labelledby="modalNote">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Notițe copil</div>
+					</div>
+					<div class="modal-body" style="padding: 0px; max-height: 600px;">
+						<div style="padding: 15px; box-shadow: 0 8px 6px -6px #eee;">
+							<div class="row mb-2">
+								<div class="col">
+									<label class="fw-bold">Nume copil</label><br>
+									<span id="divNumeCH"></span>
+								</div>
+								<div class="col">
+									<label class="fw-bold">Sex</label><br>
+									<span id="divSexCH"></span>
+								</div>
+								<div class="col">
+									<label class="fw-bold">CNP</label><br>
+									<span id="divCNPCH"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row mx-0">
+							<div class="col-9">
+								<div id="divNote" class="container d-flex flex-wrap px-3 py-2" style="overflow: auto; max-height: 450px;"> 
+									
+								</div>								
+							</div>
+							<div class="col-3" style="text-align: center;">
+								<div class="card text-dark bg-light mb-2 mt-2 shadow" style="text-align: center;">
+									<div class="card-header fw-bold">Adaugă notiță nouă</div>
+									<div class="card-body">
+										<textarea id="continutNota" class="form-control mb-2" style="width: 100%; height: 200px;" placeholder="Conținut notiță"></textarea>
+										<button id="btnSalveazaNota" type="button" class="btn btn-light shadow" onclick="adaugaNota()">Salvează notița</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button type="button" class="btn btn-danger" onclick="inchideModalNote()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal adaugare note-->
+		
+	</div>
+</html>
+<script th:inline="javascript">
+	var token = $("meta[name='_csrf']").attr("content");
+	var dtEvidentaCH = null;
+	var copilCurent = null;
+	
+	$(document).ready(function() {
+		console.log("Evidenta copii handicap - ready!");
+		$("#divTitluPagina").html("Evidență copii handicap");
+		<!--Activare bootstrap tooltips-->
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl)
+		});
+			
+		$(".btnMenu").removeClass("btn-primary");
+		$("#menuEntryEvidentaCH").removeClass("btn-light");
+		$("#menuEntryEvidentaCH").addClass("btn-primary");
+		incarcaDtEvidentaCH();
+	});
+	
+	function handleHtmlError(htmlError){
+		$(".modal").modal("hide");
+		$("#divEroareHtml").html(htmlError);
+		$("#modalHandleHtmlError").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function inchideModalHandleHtmlError(){
+		$("#divEroareHtml").html("");
+		$("#modalHandleHtmlError").modal("hide");
+		window.location.reload();
+	}
+	
+	function copiazaEroarea(){
+		navigator.clipboard.writeText($("#divEroareHtml").html()).then(function () {
+		    alert("Textul a fost copiat. Poti folosi CTRL+V")
+		}, function () {
+		    alert("Textul nu a putut fi copiat. Trebuie selectat si copiat manual.")
+		});
+	}
+	
+	function incarcaDtEvidentaCH(){
+		if ($.fn.DataTable.isDataTable("#dtEvidentaCH")) {
+			$("#dtEvidentaCH").DataTable().clear().destroy();
+		}
+		dtEvidentaCH = $("#dtEvidentaCH").DataTable({
+			language: {
+				url: 'https://cdn.datatables.net/plug-ins/2.3.3/i18n/ro.json',
+			},
+			layout: {
+				topStart: {
+					buttons: [
+						{
+							text: 'Adaugă înregistrare nouă',
+							action: function (e, dt, node, config) {
+								arataModalAdaugaInregCH();
+							}
+						},
+						//"excel",
+						{extend: 'excelHtml5',
+							title: 'DGASPC_Evidenta_CH_' + getTodayDate(),
+							exportOptions: {
+								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+							}
+						},
+						{extend: 'pdfHtml5',
+                    		title: 'DGASPC_Evidenta_CH_' + getTodayDate(),
+							orientation: 'landscape',
+                    		pageSize: 'A4',
+							exportOptions: {
+								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+							}
+                    	}
+                    ]
+				}
+			},
+			autoWidth: false,
+			paging: true,
+			order: false,
+			lengthChange: false,
+			ajax: "/evidentaCH/getEvidentaCH",
+			drawCallback:function(){
+				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+					return new bootstrap.Tooltip(tooltipTriggerEl)
+				});
+			},
+			columns: [
+			        { data: "dataComisie" },
+			        { data: "nume" },
+			        { data: "prenume" },
+			        { data: "sex" },
+			        { data: "dataNasterii" },
+			        { data: "cnp" },
+			        { data: "domiciliu" },
+			        { data: "diagnostic" },
+			        { data: "codCim" },
+			        { data: "tipHandicap" },
+			        { data: "gradHandicap" },
+			        { data: "insotitor" },
+			        { data: "scolarizat" },
+			        { data: "varsta" },
+			        { data: "cazNou" },
+			        { data: "locul" },
+			        { data: "categoriiDeAfectiune" },
+			        { data: "valabilitateCertificat" },
+			        { data: "valabilitateInPrezent" },
+			        { data: "statusTransfer" },
+					{ data: 
+						null, 
+						render: function (data, type, row, meta) {
+							return ''
+								+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareCH(' + meta.row + ')"></i>'
+								+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
+								+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeCH(' + meta.row + ')"></i>';
+						}
+					}
+			]
+		});
+		//adauga filtre coloane
+		$("#dtEvidentaCH tfoot th").each(function (i) {
+			if(i < ($("#dtEvidentaCH tfoot th").length - 1)){
+				var title = $("#dtEvidentaCH thead th").eq($(this).index()).text();
+				$(this).html('<input class="form-control" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
+			}
+		});
+		$("#dtEvidentaCH").on("keyup", "tfoot input",function () {
+			dtEvidentaCH.column($(this).data('index')).search(this.value).draw();
+		});
+	}
+	
+	function arataModalAdaugaInregCH(){
+		$("#dataComisieCH").val("");
+		$("#numeCH").val("");
+		$("#prenumeCH").val("");
+		$("#selSexCH").val("M").select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaCH"), 
+			minimumResultsForSearch: -1
+		});
+		$("#dataNasteriiCH").val("");
+		$("#cnpCH").val("");
+		$("#domiciliuCH").val("");
+		$("#diagnosticCH").val("");
+		$("#codCimCH").val("");
+		$("#tipHandicapCH").val("");
+		$("#gradHandicapCH").val("");
+		$("#insotitorCH").val("");
+		$("#scolarizatCH").val("");
+		$("#cazNouCH").val("");
+		$("#loculCH").val("");
+		$("#categorieAfectiuneCH").val("");
+		$("#valabilitateCertificatCH").val("");
+		$("#selStatusTransfer").val("").select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaCH"), 
+			minimumResultsForSearch: -1
+		});
+				
+		$("#modalAdaugaCH").modal({backdrop: "static", keyboard: false}).modal("show");
+		setTimeout(function(){
+			$("#dataComisieCH").focus();
+		}, 200);
+	}
+	
+	function inchideModalAdaugaCH(){
+		$("#modalAdaugaCH").modal("hide");
+	}
+	
+	function onChangeDataComisieCH(){
+		if(verificaData($("#dataComisieCH").val()) != "ok"){
+			$("#divMesajAdaugaCH").html("Eroare!<br>Câmpul dată comisie trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaCH").prop("disabled", true);
+		}else{
+			$("#divMesajAdaugaCH").html("");
+			$("#btnSalveazaCH").prop("disabled", false);
+		}
+	}
+	
+	function onChangeDataNasteriiCH(){
+		if(verificaData($("#dataNasteriiCH").val()) != "ok"){
+			$("#divMesajAdaugaCH").html("Eroare!<br>Câmpul data nașterii trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaCH").prop("disabled", true);
+		}else{
+			$("#divMesajAdaugaCH").html("");
+			$("#btnSalveazaCH").prop("disabled", false);
+		}
+	}
+	
+	function salveazaCH(){
+		var eroareValidare = false;
+		var urlSalvare = "/evidentaCH/postCH";
+		if(verificaData($("#dataComisieCH").val()) != "ok"){
+			eroareValidare = true;
+			$("#divMesajAdaugaCH").html("Completează câmpul dată ședință");
+			return;
+		}
+		if(!$("#numeCH").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaCH").html("Completează câmpul nume");
+			return;
+		}
+		if(!$("#prenumeCH").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaCH").html("Completează câmpul prenume");
+			return;
+		}
+		
+		if(!eroareValidare){
+			var sedintaCD = {
+					"dataComisie": $("#dataComisieCH").val(),
+					"nume": $("#numeCH").val(),
+					"prenume": $("#prenumeCH").val(),
+					"sex": $("#selSexCH").val(),
+					"dataNasterii": $("#dataNasteriiCH").val(),
+					"cnp": $("#cnpCH").val(),
+					"domiciliu": $("#domiciliuCH").val(),
+					"diagnostic": $("#diagnosticCH").val(),
+					"codCim": $("#codCimCH").val(),
+					"tipHandicap": $("#tipHandicapCH").val(),
+					"gradHandicap": $("#gradHandicapCH").val(),
+					"insotitor": $("#insotitorCH").val(),
+					"scolarizat": $("#scolarizatCH").val(),
+					"cazNou": $("#cazNouCH").val(),
+					"locul": $("#loculCH").val(),
+					"categoriiDeAfectiune": $("#categorieAfectiuneCH").val(),
+					"valabilitateCertificat": $("#valabilitateCertificatCH").val(),
+					"statusTransfer": $("#selStatusTransfer").val(),
+				};
+			var resetPaging = true;
+			if(copilCurent != null && copilCurent.id != null){
+				urlSalvare = "/evidentaCH/putCH";
+				sedintaCD.id = copilCurent.id;
+				resetPaging = false;
+			}
+			$.ajax({
+				url: urlSalvare,
+				type: "POST",
+				headers: {"X-CSRF-TOKEN": token},
+				contentType: "application/json",
+				data: JSON.stringify(sedintaCD),
+				success: function(response) {
+					inchideModalAdaugaCH();
+					dtEvidentaCH.ajax.reload(null, resetPaging);
+				},
+				error: function(response){
+					handleHtmlError(response.responseText);
+				}
+			});
+		}else{
+			alert("Formularul nu este completat corect! Datele nu pot fi salvate.");
+		}
+	}
+	
+	function editareCH(rowIndex){
+		copilCurent = dtEvidentaCH.row(rowIndex).data();
+		
+		$("#dataComisieCH").val(copilCurent.dataComisie);
+		$("#numeCH").val(copilCurent.nume);
+		$("#prenumeCH").val(copilCurent.prenume);
+		$("#selSexCH").val(copilCurent.sex).select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaCH"),
+			minimumResultsForSearch: -1
+		});
+		$("#dataNasteriiCH").val(copilCurent.dataNasterii);
+		$("#cnpCH").val(copilCurent.cnp);
+		$("#domiciliuCH").val(copilCurent.domiciliu);
+		$("#diagnosticCH").val(copilCurent.diagnostic);
+		$("#codCimCH").val(copilCurent.codCim);
+		$("#tipHandicapCH").val(copilCurent.tipHandicap);
+		$("#gradHandicapCH").val(copilCurent.gradHandicap);
+		$("#insotitorCH").val(copilCurent.insotitor);
+		$("#scolarizatCH").val(copilCurent.scolarizat);
+		$("#cazNouCH").val(copilCurent.cazNou);
+		$("#loculCH").val(copilCurent.locul);
+		$("#categorieAfectiuneCH").val(copilCurent.categoriiDeAfectiune);
+		$("#valabilitateCertificatCH").val(copilCurent.valabilitateCertificat);
+		$("#selStatusTransfer").val(copilCurent.statusTransfer).select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaCH"),
+			minimumResultsForSearch: -1
+		});
+		$("#modalAdaugaCH").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function arataModalNote(rowIndex){
+		copilCurent = dtEvidentaCH.row(rowIndex).data();
+		$("#divNumeCH").html(copilCurent.sedinta);
+		$("#divSexCH").html(copilCurent.dataSedinta);
+		$("#divCNPCH").html(copilCurent.subiect);		
+		incarcaNote(copilCurent.id, "evidentaCH");
+	}
+	
+	function incarcaNote(id, entitate){
+		$.ajax({
+			url: "/note/getNote?id=" + id + "&entitate=" + entitate,
+			type: "GET",
+			success: function(response) {
+				var htmlNote = "";
+				for (const nota of response) {
+					htmlNote += '<div class="card text-dark bg-light mb-3 shadow" style="max-width: 18rem; margin-right: 20px;">'
+						+ '<div class="card-header fw-bold ">' + nota.data + ' ' + nota.persoana.prenume + ' ' + nota.persoana.nume + ':</div>'
+						+ '<div class="card-body">'
+						+	'<p class="card-text">' + nota.text + '</p>'
+						+ '</div>'
+					+'</div>';
+				}
+				
+				$("#divNote").html(htmlNote);
+				$("#modalNote").modal({backdrop: "static", keyboard: false}).modal("show");
+			},
+			error: function(response){
+				handleHtmlError(response.responseText);
+			}
+		});
+	}
+	
+	function inchideModalNote(){
+		$("#divNote").html("");
+		$("#continutNota").val("");
+		$("#modalNote").modal("hide");
+		copilCurent = null;
+	}
+	
+	function adaugaNota(){
+		if($("#continutNota").val()){
+			var nota = {
+					"idEntitate": copilCurent.id,
+					"entitate": "evidentaCH",
+					"text": $("#continutNota").val(),
+				};
+			$.ajax({
+				url: "/note/postNota",
+				type: "POST",
+				headers: {"X-CSRF-TOKEN": token},
+				contentType: "application/json",
+				data: JSON.stringify(nota),
+				success: function(response) {
+					if(response == "ok"){
+						$("#continutNota").val("");
+						incarcaNote(copilCurent.id, "evidentaCH");
+					}else{
+						alert("Nota nu a fost salvata! Eroare de aplicatie.");
+					}
+				},
+				error: function(response){
+					handleHtmlError(response.responseText);
+				}
+			});
+		}else{
+			alert("Completați conținutul! Nota nu a fost salvată.");
+		}
+	}
+	
+	function stergeCH(rowIndex){
+		copilCurent = dtEvidentaCH.row(rowIndex).data();
+		bootbox.confirm({
+			size: "large",
+			title: "Șterg?",
+			message: "Sunteți sigur că doriți ștergerea înregistrării aferente copilului: " + copilCurent.nume + " " + copilCurent.prenume + " ?",
+			buttons: {
+				cancel: {
+					label: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+					className: 'btn-danger'
+				},
+				confirm: {
+					label: 'Da',
+					className: 'btn-success'
+				}
+			},
+			swapButtonOrder: true,
+			callback: function(confirmare){
+				if(confirmare){
+					$.ajax({
+						url: "/evidentaCH/stergeCH",
+						type: "POST",
+						headers: {"X-CSRF-TOKEN": token},
+						contentType: "application/json",
+						data: copilCurent.id,
+						success: function(response) {
+							if(response == "ok"){
+								dtEvidentaCH.ajax.reload(null, false);
+							}else{
+								alert("Ștergerea nu a fost efectuată! Eroare de aplicație.");
+							}
+						},
+						error: function(response){
+							handleHtmlError(response.responseText);
+						}
+					});
+				}
+			}
+		});
+	}
+</script>

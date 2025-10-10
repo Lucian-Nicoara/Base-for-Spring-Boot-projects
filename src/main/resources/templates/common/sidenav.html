@@ -12,6 +12,11 @@
 							<button id="menuEntryConsDir" class="btn btn-light w-100 btnMenu">Consiliul director</button>
 						</a>
 					</li>
+					<li sec:authorize="hasAuthority('OpRegConsDir')" class="mb-1">
+						<a th:href="@{/evidenta-ch}">
+							<button id="menuEntryEvidentaCH" class="btn btn-light w-100 btnMenu">Evidență copii handicap</button>
+						</a>
+					</li>
 					<li sec:authorize="hasAuthority('ADMIN')" class="mb-1">
 						<a th:href="@{/admin}">
 							<button id="menuEntryAdmin" class="btn btn-light w-100 btnMenu">Administrare</button>
