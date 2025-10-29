@@ -1,30 +1,58 @@
-<nav th:fragment="topBar" class="navbar navbar-expand-lg" style="box-shadow: 0px 6px 4px -6px grey;">
-	<div class="container-fluid">
-		<div class="d-flex">
-			<div style="padding-top: 5px;">
-				<a href="/"><img src="/images/hfs1.jpg" style="width:60px;"></a>
+<div th:fragment="topBar">
+	<nav class="navbar navbar-expand-lg">
+		<div class="container-fluid">
+			<div class="d-flex">
+				<div style="padding-top: 5px;">
+					<a href="/"><img src="/images/hfs1.jpg" style="width:60px;"></a>
+				</div>
+				<div>
+					<span class="fs-2 text-primary-emphasis" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">DGASPC Călărași</span><br>
+					<span class="fs-6 text-secondary" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">Registre electronice</span>
+				</div>
 			</div>
-			<div>
-				<span class="fs-2 text-primary-emphasis" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">DGASPC Călărași</span><br>
-				<span class="fs-6 text-secondary" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">Registre electronice</span>
+			<div class="d-flex fs-3">
+				<span id="divTitluPagina" class="fw-bolder" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">Registre electronice</span>
+			</div>
+			<div class="d-flex">
+				<span class="navbar-text me-2" style="margin-left: 150px;">
+					<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle text-primary-emphasis" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<span class="me-2 underlineOnHover"> [[${#authentication.principal.prenume} + ' ' + ${#authentication.principal.nume}]] </span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item text-primary-emphasis" th:href="@{/logout}">Logout</a></li>
+							</ul>
+						</li>
+					</ul>
+				</span>
 			</div>
 		</div>
-		<div class="d-flex fs-3">
-			<span id="divTitluPagina" class="fw-bolder" style="text-shadow: 0 0 3px #CCC, 0 0 5px #CCC;">Registrul Hotărâri CJC</span>
+	</nav>
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding:0px; box-shadow: 0px 6px 4px -6px grey;">
+		<div class="" id="navbarNavDropdown">
+			<ul class="navbar-nav">
+				<li sec:authorize="hasAuthority('OpRegHCJC')" class="nav-item btnMenu">
+					<a id="menuEntryRegHotCJC" class="nav-link" th:href="@{/registrul-hcjc}">Registrul hotărâri CJC</a>
+				</li>
+				<li sec:authorize="hasAuthority('OpRegConsDir')" class="nav-item btnMenu">
+					<a id="menuEntryConsDir" class="nav-link" th:href="@{/consiliul-director}">Consiliul director</a>
+				</li>
+				<li sec:authorize="hasAuthority('OpEvidentaCH')" class="nav-item btnMenu">
+					<a id="menuEntryEvidentaCH" class="nav-link" th:href="@{/evidenta-ch}">Evidență copii handicap</a>
+				</li>
+				<li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown btnMenu">
+					<a id="menuEntryAdmin" class="nav-link dropdown-toggle" th:href="@{/admin}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Administrare
+					</a>
+					<div class="dropdown-menu" aria-labelledby="menuEntryAdmin">
+						<a class="dropdown-item" href="#">Utilizatori</a>
+						<a class="dropdown-item" href="#">Compartimente</a>
+						<a class="dropdown-item" href="#">Alte optiuni...</a>
+					</div>
+				</li>
+			</ul>
 		</div>
-		<div class="d-flex">
-			<span class="navbar-text me-2" style="margin-left: 150px;">
-				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-primary-emphasis" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<span class="me-2 underlineOnHover"> [[${#authentication.principal.prenume} + ' ' + ${#authentication.principal.nume}]] </span>
-						</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item text-primary-emphasis" th:href="@{/logout}">Logout</a></li>
-						</ul>
-					</li>
-				</ul>
-			</span>
-		</div>
-	</div>
-</nav>
+	</nav>
+</div>
