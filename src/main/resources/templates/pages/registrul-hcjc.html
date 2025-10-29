@@ -1,46 +1,36 @@
 <!doctype html>
 <html layout:decorate="template" lang="en" data-bs-theme="light">
 	<div id="main" layout:fragment="content">
-		<div class="row">
-			<div class="col">
-				<div class="rounded  py-2 px-2">
-					<div class="row">
-						<div class="col">
-							<table id="dtHotarariCJC" class="display" style="width: 100%;">
-								<thead>
-									<tr>
-										<th style="width:100px; background-color: #ccc;">Nr.</th>
-										<th style="width:100px; background-color: #ccc;">Data</th>
-										<th style="background-color: #ccc;">Emitent</th>
-										<th style="width:100px; background-color: #ccc;">Data comunicării</th>
-										<th style="background-color: #ccc;">Compartimentul adresat</th>
-										<th style="background-color: #ccc;">Persoana care a primit-o</th>
-										<th style="width:100px; background-color: #ccc;">Data primirii</th>
-										<th style="width:100px; background-color: #ccc;">Stadiu</th>
-										<th style="width:190px; background-color: #ccc;">Operații</th>
-									</tr>
-								</thead>
-								<tbody>
-								</tbody>
-								<tfoot>
-									<tr>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-										<th></th>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<table id="dtHotarariCJC" class="display" style="width: 100%;">
+			<thead>
+				<tr>
+					<th style="width:100px; background-color: #ccc;">Nr.</th>
+					<th style="width:100px; background-color: #ccc;">Data</th>
+					<th style="background-color: #ccc;">Emitent</th>
+					<th style="width:100px; background-color: #ccc;">Data comunicării</th>
+					<th style="background-color: #ccc;">Compartimentul adresat</th>
+					<th style="background-color: #ccc;">Persoana care a primit-o</th>
+					<th style="width:100px; background-color: #ccc;">Data primirii</th>
+					<th style="width:100px; background-color: #ccc;">Stadiu</th>
+					<th style="width:190px; background-color: #ccc;">Operații</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
 		
 		<!-- Modal handle HTML Error -->
 		<div class="modal fade" id="modalHandleHtmlError" role="dialog" aria-labelledby="modalHandleHtmlError">
@@ -349,29 +339,29 @@
 				});
 			},
 			columns: [
-			        { data: "nrHotarare" },
-			        { data: "dataHotarare" },
-			        { data: "emitent" },
-			        { data: "dataComunicarii" },
-			        { data: "compartimentulAdresat" },
-					{ data: "persoanaPrimire"},
-					{ data: "dataPrimirii"},
-					{ data: "stadiu"},
-					{ data: 
-						null, 
-						render: function (data, type, row, meta) {
-							var arataBtnArataFisier = "";
-							if(data.numeFisier != null && data.numeFisier != ""){
-								arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Afișează fișierul" onclick="arataModalArataFisierHCJC(' + meta.row + ')"></i>';
-							}
-							return ''
-							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
-							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
-							+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
-							+ arataBtnArataFisier
-							+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeHotarareCJC(' + meta.row + ')"></i>';
+				{ data: "nrHotarare" },
+				{ data: "dataHotarare" },
+				{ data: "emitent" },
+				{ data: "dataComunicarii" },
+				{ data: "compartimentulAdresat" },
+				{ data: "persoanaPrimire"},
+				{ data: "dataPrimirii"},
+				{ data: "stadiu"},
+				{ data: 
+					null, 
+					render: function (data, type, row, meta) {
+						var arataBtnArataFisier = "";
+						if(data.numeFisier != null && data.numeFisier != ""){
+							arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Afișează fișierul" onclick="arataModalArataFisierHCJC(' + meta.row + ')"></i>';
 						}
+						return ''
+						+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
+						+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
+						+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
+						+ arataBtnArataFisier
+						+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeHotarareCJC(' + meta.row + ')"></i>';
 					}
+				}
 			]
 		});
 		//dtHotarariCJC.columns.adjust().draw();
@@ -384,6 +374,7 @@
 			}
 		});
 		$("#dtHotarariCJC").on("keyup", "tfoot input",function () {
+			console.log("test filtru rhcjc");
 			dtHotarariCJC.column($(this).data('index')).search(this.value).draw();
 		});
 	}

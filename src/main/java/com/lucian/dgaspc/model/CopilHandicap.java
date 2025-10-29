@@ -21,6 +21,8 @@ public class CopilHandicap {
 	private String valabilitateCertificat;
 	private String statusTransfer;
 	private String infoTransfer;
+	private String varsta;
+	private String valabilInPrezent;
 	
 	public String getId() {
 		return id;
@@ -142,6 +144,18 @@ public class CopilHandicap {
 	public void setInfoTransfer(String infoTransfer) {
 		this.infoTransfer = infoTransfer;
 	}
+	public String getVarsta() {
+		return varsta;
+	}
+	public void setVarsta(String varsta) {
+		this.varsta = varsta;
+	}
+	public String getValabilInPrezent() {
+		return valabilInPrezent;
+	}
+	public void setValabilInPrezent(String valabilInPrezent) {
+		this.valabilInPrezent = valabilInPrezent;
+	}
 	@Override
 	public String toString() {
 		return "CopilHandicap [id=" + id + ", dataComisie=" + dataComisie + ", nume=" + nume + ", prenume=" + prenume
@@ -150,6 +164,7 @@ public class CopilHandicap {
 				+ ", gradHandicap=" + gradHandicap + ", insotitor=" + insotitor + ", scolarizat=" + scolarizat
 				+ ", cazNou=" + cazNou + ", locul=" + locul + ", categoriiDeAfectiune=" + categoriiDeAfectiune
 				+ ", valabilitateCertificat=" + valabilitateCertificat + ", statusTransfer=" + statusTransfer
-				+ ", infoTransfer=" + infoTransfer + "]";
+				+ ", infoTransfer=" + infoTransfer + ", varsta=" + varsta + ", valabilInPrezent=" + valabilInPrezent
+				+ "]";
 	}
 }

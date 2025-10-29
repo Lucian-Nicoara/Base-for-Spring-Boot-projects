@@ -12,7 +12,7 @@ import com.lucian.dgaspc.model.CopilHandicap;
 @Mapper
 public interface EvidentaCHMapper {
 	
-	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer from evidenta_ch where sters is null order by id desc")
+	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer, TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta from evidenta_ch where sters is null order by id desc")
 	List<CopilHandicap> getEvidentaCH();
 	
 	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer from evidenta_ch where id = #{id} and sters is null order by id desc")
