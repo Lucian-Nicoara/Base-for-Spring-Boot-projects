@@ -11,12 +11,14 @@ import com.lucian.dgaspc.model.CopilHandicap;
 
 @Mapper
 public interface EvidentaCHMapper {
-	
-	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer, TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta from evidenta_ch where sters is null order by id desc")
+	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer, TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta from evidenta_ch ev where sters is null order by ev.dataComisie desc")
 	List<CopilHandicap> getEvidentaCH();
 	
-	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer from evidenta_ch where id = #{id} and sters is null order by id desc")
+	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer, TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta from evidenta_ch where id = #{id} and sters is null")
 	CopilHandicap getCopilHandicapById(String id);
+	
+	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer, TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta from evidenta_ch ev where cnp = #{cnp} and sters is null order by ev.dataComisie desc limit 1")
+	CopilHandicap getCopilByCNP(String cnp);
 	
 	@Insert("insert into evidenta_ch(dataComisie, nume, prenume, sex, dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer)"
 			+ "values(STR_TO_DATE(#{dataComisie}, '%d.%m.%Y'), #{nume} , #{prenume}, #{sex}, STR_TO_DATE(#{dataNasterii}, '%d.%m.%Y'), #{cnp}, #{domiciliu}, #{diagnostic}, #{codCim}, #{tipHandicap}, #{gradHandicap}, #{insotitor}, #{scolarizat}, #{cazNou}, #{locul}, #{categoriiDeAfectiune}, #{valabilitateCertificat}, #{statusTransfer}, #{infoTransfer})")

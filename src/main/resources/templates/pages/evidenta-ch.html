@@ -2,7 +2,7 @@
 <html layout:decorate="template" lang="en" data-bs-theme="light">
 	<div id="main" layout:fragment="content" class="w-100">
 		<table id="dtEvidentaCH" class="display">
-			<thead>
+			<thead style="font-size:12px;">
 				<tr>
 					<th style="background-color: #ccc;">Dată comisie</th>
 					<th style="background-color: #ccc;">Nume</th>
@@ -13,49 +13,47 @@
 					<th style="background-color: #ccc;">Domiciliu</th>
 					<th style="background-color: #ccc;">Diagnostic</th>
 					<th style="background-color: #ccc;">COD CIM</th>
-					<th style="background-color: #ccc;">Tip handicap</th>
-					<th style="background-color: #ccc;">Grad handicap</th>
+					<th style="background-color: #ccc;">Tip h.</th>
+					<th style="background-color: #ccc;">Grad h.</th>
 					<th style="background-color: #ccc;">Însoțitor</th>
 					<th style="background-color: #ccc;">Școlarizat</th>
 					<th style="background-color: #ccc;">Vârstă</th>
 					<th style="background-color: #ccc;">Caz nou</th>
 					<th style="background-color: #ccc;">Locul unde se află</th>
 					<th style="background-color: #ccc;">Categorie afecțiune</th>
-					<th style="background-color: #ccc;">Valabilitate certificat</th>
-					<th style="background-color: #ccc;">Valabil în prezent</th>
+					<th style="background-color: #ccc;">Valab. certif.</th>
+					<th style="background-color: #ccc;">Valab. în prezent</th>
 					<th style="background-color: #ccc;">Status transfer</th>
 					<th style="background-color: #ccc;">Info transfer</th>
 					<th style="background-color: #ccc;">Operații</th>
 				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-			<tfoot>
 				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
 				</tr>
-			</tfoot>
+			</thead>
+			<tbody style="font-size:12px;">
+			</tbody>
 		</table>
 		
 		<!-- Modal handle HTML Error -->
@@ -93,22 +91,22 @@
 								<input id="dataComisieCH" class="form-control" onchange="onChangeDataComisieCH()">
 							</div>
 							<div class="col-md-2">
+								<label class="fw-bold">CNP</label><br>
+								<input id="cnpCH" class="form-control" onChange="onChangeCNP();">
+							</div>
+							<div class="col-md-2">
 								<label class="fw-bold">Nume</label><br>
 								<input id="numeCH" class="form-control">
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<label class="fw-bold">Prenume</label><br>
 								<input id="prenumeCH" class="form-control">
-							</div>
-							<div class="col-md-2">
-								<label class="fw-bold">CNP</label><br>
-								<input id="cnpCH" class="form-control" onChange="onChangeCNP();">
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Dată nașterii</label><br>
 								<input id="dataNasteriiCH" class="form-control" onchange="onChangeDataNasteriiCH()">
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-1">
 								<label class="fw-bold">Sex</label><br>
 								<select id="selSexCH" class="w-100">
 									<option value="M" selected>M</option>
@@ -117,17 +115,20 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<label class="fw-bold">Domiciliu</label><br>
-								<input id="domiciliuCH" class="form-control">
+								<!-- <input id="domiciliuCH" class="form-control"> -->
+								<textarea id="domiciliuCH" class="form-control"></textarea>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<label class="fw-bold">Diagnostic</label><br>
-								<input id="diagnosticCH" class="form-control">
+								<!-- <input id="diagnosticCH" class="form-control"> -->
+								<textarea id="diagnosticCH" class="form-control"></textarea>
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Cod CIM</label><br>
-								<input id="codCimCH" class="form-control">
+								<!-- <input id="codCimCH" class="form-control"> -->
+								<textarea id="codCimCH" class="form-control"></textarea>
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Tip handicap</label><br>
@@ -291,6 +292,7 @@
 	}
 	
 	function incarcaDtEvidentaCH(){
+		DataTable.datetime('DD.MM.YYYY');
 		if ($.fn.DataTable.isDataTable("#dtEvidentaCH")) {
 			$("#dtEvidentaCH").DataTable().clear().destroy();
 		}
@@ -325,7 +327,7 @@
                     ]
 				}
 			},
-			scrollX: true,
+			//scrollX: true,
 			autoWidth: false,
 			paging: true,
 			order: false,
@@ -337,10 +339,10 @@
 					return new bootstrap.Tooltip(tooltipTriggerEl)
 				});
 			},
-			fixedColumns: {
+			/* fixedColumns: {
 				start: 3,
 				end: 1
-			},
+			}, */
 			columns: [
 				{ data: "dataComisie" },
 				{ data: "nume" },
@@ -348,9 +350,24 @@
 				{ data: "sex" },
 				{ data: "dataNasterii" },
 				{ data: "cnp" },
-				{ data: "domiciliu" },
-				{ data: "diagnostic" },
-				{ data: "codCim" },
+				//{ data: "domiciliu" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						return '<div style="max-height:30px; overflow:auto;" data-bs-toggle="tooltip" title="' + data.domiciliu + '">' + data.domiciliu + '</div>';
+					}
+				},
+				//{ data: "diagnostic" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						return '<div style="max-height:30px; overflow:auto;" data-bs-toggle="tooltip" title="' + data.diagnostic + '">' + data.diagnostic + '</div>';
+					}
+				},
+				//{ data: "codCim" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						return '<div style="max-height:30px; overflow:auto;" data-bs-toggle="tooltip" title="' + data.codCim + '">' + data.codCim + '</div>';
+					}
+				},
 				{ data: "tipHandicap" },
 				{ data: "gradHandicap" },
 				{ data: "insotitor" },
@@ -375,17 +392,36 @@
 			]
 		});
 		//adauga filtre coloane
-		$("#dtEvidentaCH tfoot th").each(function(i){
-			if(i < ($("#dtEvidentaCH tfoot th").length - 1)){
+		//$('#dtEvidentaCH thead tr').clone(false).appendTo( '#dtEvidentaCH thead' );
+		$("#dtEvidentaCH thead tr:eq(1) th").each(function(i){
+			if(i < ($("#dtEvidentaCH thead tr:eq(1) th").length - 1)){
 				var title = $("#dtEvidentaCH thead th").eq($(this).index()).text();
-				$(this).html('<input class="form-control filtru-coloane" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
+				$(this).html('<input class="filtru-coloane w-100" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
+			}
+			if(i == $("#dtEvidentaCH thead tr:eq(1) th").length -1){
+				$(this).html('<button id="btnResetareFiltre" type="button" class="w-100" onclick="onClickReseteazaFiltre();">Resetează</button>');
 			}
 		});
 		
 		$("#main .filtru-coloane").on("keyup", function(){
-			console.log("test filtru evch");
 			dtEvidentaCH.column($(this).data('index')).search(this.value).draw();
 		});
+		
+		// Setup - add a text input to each header cell
+	   /*  
+	    $('#dtEvidentaCH thead tr').clone(false).appendTo( '#dtEvidentaCH thead' );
+	    $('#dtEvidentaCH thead tr:eq(1) th').each( function (i) {
+	        var title = $(this).text();
+	        $(this).html( '<input class="filtru-coloane" type="text" placeholder="Caută '+title+'" />' );
+	    });
+	    $("#main .filtru-coloane").on("keyup", function(){
+			dtEvidentaCH.column($(this).data('index')).search(this.value).draw();
+		}); */
+	}
+	
+	function onClickReseteazaFiltre(){
+		//$(".filtru-coloane").val("");
+		incarcaDtEvidentaCH();
 	}
 	
 	function arataModalAdaugaInregCH(){
@@ -425,6 +461,7 @@
 	}
 	
 	function inchideModalAdaugaCH(){
+		copilCurent = null;
 		$("#modalAdaugaCH").modal("hide");
 	}
 	
@@ -658,7 +695,46 @@
 			}
 		});
 	}
+	
 	function onChangeCNP(){
+		if(copilCurent == null && $("#cnpCH").val()){
+			$.ajax({
+				url: "/evidenta-ch/getCopilByCNP?cnp="+$("#cnpCH").val(),
+				type: "GET",
+				success: function(response) {
+					if(response != null && response.cnp == $("#cnpCH").val()){
+						$("#numeCH").val(response.nume);
+						$("#prenumeCH").val(response.prenume);
+						$("#selSexCH").val(response.sex).select2({
+							theme: "bootstrap-5", 
+							dropdownParent: $("#modalAdaugaCH"),
+							minimumResultsForSearch: -1
+						});
+						$("#dataNasteriiCH").val(response.dataNasterii);
+						$("#domiciliuCH").val(response.domiciliu);
+						$("#diagnosticCH").val(response.diagnostic);
+						$("#codCimCH").val(response.codCim);
+						$("#tipHandicapCH").val(response.tipHandicap);
+						$("#gradHandicapCH").val(response.gradHandicap);
+						$("#insotitorCH").val(response.insotitor);
+						$("#scolarizatCH").val(response.scolarizat);
+						$("#cazNouCH").val(response.cazNou);
+						$("#loculCH").val(response.locul);
+						$("#categorieAfectiuneCH").val(response.categoriiDeAfectiune);
+						$("#valabilitateCertificatCH").val(response.valabilitateCertificat);
+						$("#selStatusTransfer").val(response.statusTransfer).select2({
+							theme: "bootstrap-5", 
+							dropdownParent: $("#modalAdaugaCH"),
+							minimumResultsForSearch: -1
+						});
+						$("#infoTransfer").val(response.infoTransfer);
+					}
+				},
+				error: function(response){
+					handleHtmlError(response.responseText);
+				}
+			});
+		}
 		if($("#cnpCH").val() && ($("#cnpCH").val().substring(0, 1) == "1" || $("#cnpCH").val().substring(0, 1) == "3" || $("#cnpCH").val().substring(0, 1) == "5" || $("#cnpCH").val().substring(0, 1) == "7")){
 			$("#selSexCH").val("M").trigger('change');
 		}else if($("#cnpCH").val() && ($("#cnpCH").val().substring(0, 1) == "2" || $("#cnpCH").val().substring(0, 1) == "4" || $("#cnpCH").val().substring(0, 1) == "6" || $("#cnpCH").val().substring(0, 1) == "8")){
@@ -676,6 +752,7 @@
 			$("#dataNasteriiCH").val(ziua + "." + luna + "." + anul);
 		}
 	}
+	
 	function onChangeSelStatusTransfer(){
 		$("#infoTransfer").val("");
 		if($("#selStatusTransfer").val() == "Transferat la" || $("#selStatusTransfer").val() == "Primit de la"){
