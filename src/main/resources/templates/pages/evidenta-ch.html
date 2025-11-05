@@ -1,6 +1,6 @@
 <!doctype html>
 <html layout:decorate="template" lang="en" data-bs-theme="light">
-	<div id="main" layout:fragment="content" class="w-100">
+	<div id="main" layout:fragment="content">
 		<table id="dtEvidentaCH" class="display">
 			<thead style="font-size:12px;">
 				<tr>
@@ -19,7 +19,7 @@
 					<th style="background-color: #ccc;">Școlarizat</th>
 					<th style="background-color: #ccc;">Vârstă</th>
 					<th style="background-color: #ccc;">Caz nou</th>
-					<th style="background-color: #ccc;">Locul unde se află</th>
+					<th style="background-color: #ccc;" title="Locul unde se află">Locul</th>
 					<th style="background-color: #ccc;">Categorie afecțiune</th>
 					<th style="background-color: #ccc;">Valab. certif.</th>
 					<th style="background-color: #ccc;">Valab. în prezent</th>
@@ -220,7 +220,7 @@
 								</div>
 								<div class="col">
 									<label class="fw-bold">Diagnostic</label><br>
-									<span id="divDiagnosticCH"></span>
+									<div id="divDiagnosticCH" style="max-height:100px; overflow:auto;"></div>
 								</div>
 							</div>
 						</div>
@@ -311,17 +311,17 @@
 						},
 						//"excel",
 						{extend: 'excelHtml5',
-							title: 'DGASPC_Evidenta_CH_' + getTodayDate(),
+							title: 'DGASPC Evidenta ' + getTodayDate(),
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 							}
 						},
 						{extend: 'pdfHtml5',
-                    		title: 'DGASPC_Evidenta_CH_' + getTodayDate(),
+                    		title: 'DGASPC Evidenta ' + getTodayDate(),
 							orientation: 'landscape',
-                    		pageSize: 'A4',
+                    		pageSize: 'A2',
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 							}
                     	}
                     ]
@@ -383,9 +383,13 @@
 				{ data: 
 					null, 
 					render: function (data, type, row, meta) {
+						var noteIconColor = "orange";
+						if(data.totalNote != "0"){
+							noteIconColor = "blue";
+						}
 						return ''
 							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareCH(' + meta.row + ')"></i>'
-							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
+							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:' + noteIconColor + ';" data-bs-toggle="tooltip" title="Notițe ' + data.totalNote + '" onclick="arataModalNote(' + meta.row + ')"></i>'
 							+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeCH(' + meta.row + ')"></i>';
 					}
 				}
@@ -660,7 +664,7 @@
 		bootbox.confirm({
 			size: "large",
 			title: "Șterg?",
-			message: "Sunteți sigur că doriți ștergerea înregistrării aferente copilului: " + copilCurent.nume + " " + copilCurent.prenume + " ?",
+			message: "Sunteți sigur că doriți ștergerea înregistrării aferente copilului: " + copilCurent.nume + " " + copilCurent.prenume + ", data comisie: " + copilCurent.dataComisie + " ?",
 			buttons: {
 				cancel: {
 					label: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
@@ -691,6 +695,9 @@
 							handleHtmlError(response.responseText);
 						}
 					});
+					copilCurent = null;
+				}else{
+					copilCurent = null;
 				}
 			}
 		});

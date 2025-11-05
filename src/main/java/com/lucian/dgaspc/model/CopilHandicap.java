@@ -23,6 +23,7 @@ public class CopilHandicap {
 	private String infoTransfer;
 	private String varsta;
 	private String valabilInPrezent;
+	private String totalNote;
 	
 	public String getId() {
 		return id;
@@ -156,6 +157,12 @@ public class CopilHandicap {
 	public void setValabilInPrezent(String valabilInPrezent) {
 		this.valabilInPrezent = valabilInPrezent;
 	}
+	public String getTotalNote() {
+		return totalNote;
+	}
+	public void setTotalNote(String totalNote) {
+		this.totalNote = totalNote;
+	}
 	@Override
 	public String toString() {
 		return "CopilHandicap [id=" + id + ", dataComisie=" + dataComisie + ", nume=" + nume + ", prenume=" + prenume
@@ -165,6 +172,7 @@ public class CopilHandicap {
 				+ ", cazNou=" + cazNou + ", locul=" + locul + ", categoriiDeAfectiune=" + categoriiDeAfectiune
 				+ ", valabilitateCertificat=" + valabilitateCertificat + ", statusTransfer=" + statusTransfer
 				+ ", infoTransfer=" + infoTransfer + ", varsta=" + varsta + ", valabilInPrezent=" + valabilInPrezent
-				+ "]";
+				+ ", totalNote=" + totalNote + "]";
 	}
+	
 }
