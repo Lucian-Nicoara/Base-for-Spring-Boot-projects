@@ -1,0 +1,324 @@
+<!doctype html>
+<html layout:decorate="template" lang="en" data-bs-theme="light">
+	<div id="main" layout:fragment="content">
+		<table id="dtUtilizatori" class="display">
+			<thead>
+				<tr>
+					<th style="background-color: #ccc;">Username</th>
+					<th style="background-color: #ccc;">Nume</th>
+					<th style="background-color: #ccc;">Prenume</th>
+					<th style="background-color: #ccc;">Compartiment</th>
+					<th style="background-color: #ccc;">Operații</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		
+		<!-- Modal handle HTML Error -->
+		<div class="modal fade" id="modalHandleHtmlError" role="dialog" aria-labelledby="modalHandleHtmlError">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #F00;  font-weight: bold; color:#FFF;">
+						<div id="titluModal" style="width:100%; text-align: center;">Eroare de aplicatie!</div>
+					</div>
+					<div class="modal-body">
+						<span style="font-weight: bold; margin-bottom: 20px;">Vă rugăm să transmiteți această eroare administratorului IT</span>
+						<button class="btn btn-sm btn-success" style="margin-left: 20px;" onclick="copiazaEroarea()"> Copiază eroarea (similar CTRL+C) </button>
+						<br>
+						<div id="divEroareHtml" style="max-height: 400px; overflow: auto; margin-top:20px; padding-left: 30px; padding-right: 30px; background-color: #EEE;"></div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button type="button" class="btn btn-danger" onclick="inchideModalHandleHtmlError()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal HTML Error-->
+		
+		<!-- Modal adaugare-->
+		<div class="modal fade" id="modalAdaugaUtilizator" role="dialog" aria-labelledby="modalAdaugaUtilizator">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
+						<div id="titluModal" style="width:100%; text-align: center;">Adaugă copil cu handicap</div>
+					</div>
+					<div class="modal-body">
+						<div class="row mb-2">
+							<div class="col-md-2">
+								<label class="fw-bold">username</label><br>
+								<input id="txtUsername" class="form-control" onchange="onChangeUsername()">
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Nume</label><br>
+								<input id="numeUtilizator" class="form-control">
+							</div>
+							<div class="col-md-3">
+								<label class="fw-bold">Prenume</label><br>
+								<input id="prenumeUtilizator" class="form-control">
+							</div>
+							<div class="col-md-3">
+								<label for="selCompartiment" class="fw-bold">Compartiment</label><br>
+								<select id="selCompartiment" class="w-100">
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label class="fw-bold">Parola</label><br>
+								<input id="parola" class="form-control">
+							</div>
+						</div>
+						<div class="row">
+							<div id="divMesajAdaugaUtilizator" class="col-md-12" style="color: red; font-weight: bold;"></div>
+						</div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button id="btnSalveazaUtilizator" type="button" class="btn btn-success" onclick="salveazaUtilizator()">Salvează</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaUtilizator()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal adaugare-->	
+	</div>
+</html>
+<script th:inline="javascript">
+	var token = $("meta[name='_csrf']").attr("content");
+	var dtUtilizatori = null;
+	var utilizatorCurent = null;
+	
+	$(document).ready(function() {
+		console.log("Modul utilizatori - ready!");
+		$("#divTitluPagina").html("Administrare utilizatori");
+		<!--Activare bootstrap tooltips-->
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl)
+		});
+			
+		$(".btnMenu").removeClass("btn-primary");
+		$("#menuEntryAdministrareUtilizatori").removeClass("btn-light");
+		$("#menuEntryAdministrareUtilizatori").addClass("btn-primary fw-bold");
+		incarcaDtUtilizatori();
+	});
+	
+	function incarcadtUtilizatori(){
+		DataTable.datetime('DD.MM.YYYY');
+		if ($.fn.DataTable.isDataTable("#dtUtilizatori")) {
+			$("#dtUtilizatori").DataTable().clear().destroy();
+		}
+		dtUtilizatori = $("#dtUtilizatori").DataTable({
+			language: {
+				url: 'https://cdn.datatables.net/plug-ins/2.3.3/i18n/ro.json',
+			},
+			layout: {
+				topStart: {
+					buttons: [
+						{
+							text: 'Adaugă înregistrare nouă',
+							action: function (e, dt, node, config) {
+								arataModalAdaugaInregCH();
+							}
+						},
+						//"excel",
+						{extend: 'excelHtml5',
+							title: 'Administrare utilizatori ' + getTodayDate(),
+							exportOptions: {
+								columns: [0, 1, 2, 3, 4]
+							}
+						},
+						{extend: 'pdfHtml5',
+                    		title: 'Administrare utilizatori ' + getTodayDate(),
+							orientation: 'landscape',
+                    		pageSize: 'A4',
+							exportOptions: {
+								columns: [0, 1, 2, 3, 4]
+							}
+                    	}
+                    ]
+				}
+			},
+			autoWidth: false,
+			paging: true,
+			order: false,
+			lengthChange: false,
+			ajax: "/adminUtilizatori/getUtilizatori",
+			drawCallback:function(){
+				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+					return new bootstrap.Tooltip(tooltipTriggerEl)
+				});
+			},
+			columns: [
+				{ data: "username" },
+				{ data: "nume" },
+				{ data: "prenume" },
+				{ data: "compartiment.nume" },
+				{ data: "parola" },
+				{ data: 
+					null, 
+					render: function (data, type, row, meta) {
+						return ''
+							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareUtilizator(' + meta.row + ')"></i>';
+					}
+				}
+			]
+		});
+		//adauga filtre coloane
+		$("#dtUtilizatori thead tr:eq(1) th").each(function(i){
+			if(i < ($("#dtUtilizatori thead tr:eq(1) th").length - 1)){
+				var title = $("#dtUtilizatori thead th").eq($(this).index()).text();
+				$(this).html('<input class="filtru-coloane w-100" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
+			}
+			if(i == $("#dtUtilizatori thead tr:eq(1) th").length -1){
+				$(this).html('<button id="btnResetareFiltre" type="button" class="w-100" onclick="onClickReseteazaFiltre();">Resetează</button>');
+			}
+		});
+		
+		$("#main .filtru-coloane").on("keyup", function(){
+			dtUtilizatori.column($(this).data('index')).search(this.value).draw();
+		});
+	}
+	
+	function onClickReseteazaFiltre(){
+		incarcaDtUtilizatori();
+	}
+	
+	function arataModalAdaugaUtilizator(){
+		$("#txtUsername").val("");
+		$("#numeUtilizator").val("");
+		$("#prenumeUtilizator").val("");
+		$("#selCompartiment").val("").select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaUtilizator"), 
+			minimumResultsForSearch: -1
+		});
+		$("#parola").val("");
+		$("#selCompartiment").empty();
+		$("#selCompartiment").append('<option value="">Alege...</option>');
+		
+		$.ajax({
+			url: "/note/getLov",
+			type: "GET",
+			success: function(response) {
+				for (const c of response.listaCompartimente) {
+					$("#selCompartiment").append('<option value="' + c.id + '">' + c.nume + '</option>');
+				}
+				$("#selCompartiment").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaUtilizator")});
+				
+				$("#modalAdaugaUtilizator").modal({backdrop: "static", keyboard: false}).modal("show");
+				setTimeout(function(){
+					$("#txtUsername").focus();
+				}, 200);
+			},
+			error: function(response){
+				handleHtmlError(response.responseText);
+			}
+		});
+	}
+	
+	function inchideModalAdaugaUtilizator(){
+		utilizatorCurent = null;
+		$("#modalAdaugaUtilizator").modal("hide");
+	}
+	
+	function salveazaUtilizator(){
+		var eroareValidare = false;
+		var urlSalvare = "/adminUtilizatori/postUtilizator";
+		if(!$("#txtUsername").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaUtilizator").html("Completează câmpul username");
+			return;
+		}
+		if(!$("#numeUtilizator").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaUtilizator").html("Completează câmpul nume");
+			return;
+		}
+		if(!$("#prenumeUtilizator").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaUtilizator").html("Completează câmpul prenume");
+			return;
+		}
+		
+		if(!eroareValidare){
+			var utilizator = {
+					"username": $("#txtUsername").val(),
+					"nume": $("#numeUtilizator").val(),
+					"prenume": $("#prenumeUtilizator").val(),
+					"idCompartiment": $("#selCompartiment").val(),
+					"password": $("#parola").val(),
+				};
+			var resetPaging = true;
+			if(utilizatorCurent != null && utilizatorCurent.id != null){
+				urlSalvare = "/adminUtilizatori/putUtilizator";
+				utilizator.id = utilizatorCurent.id;
+				resetPaging = false;
+			}
+			$.ajax({
+				url: urlSalvare,
+				type: "POST",
+				headers: {"X-CSRF-TOKEN": token},
+				contentType: "application/json",
+				data: JSON.stringify(utilizator),
+				success: function(response) {
+					inchideModalAdaugaUtilizator();
+					dtUtilizatori.ajax.reload(null, resetPaging);
+				},
+				error: function(response){
+					handleHtmlError(response.responseText);
+				}
+			});
+		}else{
+			alert("Formularul nu este completat corect! Datele nu pot fi salvate.");
+		}
+	}
+	
+	function editareUtilizator(rowIndex){
+		utilizatorCurent = dtUtilizatori.row(rowIndex).data();
+		
+		$("#txtUsername").val(utilizatorCurent.username);
+		$("#numeUtilizator").val(utilizatorCurent.nume);
+		$("#prenumeUtilizator").val(utilizatorCurent.prenume);
+		$("#selCompartiment").val(utilizatorCurent.idCompartiment).select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaUtilizator"),
+			minimumResultsForSearch: -1
+		});
+		$("#parola").val(utilizatorCurent.password);
+		$("#modalAdaugaUtilizator").modal({backdrop: "static", keyboard: false}).modal("show");
+	}
+	
+	function arataModalNote(rowIndex){
+		utilizatorCurent = dtUtilizatori.row(rowIndex).data();
+		$("#divNumeCH").html(utilizatorCurent.nume + "&nbsp;&nbsp;" + utilizatorCurent.prenume);
+		$("#divSexCH").html(utilizatorCurent.sex);
+		$("#divCNPCH").html(utilizatorCurent.cnp);
+		$("#divDomiciliuCH").html(utilizatorCurent.domiciliu);
+		$("#divDiagnosticCH").html(utilizatorCurent.diagnostic);
+		incarcaNote(utilizatorCurent.id, "evidentaCH");
+	}
+	
+	function onChangeUsername(){
+		if(utilizatorCurent == null && $("#txtUsername").val()){
+			$.ajax({
+				url: "/adminUtilizatori/getUtilizatorByUsername?username="+$("#txtUsername").val(),
+				type: "GET",
+				success: function(response) {
+					if(response != null && response.username == $("#txtUsername").val()){
+						bootbox.alert("Exista deja un utilizator cu acest username!<br>" + response.nume + " " + response.prenume);
+					}
+				},
+				error: function(response){
+					handleHtmlError(response.responseText);
+				}
+			});
+		}
+	}
+</script>

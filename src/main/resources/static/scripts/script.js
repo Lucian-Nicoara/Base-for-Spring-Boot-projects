@@ -35,3 +35,22 @@ function verificaData(dataInput){
 		return "ok";
 	}
 }
+function handleHtmlError(htmlError){
+	$(".modal").modal("hide");
+	$("#divEroareHtml").html(htmlError);
+	$("#modalHandleHtmlError").modal({backdrop: "static", keyboard: false}).modal("show");
+}
+	
+function inchideModalHandleHtmlError(){
+	$("#divEroareHtml").html("");
+	$("#modalHandleHtmlError").modal("hide");
+	window.location.reload();
+}
+
+function copiazaEroarea(){
+	navigator.clipboard.writeText($("#divEroareHtml").html()).then(function () {
+	    alert("Textul a fost copiat. Poti folosi CTRL+V")
+	}, function () {
+	    alert("Textul nu a putut fi copiat. Trebuie selectat si copiat manual.")
+	});
+}

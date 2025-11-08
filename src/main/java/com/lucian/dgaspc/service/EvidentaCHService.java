@@ -16,8 +16,8 @@ public class EvidentaCHService{
 	@Autowired
 	EvidentaCHMapper evidentaCHMapper;
 	
-	public List<CopilHandicap> getEvidentaCH() {
-		List<CopilHandicap> listaCH = evidentaCHMapper.getEvidentaCH();
+	public List<CopilHandicap> getEvidentaCH(String filtruDataComisieStart, String filtruDataComisieEnd, String filtruVarstaStart, String filtruVarstaEnd) {
+		List<CopilHandicap> listaCH = evidentaCHMapper.getEvidentaCH(filtruDataComisieStart, filtruDataComisieEnd, filtruVarstaStart, filtruVarstaEnd);
 		for(int i = 0; i < listaCH.size(); i++) {
 			CopilHandicap c = listaCH.get(i);
 			var valabilInPrezent = "DA";

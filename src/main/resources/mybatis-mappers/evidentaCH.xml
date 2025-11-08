@@ -1,0 +1,41 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.lucian.dgaspc.mapper.EvidentaCHMapper">
+	<select id = "getEvidentaCH" resultType = "com.lucian.dgaspc.model.CopilHandicap">
+		SELECT 
+			id, 
+			DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, 
+			nume, 
+			prenume, 
+			sex, 
+			DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, 
+			cnp, 
+			domiciliu, 
+			diagnostic, 
+			codCim, 
+			tipHandicap, 
+			gradHandicap, 
+			insotitor, 
+			scolarizat, 
+			cazNou, 
+			locul, 
+			categoriiDeAfectiune, 
+			valabilitateCertificat, 
+			statusTransfer, 
+			infoTransfer, 
+			TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta, 
+			(select count(*) from note where idEntitate = ev.id and entitate = 'evidentaCH') as totalNote 
+		FROM 
+			evidenta_ch ev 
+		<where>
+			<if test="filtruVarstaStart != null and filtruVarstaStart != '' and filtruVarstaEnd != null and filtruVarstaEnd != ''">
+				AND TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) BETWEEN #{filtruVarstaStart} AND #{filtruVarstaEnd}
+			</if>
+			<if test="filtruDataComisieStart != null and filtruDataComisieStart != '' and filtruDataComisieEnd != null and filtruDataComisieEnd != ''">
+				AND ev.dataComisie BETWEEN STR_TO_DATE(#{filtruDataComisieStart}, '%d.%m.%Y') AND STR_TO_DATE(#{filtruDataComisieEnd}, '%d.%m.%Y')
+			</if> 
+			AND sters is null
+		</where> 
+		ORDER BY ev.dataComisie DESC
+	</select>
+</mapper>

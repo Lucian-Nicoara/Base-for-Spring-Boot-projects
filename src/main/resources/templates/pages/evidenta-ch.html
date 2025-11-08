@@ -1,6 +1,27 @@
 <!doctype html>
 <html layout:decorate="template" lang="en" data-bs-theme="light">
 	<div id="main" layout:fragment="content">
+		<div id="divFiltreAvansate" class="row w-100" style="display:none;">
+			<div class="col"></div>
+			<div class="col-md-2">
+				<label class="fw-bold">Dată comisie</label><br>
+				<div class="w-100" style="display:flex;">
+					<input id="filtruDataComisieStart" style="width:100px; margin-right:10px;" placeholder="început" onchange="onChangeDataComisieCH()">
+					<input id="filtruDataComisieEnd" style="width:100px;" placeholder="sfârșit" onchange="onChangeDataComisieCH()">
+				</div>
+			</div>
+			<div class="col-md-2">
+				<label class="fw-bold">Vârsta</label><br>
+				<div class="w-100" style="display:flex;">
+					<input id="filtruVarstaStart" style="width:100px; margin-right:10px;" placeholder="început" onchange="onChangeDataComisieCH()">
+					<input id="filtruVarstaEnd" style="width:100px;" placeholder="sfârșit" onchange="onChangeDataComisieCH()">
+				</div>
+			</div>
+			<div class="col" style="align-content: end;">
+				<button class="btn btn-primary btn-sm" onClick="aplicaFiltreAvansate();">Aplică filtrele</button>
+			</div>
+			<div class="col"></div>
+		</div>
 		<table id="dtEvidentaCH" class="display">
 			<thead style="font-size:12px;">
 				<tr>
@@ -323,16 +344,31 @@
 							exportOptions: {
 								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 							}
-                    	}
+                    	},
+                    	{
+							text: 'Filtre avansate',
+							action: function (e, dt, node, config) {
+								arataFiltreAvansate();
+							}
+						},
                     ]
 				}
 			},
-			//scrollX: true,
+			//serverSide:true,
 			autoWidth: false,
 			paging: true,
 			order: false,
 			lengthChange: false,
-			ajax: "/evidenta-ch/getEvidentaCH",
+			"ajax": {
+				"url": "/evidenta-ch/getEvidentaCH",
+				"data": function (params) {
+					params.filtruDataComisieStart = $("#filtruDataComisieStart").val();
+					params.filtruDataComisieEnd = $("#filtruDataComisieEnd").val();
+					params.filtruVarstaStart = $("#filtruVarstaStart").val();
+					params.filtruVarstaEnd = $("#filtruVarstaEnd").val();
+				}
+			},
+			//ajax: "/evidenta-ch/getEvidentaCH",
 			drawCallback:function(){
 				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -767,5 +803,17 @@
 		}else{
 			$("#divInfoTransfer").hide();
 		}
+	}
+	
+	function arataFiltreAvansate(){
+		if($("#divFiltreAvansate").is(":visible")){
+			$("#divFiltreAvansate").slideUp();
+		}else{
+			$("#divFiltreAvansate").slideDown();
+		}
+	}
+	
+	function aplicaFiltreAvansate(){
+		dtEvidentaCH.ajax.reload(null, false);
 	}
 </script>

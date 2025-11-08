@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import com.lucian.dgaspc.model.CopilHandicap;
@@ -11,8 +12,8 @@ import com.lucian.dgaspc.model.CopilHandicap;
 
 @Mapper
 public interface EvidentaCHMapper {
-	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer, TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta, (select count(*) from note where idEntitate = ev.id and entitate = 'evidentaCH') as totalNote from evidenta_ch ev where sters is null order by ev.dataComisie desc")
-	List<CopilHandicap> getEvidentaCH();
+	//@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer, TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta, (select count(*) from note where idEntitate = ev.id and entitate = 'evidentaCH') as totalNote from evidenta_ch ev where TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) BETWEEN #{filtruVarstaStart} AND #{filtruVarstaEnd} and ev.dataComisie BETWEEN STR_TO_DATE(#{filtruDataComisieStart}, '%d.%m.%Y') AND STR_TO_DATE(#{filtruDataComisieEnd}, '%d.%m.%Y') and sters is null order by ev.dataComisie desc")
+	List<CopilHandicap> getEvidentaCH(@Param("filtruDataComisieStart") String filtruDataComisieStart, @Param("filtruDataComisieEnd") String filtruDataComisieEnd, @Param("filtruVarstaStart") String filtruVarstaStart, @Param("filtruVarstaEnd") String filtruVarstaEnd);
 	
 	@Select("select id, DATE_FORMAT(dataComisie, '%d.%m.%Y') as dataComisie, nume, prenume, sex, DATE_FORMAT(dataNasterii, '%d.%m.%Y') as dataNasterii, cnp, domiciliu, diagnostic, codCim, tipHandicap, gradHandicap, insotitor, scolarizat, cazNou, locul, categoriiDeAfectiune, valabilitateCertificat, statusTransfer, infoTransfer, TIMESTAMPDIFF(YEAR, dataNasterii, CURDATE()) AS varsta, (select count(*) from note where idEntitate = ev.id and entitate = 'evidentaCH') as totalNote from evidenta_ch where id = #{id} and sters is null")
 	CopilHandicap getCopilHandicapById(String id);
