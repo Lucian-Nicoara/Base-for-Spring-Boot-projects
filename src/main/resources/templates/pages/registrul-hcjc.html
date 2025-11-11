@@ -14,22 +14,20 @@
 					<th style="width:100px; background-color: #ccc;">Stadiu</th>
 					<th style="width:190px; background-color: #ccc;">Operații</th>
 				</tr>
+				<tr>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+				</tr>
 			</thead>
 			<tbody>
 			</tbody>
-			<tfoot>
-				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-			</tfoot>
 		</table>
 		
 		<!-- Modal handle HTML Error -->
@@ -364,19 +362,24 @@
 				}
 			]
 		});
-		//dtHotarariCJC.columns.adjust().draw();
-		//setTimeout(function(){dtHotarariCJC.columns.adjust().draw();}, 1000);
 		//adauga filtre coloane
-		$("#dtHotarariCJC tfoot th").each(function (i) {
-			if(i < ($("#dtHotarariCJC tfoot th").length - 1)){
+		$("#dtHotarariCJC thead tr:eq(1) th").each(function(i){
+			if(i < ($("#dtHotarariCJC thead tr:eq(1) th").length - 1)){
 				var title = $("#dtHotarariCJC thead th").eq($(this).index()).text();
-				$(this).html('<input class="form-control" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
+				$(this).html('<input class="filtru-coloane w-100" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
+			}
+			if(i == $("#dtHotarariCJC thead tr:eq(1) th").length -1){
+				$(this).html('<button id="btnResetareFiltre" type="button" class="w-100" onclick="onClickReseteazaFiltre();">Resetează</button>');
 			}
 		});
-		$("#dtHotarariCJC").on("keyup", "tfoot input",function () {
-			console.log("test filtru rhcjc");
+		
+		$("#main .filtru-coloane").on("keyup", function(){
 			dtHotarariCJC.column($(this).data('index')).search(this.value).draw();
 		});
+	}
+	
+	function onClickReseteazaFiltre(){
+		incarcaDtHotarariCJC();
 	}
 	
 	function arataModalAdaugaInregHCJC(){

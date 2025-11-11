@@ -2,25 +2,31 @@
 <html layout:decorate="template" lang="en" data-bs-theme="light">
 	<div id="main" layout:fragment="content">
 		<div id="divFiltreAvansate" class="row w-100" style="display:none;">
-			<div class="col"></div>
-			<div class="col-md-2">
-				<label class="fw-bold">Dată comisie</label><br>
-				<div class="w-100" style="display:flex;">
-					<input id="filtruDataComisieStart" style="width:100px; margin-right:10px;" placeholder="început" onchange="onChangeDataComisieCH()">
-					<input id="filtruDataComisieEnd" style="width:100px;" placeholder="sfârșit" onchange="onChangeDataComisieCH()">
+			<div class="col-xl-3"></div>
+			<div class="col-xl-6" style="justify-items: center;">
+				<div style="display:flex;">
+					<div style="display:flex; flex-direction: column;">
+						<label class="fw-bold">Dată comisie</label>
+						<div style="display:flex;">
+							<input id="filtruDataComisieStart" style="width:100px; margin-right:10px;" placeholder="început" onchange="onChangeDataComisieCH()">
+							<input id="filtruDataComisieEnd" style="width:100px;" placeholder="sfârșit" onchange="onChangeDataComisieCH()">
+						</div>
+					</div>
+					<div style="display:flex; margin-left: 20px;">
+						<div style="display:flex; flex-direction: column;">
+							<label class="fw-bold">Vârsta</label>
+							<div style="display:flex;">
+								<input id="filtruVarstaStart" style="width:100px; margin-right:10px;" placeholder="început" onchange="onChangeDataComisieCH()">
+								<input id="filtruVarstaEnd" style="width:100px;" placeholder="sfârșit" onchange="onChangeDataComisieCH()">
+							</div>
+						</div>
+					</div>
+					<div style="padding-top:23px; margin-left:20px;">
+						<button class="btn btn-primary btn-sm" onClick="aplicaFiltreAvansate();">Aplică filtrele</button>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-2">
-				<label class="fw-bold">Vârsta</label><br>
-				<div class="w-100" style="display:flex;">
-					<input id="filtruVarstaStart" style="width:100px; margin-right:10px;" placeholder="început" onchange="onChangeDataComisieCH()">
-					<input id="filtruVarstaEnd" style="width:100px;" placeholder="sfârșit" onchange="onChangeDataComisieCH()">
-				</div>
-			</div>
-			<div class="col" style="align-content: end;">
-				<button class="btn btn-primary btn-sm" onClick="aplicaFiltreAvansate();">Aplică filtrele</button>
-			</div>
-			<div class="col"></div>
+			<div class="col-xl-3"></div>
 		</div>
 		<table id="dtEvidentaCH" class="display">
 			<thead style="font-size:12px;">
@@ -432,7 +438,6 @@
 			]
 		});
 		//adauga filtre coloane
-		//$('#dtEvidentaCH thead tr').clone(false).appendTo( '#dtEvidentaCH thead' );
 		$("#dtEvidentaCH thead tr:eq(1) th").each(function(i){
 			if(i < ($("#dtEvidentaCH thead tr:eq(1) th").length - 1)){
 				var title = $("#dtEvidentaCH thead th").eq($(this).index()).text();
@@ -446,25 +451,20 @@
 		$("#main .filtru-coloane").on("keyup", function(){
 			dtEvidentaCH.column($(this).data('index')).search(this.value).draw();
 		});
-		
-		// Setup - add a text input to each header cell
-	   /*  
-	    $('#dtEvidentaCH thead tr').clone(false).appendTo( '#dtEvidentaCH thead' );
-	    $('#dtEvidentaCH thead tr:eq(1) th').each( function (i) {
-	        var title = $(this).text();
-	        $(this).html( '<input class="filtru-coloane" type="text" placeholder="Caută '+title+'" />' );
-	    });
-	    $("#main .filtru-coloane").on("keyup", function(){
-			dtEvidentaCH.column($(this).data('index')).search(this.value).draw();
-		}); */
 	}
 	
 	function onClickReseteazaFiltre(){
-		//$(".filtru-coloane").val("");
+		$("#filtruDataComisieStart").val("");
+		$("#filtruDataComisieEnd").val("");
+		$("#filtruVarstaStart").val("");
+		$("#filtruVarstaEnd").val("");
+		$("#divFiltreAvansate").slideUp();
 		incarcaDtEvidentaCH();
 	}
 	
 	function arataModalAdaugaInregCH(){
+		$("#divMesajAdaugaCH").html("");
+		$("#btnSalveazaCH").prop("disabled", false);
 		$("#divInfoTransfer").hide();
 		$("#dataComisieCH").val("");
 		$("#numeCH").val("");
@@ -593,7 +593,8 @@
 	
 	function editareCH(rowIndex){
 		copilCurent = dtEvidentaCH.row(rowIndex).data();
-		
+		$("#divMesajAdaugaCH").html("");
+		$("#btnSalveazaCH").prop("disabled", false);
 		$("#dataComisieCH").val(copilCurent.dataComisie);
 		$("#numeCH").val(copilCurent.nume);
 		$("#prenumeCH").val(copilCurent.prenume);
@@ -807,6 +808,10 @@
 	
 	function arataFiltreAvansate(){
 		if($("#divFiltreAvansate").is(":visible")){
+			$("#filtruDataComisieStart").val("");
+			$("#filtruDataComisieEnd").val("");
+			$("#filtruVarstaStart").val("");
+			$("#filtruVarstaEnd").val("");
 			$("#divFiltreAvansate").slideUp();
 		}else{
 			$("#divFiltreAvansate").slideDown();
