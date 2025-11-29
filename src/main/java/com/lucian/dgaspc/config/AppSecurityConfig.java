@@ -33,7 +33,7 @@ public class AppSecurityConfig {
 		http.authorizeHttpRequests(
 			auth -> auth.requestMatchers("/signin", "/signup").permitAll()
 			.requestMatchers("/super/**", "/superapps/**").hasAuthority("SUPER")
-			.requestMatchers("/admin/**").hasAuthority("ADMIN")
+			.requestMatchers("/admin/**").hasAuthority("Administrator")
 			.requestMatchers("/images/**").permitAll()
 			.requestMatchers("/scripts/**").permitAll()
 			.requestMatchers("/styles/**").permitAll()

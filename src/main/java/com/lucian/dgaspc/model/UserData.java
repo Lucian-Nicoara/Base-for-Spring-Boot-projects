@@ -15,7 +15,7 @@ public class UserData implements UserDetails{
 	private String nume;
 	private String prenume;
 	private String idCompartiment;
-	private Compartiment compartiment;
+	private String compartiment;
 	private Date registrationDate;
 	private List<UserRole> authorities;
 	
@@ -86,14 +86,16 @@ public class UserData implements UserDetails{
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
-	public Compartiment getCompartiment() {
+	public String getCompartiment() {
 		return compartiment;
 	}
-	public void setCompartiment(Compartiment compartiment) {
+	public void setCompartiment(String compartiment) {
 		this.compartiment = compartiment;
 	}
 	@Override
 	public String toString() {
-		return "UserData [id=" + id + ", username=" + username + ", password=" + password + ", nume=" + nume + ", prenume=" + prenume + ", idCompartiment=" + idCompartiment + ", compartiment=" + compartiment + ", registrationDate=" + registrationDate + ", authorities=" + authorities + "]";
+		return "UserData [id=" + id + ", username=" + username + ", password=" + password + ", nume=" + nume
+				+ ", prenume=" + prenume + ", idCompartiment=" + idCompartiment + ", compartiment=" + compartiment
+				+ ", registrationDate=" + registrationDate + ", authorities=" + authorities + "]";
 	}
 }

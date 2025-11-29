@@ -48,12 +48,12 @@
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
-						<div id="titluModal" style="width:100%; text-align: center;">Adaugă copil cu handicap</div>
+						<div id="titluModal" style="width:100%; text-align: center;">Utilizator</div>
 					</div>
 					<div class="modal-body">
 						<div class="row mb-2">
 							<div class="col-md-2">
-								<label class="fw-bold">username</label><br>
+								<label class="fw-bold">Username</label><br>
 								<input id="txtUsername" class="form-control" onchange="onChangeUsername()">
 							</div>
 							<div class="col-md-2">
@@ -70,8 +70,8 @@
 								</select>
 							</div>
 							<div class="col-md-2">
-								<label class="fw-bold">Parola</label><br>
-								<input id="parola" class="form-control">
+								<label class="fw-bold" data-bs-toggle="tooltip" title="Se completează doar dacă trebuie schimbată">Parola (nouă)</label><br>
+								<input id="parola" class="form-control" data-bs-toggle="tooltip" title="Se completează doar dacă trebuie schimbată" placeholder="doar dacă trebuie schimbată">
 							</div>
 						</div>
 						<div class="row">
@@ -108,7 +108,7 @@
 		incarcaDtUtilizatori();
 	});
 	
-	function incarcadtUtilizatori(){
+	function incarcaDtUtilizatori(){
 		DataTable.datetime('DD.MM.YYYY');
 		if ($.fn.DataTable.isDataTable("#dtUtilizatori")) {
 			$("#dtUtilizatori").DataTable().clear().destroy();
@@ -156,11 +156,16 @@
 				});
 			},
 			columns: [
-				{ data: "username" },
+				//{ data: "username" },
+				{ data: 
+					null, 
+					render: function (data, type, row, meta) {
+						return '<a href="#" onclick="editareUtilizator(' + meta.row + ')">' + data.username + '</a>';
+					}
+				},
 				{ data: "nume" },
 				{ data: "prenume" },
-				{ data: "compartiment.nume" },
-				{ data: "parola" },
+				{ data: "compartiment" },
 				{ data: 
 					null, 
 					render: function (data, type, row, meta) {
@@ -286,11 +291,30 @@
 		$("#txtUsername").val(utilizatorCurent.username);
 		$("#numeUtilizator").val(utilizatorCurent.nume);
 		$("#prenumeUtilizator").val(utilizatorCurent.prenume);
-		$("#selCompartiment").val(utilizatorCurent.idCompartiment).select2({
-			theme: "bootstrap-5", 
-			dropdownParent: $("#modalAdaugaUtilizator"),
-			minimumResultsForSearch: -1
+		
+		$.ajax({
+			url: "/note/getLov",
+			type: "GET",
+			success: function(response) {
+				for (const c of response.listaCompartimente) {
+					$("#selCompartiment").append('<option value="' + c.id + '">' + c.nume + '</option>');
+				}
+				$("#selCompartiment").val(utilizatorCurent.idCompartiment).select2({
+					theme: "bootstrap-5", 
+					dropdownParent: $("#modalAdaugaUtilizator"),
+					minimumResultsForSearch: -1
+				});
+				
+				$("#modalAdaugaUtilizator").modal({backdrop: "static", keyboard: false}).modal("show");
+				setTimeout(function(){
+					$("#txtUsername").focus();
+				}, 200);
+			},
+			error: function(response){
+				handleHtmlError(response.responseText);
+			}
 		});
+		
 		$("#parola").val(utilizatorCurent.password);
 		$("#modalAdaugaUtilizator").modal({backdrop: "static", keyboard: false}).modal("show");
 	}

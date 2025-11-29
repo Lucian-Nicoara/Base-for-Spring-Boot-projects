@@ -51,4 +51,10 @@ public class MainController {
 	public String evidentaCH(Model model) {
 		return "pages/evidenta-ch";
 	}
+	
+	@PreAuthorize("hasAuthority('Administrator')")
+	@GetMapping("/adminUtilizatori")
+	public String adminUtilizatori(Model model) {
+		return "pages/adminUtilizatori";
+	}
 }

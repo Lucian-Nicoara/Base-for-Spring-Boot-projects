@@ -11,13 +11,13 @@ import com.lucian.dgaspc.model.UserRole;
 @Mapper
 public interface UserDataMapper {
 	
-	@Select ("select * from user_data")
+	@Select ("select u.*, c.nume as compartiment from user_data u left join compartimente c on c.id = u.idCompartiment")
 	List<UserData> selectAll();
 	
-	@Select ("select * from user_data where id = #{id}")
+	@Select ("select u.*, c.nume as compartiment from user_data u left join compartimente c on c.id = u.idCompartiment where u.id = #{id}")
 	UserData getById(String id);
 	
-	@Select ("select * from user_data where username = #{username}")
+	@Select ("select u.*, c.nume as compartiment from user_data u left join compartimente c on c.id = u.idCompartiment where username = #{username}")
 	UserData getByUsername(String username);
 	
 	@Select ("select * from user_roles where userId = #{id}")
