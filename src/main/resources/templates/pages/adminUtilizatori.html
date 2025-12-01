@@ -101,10 +101,13 @@
 		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 			return new bootstrap.Tooltip(tooltipTriggerEl)
 		});
-			
+		
 		$(".btnMenu").removeClass("btn-primary");
+		$("#menuEntryAdmin").removeClass("btn-light");
+		$("#menuEntryAdmin").addClass("btn-primary fw-bold");
 		$("#menuEntryAdministrareUtilizatori").removeClass("btn-light");
 		$("#menuEntryAdministrareUtilizatori").addClass("btn-primary fw-bold");
+		
 		incarcaDtUtilizatori();
 	});
 	
@@ -123,7 +126,7 @@
 						{
 							text: 'Adaugă înregistrare nouă',
 							action: function (e, dt, node, config) {
-								arataModalAdaugaInregCH();
+								arataModalAdaugaUtilizator();
 							}
 						},
 						//"excel",
@@ -254,6 +257,7 @@
 		
 		if(!eroareValidare){
 			var utilizator = {
+					"id": null,
 					"username": $("#txtUsername").val(),
 					"nume": $("#numeUtilizator").val(),
 					"prenume": $("#prenumeUtilizator").val(),
@@ -266,6 +270,7 @@
 				utilizator.id = utilizatorCurent.id;
 				resetPaging = false;
 			}
+			console.log(utilizator);
 			$.ajax({
 				url: urlSalvare,
 				type: "POST",
@@ -336,7 +341,8 @@
 				type: "GET",
 				success: function(response) {
 					if(response != null && response.username == $("#txtUsername").val()){
-						bootbox.alert("Exista deja un utilizator cu acest username!<br>" + response.nume + " " + response.prenume);
+						bootbox.alert("Exista deja un utilizator cu acest username!<br>" + response.username + " : " + response.nume + " " + response.prenume);
+						$("#txtUsername").val("");
 					}
 				},
 				error: function(response){

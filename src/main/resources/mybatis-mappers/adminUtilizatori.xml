@@ -15,4 +15,20 @@
 		LEFT JOIN compartimente c on c.id = u.idCompartiment
 		ORDER BY u.nume DESC
 	</select>
+	
+	<select id = "getUtilizatorByUsername" resultType = "com.lucian.dgaspc.model.UserData">
+		SELECT 
+			u.id,
+			u.username,
+			u.nume,
+			u.prenume,
+			u.idCompartiment,
+			c.nume as compartiment,
+			u.registrationDate
+		FROM 
+			user_data u
+		LEFT JOIN compartimente c on c.id = u.idCompartiment
+		WHERE
+			u.username = #{username}
+	</select>
 </mapper>

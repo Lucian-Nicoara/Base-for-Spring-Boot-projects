@@ -17,4 +17,8 @@ public class AdminUtilizatoriService{
 	public List<UserData> getUtilizatori() {
 		return adminUtilizatoriMapper.getUtilizatori();
 	}
+	
+	public UserData getUtilizatorByUsername(String username) {
+		return adminUtilizatoriMapper.getUtilizatorByUsername(username);
+	}
 }
