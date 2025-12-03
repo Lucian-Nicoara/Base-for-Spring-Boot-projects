@@ -39,6 +39,15 @@ public class AdminUtilizatoriController {
 		return "ok";
 	}
 	
+	@PostMapping("/putUtilizator")
+	public String putUtilizator(@RequestBody UserData utilizator) {
+		if(utilizator.getId() != 0 && utilizator.getUsername() != null && !utilizator.getUsername().isEmpty()) {
+			System.out.println(utilizator.toString());
+			adminUtilizatoriService.putUtilizator(utilizator);
+		}
+		return "ok";
+	}
+	
 	@GetMapping("/getUtilizatorByUsername")
 	public UserData getUtilizatorByUsername(@RequestParam String username) {
 		UserData utilizator = adminUtilizatoriService.getUtilizatorByUsername(username);

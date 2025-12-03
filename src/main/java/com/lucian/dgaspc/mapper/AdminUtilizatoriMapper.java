@@ -13,4 +13,5 @@ public interface AdminUtilizatoriMapper {
 	List<UserData> getUtilizatori();
 	UserData getUtilizatorByUsername(@Param("username") String username);
 	void postUtilizator(@Param("utilizator") UserData utilizator);
+	void putUtilizator(@Param("utilizator") UserData utilizator);
 }

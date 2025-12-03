@@ -21,7 +21,7 @@ public class UserDataService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserData user = userDataMapper.getByUsername(username);
-		if (user != null) {
+		if (user != null && user.getStadiu().contentEquals("ACTIV")) {
 			user.setAuthorities(userDataMapper.getAuthoritiesByUserId(user.getId()));
 			return user; 
 		} else {
@@ -35,6 +35,6 @@ public class UserDataService implements UserDetailsService{
 			return (UserData) authentication.getPrincipal();
 		}else {
 			return null;
-		}		
+		}
 	}
 }

@@ -74,6 +74,35 @@
 								<input id="parola" class="form-control" data-bs-toggle="tooltip" title="Se completează doar dacă trebuie schimbată" placeholder="doar dacă trebuie schimbată">
 							</div>
 						</div>
+						<div class="row mb-2" id="divStadiuUtilizator">
+							<div class="col-md-6">
+								<label for="selCompartiment" class="fw-bold">Roluri utilizator:</label><br>
+								<div class="form-check" style="margin-left:40px;">
+									<input class="form-check-input" type="checkbox" value="" id="ckAdministrator">
+									<label class="form-check-label" for="ckAdministrator">Administrator aplicație</label>
+								</div>
+								<div class="form-check" style="margin-left:40px;">
+									<input class="form-check-input" type="checkbox" value="" id="ckOpRegHCJC">
+									<label class="form-check-label" for="ckOpRegHCJC">Operator Registrul Hotărâri CJC</label>
+								</div>
+								<div class="form-check" style="margin-left:40px;">
+									<input class="form-check-input" type="checkbox" value="" id="ckOpRegConsDir">
+									<label class="form-check-label" for="ckOpRegConsDir">Operator Ședințe Consiliul Director</label>
+								</div>
+								<div class="form-check" style="margin-left:40px;">
+									<input class="form-check-input" type="checkbox" value="" id="ckOpEvidentaCH">
+									<label class="form-check-label" for="ckOpEvidentaCH">Operator Evidență copii handicap</label>
+								</div>
+							</div>
+							<div class="col-md-4"></div>
+							<div class="col-md-2">
+								<label for="selStadiu" class="fw-bold">Stadiu utilizator</label><br>
+								<select id="selStadiu" class="w-100">
+									<option value="ACTIV">ACTIV</option>
+									<option value="INACTIV">INACTIV</option>
+								</select>
+							</div>
+						</div>
 						<div class="row">
 							<div id="divMesajAdaugaUtilizator" class="col-md-12" style="color: red; font-weight: bold;"></div>
 						</div>
@@ -199,6 +228,7 @@
 	}
 	
 	function arataModalAdaugaUtilizator(){
+		$("#divStadiuUtilizator").hide();
 		$("#txtUsername").val("");
 		$("#numeUtilizator").val("");
 		$("#prenumeUtilizator").val("");
@@ -263,14 +293,27 @@
 					"prenume": $("#prenumeUtilizator").val(),
 					"idCompartiment": $("#selCompartiment").val(),
 					"password": $("#parola").val(),
+					"authorities":[]
 				};
 			var resetPaging = true;
 			if(utilizatorCurent != null && utilizatorCurent.id != null){
 				urlSalvare = "/adminUtilizatori/putUtilizator";
 				utilizator.id = utilizatorCurent.id;
+				utilizator.stadiu = $("#selStadiu").val();
 				resetPaging = false;
 			}
-			console.log(utilizator);
+			if($("#ckAdministrator").is(":checked")){
+				utilizator.authorities.push({authority:"Administrator"});
+			}
+			if($("#ckOpRegHCJC").is(":checked")){
+				utilizator.authorities.push({authority:"OpRegHCJC"});
+			}
+			if($("#ckOpRegConsDir").is(":checked")){
+				utilizator.authorities.push({authority:"OpRegConsDir"});
+			}
+			if($("#ckOpEvidentaCH").is(":checked")){
+				utilizator.authorities.push({authority:"OpEvidentaCH"});
+			}
 			$.ajax({
 				url: urlSalvare,
 				type: "POST",
@@ -292,7 +335,8 @@
 	
 	function editareUtilizator(rowIndex){
 		utilizatorCurent = dtUtilizatori.row(rowIndex).data();
-		
+		console.log(utilizatorCurent);
+		$("#divStadiuUtilizator").show();
 		$("#txtUsername").val(utilizatorCurent.username);
 		$("#numeUtilizator").val(utilizatorCurent.nume);
 		$("#prenumeUtilizator").val(utilizatorCurent.prenume);
@@ -320,7 +364,25 @@
 			}
 		});
 		
-		$("#parola").val(utilizatorCurent.password);
+		//$("#parola").val(utilizatorCurent.password);
+		$("#selStadiu").val(utilizatorCurent.stadiu).select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaUtilizator"),
+			minimumResultsForSearch: -1
+		});
+		$(".form-check-input").prop('checked', false);
+		utilizatorCurent.authorities.forEach(function(rol){
+			if(rol.authority == "Administrator"){
+				$("#ckAdministrator").prop('checked', true);
+			}else if(rol.authority == "OpRegHCJC"){
+				$("#ckOpRegHCJC").prop('checked', true);
+			}else if(rol.authority == "OpRegConsDir"){
+				$("#ckOpRegConsDir").prop('checked', true);
+			}else if(rol.authority == "OpEvidentaCH"){
+				$("#ckOpEvidentaCH").prop('checked', true);
+			}
+		});
+		
 		$("#modalAdaugaUtilizator").modal({backdrop: "static", keyboard: false}).modal("show");
 	}
 	

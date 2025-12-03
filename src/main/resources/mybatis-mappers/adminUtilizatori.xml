@@ -9,7 +9,8 @@
 			u.prenume,
 			u.idCompartiment,
 			c.nume as compartiment,
-			u.registrationDate
+			u.registrationDate,
+			u.stadiu
 		FROM 
 			user_data u
 		LEFT JOIN compartimente c on c.id = u.idCompartiment
@@ -24,7 +25,8 @@
 			u.prenume,
 			u.idCompartiment,
 			c.nume as compartiment,
-			u.registrationDate
+			u.registrationDate,
+			u.stadiu
 		FROM 
 			user_data u
 		LEFT JOIN compartimente c on c.id = u.idCompartiment
@@ -34,4 +36,19 @@
 	<insert id="postUtilizator">
 		INSERT INTO user_data VALUES(null, #{utilizator.username}, #{utilizator.password}, #{utilizator.nume}, #{utilizator.prenume}, #{utilizator.idCompartiment}, SYSDATE(), #{utilizator.stadiu})
 	</insert>
+	
+	<update id="putUtilizator">
+		UPDATE user_data 
+		SET 
+			username = #{utilizator.username},
+			<if test="utilizator.password != null and utilizator.password != ''">
+			password = #{utilizator.password},
+			</if>
+			nume = #{utilizator.nume},
+			prenume = #{utilizator.prenume},
+			idCompartiment = #{utilizator.idCompartiment},
+			stadiu = #{utilizator.stadiu}
+		WHERE
+			id = #{utilizator.id}
+	</update>
 </mapper>
