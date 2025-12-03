@@ -18,6 +18,7 @@ public class UserData implements UserDetails{
 	private String compartiment;
 	private Date registrationDate;
 	private List<UserRole> authorities;
+	private String stadiu;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -92,10 +93,17 @@ public class UserData implements UserDetails{
 	public void setCompartiment(String compartiment) {
 		this.compartiment = compartiment;
 	}
+	public String getStadiu() {
+		return stadiu;
+	}
+	public void setStadiu(String stadiu) {
+		this.stadiu = stadiu;
+	}
 	@Override
 	public String toString() {
 		return "UserData [id=" + id + ", username=" + username + ", password=" + password + ", nume=" + nume
 				+ ", prenume=" + prenume + ", idCompartiment=" + idCompartiment + ", compartiment=" + compartiment
-				+ ", registrationDate=" + registrationDate + ", authorities=" + authorities + "]";
+				+ ", registrationDate=" + registrationDate + ", authorities=" + authorities + ", stadiu=" + stadiu
+				+ "]";
 	}
 }

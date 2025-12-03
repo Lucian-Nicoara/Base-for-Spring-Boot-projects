@@ -12,4 +12,5 @@ import com.lucian.dgaspc.model.UserData;
 public interface AdminUtilizatoriMapper {
 	List<UserData> getUtilizatori();
 	UserData getUtilizatorByUsername(@Param("username") String username);
+	void postUtilizator(@Param("utilizator") UserData utilizator);
 }

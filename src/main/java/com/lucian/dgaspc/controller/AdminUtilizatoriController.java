@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lucian.dgaspc.model.CopilHandicap;
 import com.lucian.dgaspc.model.TableData;
 import com.lucian.dgaspc.model.UserData;
 import com.lucian.dgaspc.service.AdminUtilizatoriService;
@@ -27,7 +26,6 @@ public class AdminUtilizatoriController {
 	@GetMapping("/getUtilizatori")
 	public TableData<UserData> getEvidentaCH() {
 		List<UserData> listaUtilizatori = adminUtilizatoriService.getUtilizatori();
-		System.out.println(listaUtilizatori);
 		TableData<UserData> tableData = new TableData<UserData>(listaUtilizatori.size(), listaUtilizatori.size(), listaUtilizatori);
 		return tableData;
 	}
@@ -35,8 +33,8 @@ public class AdminUtilizatoriController {
 	@PostMapping("/postUtilizator")
 	public String postUtilizator(@RequestBody UserData utilizator) {
 		if(utilizator.getUsername() != null && !utilizator.getUsername().isEmpty()) {
-			//evidentaCHService.postCopilHandicap(copilHandicap);
 			System.out.println(utilizator.toString());
+			adminUtilizatoriService.postUtilizator(utilizator);
 		}
 		return "ok";
 	}

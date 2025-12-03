@@ -13,7 +13,7 @@
 		FROM 
 			user_data u
 		LEFT JOIN compartimente c on c.id = u.idCompartiment
-		ORDER BY u.nume DESC
+		ORDER BY u.nume ASC
 	</select>
 	
 	<select id = "getUtilizatorByUsername" resultType = "com.lucian.dgaspc.model.UserData">
@@ -31,4 +31,7 @@
 		WHERE
 			u.username = #{username}
 	</select>
+	<insert id="postUtilizator">
+		INSERT INTO user_data VALUES(null, #{utilizator.username}, #{utilizator.password}, #{utilizator.nume}, #{utilizator.prenume}, #{utilizator.idCompartiment}, SYSDATE(), #{utilizator.stadiu})
+	</insert>
 </mapper>
