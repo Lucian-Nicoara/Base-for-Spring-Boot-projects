@@ -51,4 +51,20 @@
 		WHERE
 			id = #{utilizator.id}
 	</update>
+	
+	<select id="getRolByUserIdAndRol" resultType="com.lucian.dgaspc.model.UserRole">
+		SELECT * FROM user_roles WHERE userId = #{idUser} and authority = #{rol}
+	</select>
+	
+	<insert id="postRolUtilizator">
+		INSERT INTO user_roles VALUES(null, #{rol}, #{idUser})
+	</insert>
+	
+	<delete id="deleteRolUtilizator">
+		DELETE FROM user_roles WHERE userId = #{idUser} and authority = #{rol}
+	</delete>
+	
+	<delete id="deleteAllByUserId">
+		DELETE FROM user_roles WHERE userId = #{idUser}
+	</delete>
 </mapper>

@@ -58,11 +58,11 @@
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Nume</label><br>
-								<input id="numeUtilizator" class="form-control">
+								<input id="numeUtilizator" class="form-control" onChange="onChangeNumePrenume();">
 							</div>
 							<div class="col-md-3">
 								<label class="fw-bold">Prenume</label><br>
-								<input id="prenumeUtilizator" class="form-control">
+								<input id="prenumeUtilizator" class="form-control" onChange="onChangeNumePrenume();">
 							</div>
 							<div class="col-md-3">
 								<label for="selCompartiment" class="fw-bold">Compartiment</label><br>
@@ -405,12 +405,24 @@
 					if(response != null && response.username == $("#txtUsername").val()){
 						bootbox.alert("Exista deja un utilizator cu acest username!<br>" + response.username + " : " + response.nume + " " + response.prenume);
 						$("#txtUsername").val("");
+					}else{
+						if($("#numeUtilizator").val() == "" && $("#prenumeUtilizator").val() == ""){
+							var n = $("#txtUsername").val().split(".");
+							$("#prenumeUtilizator").val(String(n[0]).charAt(0).toUpperCase() + String(n[0]).slice(1)); 
+							$("#numeUtilizator").val(String(n[1]).charAt(0).toUpperCase() + String(n[1]).slice(1));
+						}
 					}
 				},
 				error: function(response){
 					handleHtmlError(response.responseText);
 				}
 			});
+		}
+	}
+	
+	function onChangeNumePrenume(){
+		if(!$("#txtUsername").val()){
+			$("#txtUsername").val($("#prenumeUtilizator").val() + "." + $("#numeUtilizator").val());
 		}
 	}
 </script>

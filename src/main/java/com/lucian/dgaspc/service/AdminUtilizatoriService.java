@@ -29,7 +29,9 @@ public class AdminUtilizatoriService{
 	
 	public UserData getUtilizatorByUsername(String username) {
 		UserData utilizator = adminUtilizatoriMapper.getUtilizatorByUsername(username);
-		utilizator.setAuthorities(userDataMapper.getAuthoritiesByUserId(utilizator.getId()));
+		if(utilizator != null) {
+			utilizator.setAuthorities(userDataMapper.getAuthoritiesByUserId(utilizator.getId()));	
+		}
 		return utilizator;
 	}
 	
@@ -46,6 +48,12 @@ public class AdminUtilizatoriService{
 		if(utilizator.getPassword() != null && !utilizator.getPassword().isEmpty()) {
 			utilizator.setPassword(new BCryptPasswordEncoder().encode(utilizator.getPassword()));
 		}
+		
+		adminUtilizatoriMapper.deleteAllByUserId(utilizator.getId());
+		utilizator.getAuthorities().forEach(rol ->{
+			adminUtilizatoriMapper.postRolUtilizator(utilizator.getId(), rol.getAuthority());
+		});
+
 		adminUtilizatoriMapper.putUtilizator(utilizator);
 	}
 }

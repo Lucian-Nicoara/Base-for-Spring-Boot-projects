@@ -33,7 +33,7 @@ public class AdminUtilizatoriController {
 	@PostMapping("/postUtilizator")
 	public String postUtilizator(@RequestBody UserData utilizator) {
 		if(utilizator.getUsername() != null && !utilizator.getUsername().isEmpty()) {
-			System.out.println(utilizator.toString());
+			//System.out.println(utilizator.toString());
 			adminUtilizatoriService.postUtilizator(utilizator);
 		}
 		return "ok";
@@ -42,7 +42,7 @@ public class AdminUtilizatoriController {
 	@PostMapping("/putUtilizator")
 	public String putUtilizator(@RequestBody UserData utilizator) {
 		if(utilizator.getId() != 0 && utilizator.getUsername() != null && !utilizator.getUsername().isEmpty()) {
-			System.out.println(utilizator.toString());
+			//System.out.println(utilizator.toString());
 			adminUtilizatoriService.putUtilizator(utilizator);
 		}
 		return "ok";

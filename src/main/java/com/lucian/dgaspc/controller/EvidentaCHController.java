@@ -26,7 +26,7 @@ public class EvidentaCHController {
 	@GetMapping("/getEvidentaCH")
 	public TableData<CopilHandicap> getEvidentaCH(@RequestParam String filtruDataComisieStart, @RequestParam String filtruDataComisieEnd, @RequestParam String filtruVarstaStart, @RequestParam String filtruVarstaEnd) {
 		List<CopilHandicap> evidentaCH = evidentaCHService.getEvidentaCH(filtruDataComisieStart, filtruDataComisieEnd, filtruVarstaStart, filtruVarstaEnd);
-		System.out.println(filtruDataComisieStart);
+		//System.out.println(filtruDataComisieStart);
 		TableData<CopilHandicap> tableData = new TableData<CopilHandicap>(evidentaCH.size(), evidentaCH.size(), evidentaCH);
 		return tableData;
 	}

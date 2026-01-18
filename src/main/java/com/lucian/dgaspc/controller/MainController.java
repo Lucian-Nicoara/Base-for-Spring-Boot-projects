@@ -21,10 +21,10 @@ public class MainController {
 	public String getIndex(Model model) {
 		if(userDataService.getAuthUser() != null) {
 			user = userDataService.getAuthUser();
-			System.out.println("debug authUser: " + user.toString());
+			//System.out.println("debug authUser: " + user.toString());
 			return "pages/homepage";
 		}else {
-			System.out.println("debug no authUser");
+			//System.out.println("debug no authUser");
 			return "pages/signin";
 		}
 	}
