@@ -36,6 +36,6 @@
 			</if> 
 			AND sters is null
 		</where> 
-		ORDER BY ev.dataComisie DESC
+		ORDER BY ev.dataComisie DESC, ev.id DESC
 	</select>
 </mapper>

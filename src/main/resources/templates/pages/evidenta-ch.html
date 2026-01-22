@@ -387,8 +387,18 @@
 			}, */
 			columns: [
 				{ data: "dataComisie" },
-				{ data: "nume" },
-				{ data: "prenume" },
+				//{ data: "nume" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						return '<div style="width:100%; cursor:pointer;" onclick="editareCH(' + meta.row + ')"><a href="#" class = "text-decoration-none fw-bold">' + data.nume + '</a></div>';
+					}
+				},
+				//{ data: "prenume" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						return '<div style="width:100%; cursor:pointer;" onclick="editareCH(' + meta.row + ')"><a href="#" class = "text-decoration-none fw-bold" >' + data.prenume + '</a></div>';
+					}
+				},
 				{ data: "sex" },
 				{ data: "dataNasterii" },
 				{ data: "cnp" },

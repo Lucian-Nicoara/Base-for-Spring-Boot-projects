@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.lucian</groupId>
 	<artifactId>dgaspc</artifactId>
-	<version>25.10.9</version>
+	<version>26.1.20</version>
 	<name>dgaspc</name>
 	<description>DGASPC - Registre electronice</description>
 	<properties>

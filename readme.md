@@ -3,14 +3,14 @@ Config file:
 
 Mysql:
 	user: root
-	password: [none]
+	password: a.......3
 	jdbc:mysql://localhost:3306/dgaspc_app_db
 
 Apache tomcat: 
 	http://localhost:8080/
 	
 Site login:
-	lucian@gmail.com : lucian
+	andreea.nicoara : a.......3
 	sau update cu hash generat aici: https://bcrypt-generator.com/
 
 Deploy:

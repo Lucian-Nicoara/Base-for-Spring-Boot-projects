@@ -8,14 +8,16 @@
 					<th style="background-color: #ccc;">Nume</th>
 					<th style="background-color: #ccc;">Prenume</th>
 					<th style="background-color: #ccc;">Compartiment</th>
+					<th style="background-color: #ccc;">Stadiu</th>
 					<th style="background-color: #ccc;">Operații</th>
 				</tr>
 				<tr>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
-					<th></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
+					<th data-dt-order="disable"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -64,19 +66,15 @@
 								<label class="fw-bold">Prenume</label><br>
 								<input id="prenumeUtilizator" class="form-control" onChange="onChangeNumePrenume();">
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-5">
 								<label for="selCompartiment" class="fw-bold">Compartiment</label><br>
 								<select id="selCompartiment" class="w-100">
 								</select>
 							</div>
-							<div class="col-md-2">
-								<label class="fw-bold" data-bs-toggle="tooltip" title="Se completează doar dacă trebuie schimbată">Parola (nouă)</label><br>
-								<input id="parola" class="form-control" data-bs-toggle="tooltip" title="Se completează doar dacă trebuie schimbată" placeholder="doar dacă trebuie schimbată">
-							</div>
 						</div>
 						<div class="row mb-2" id="divStadiuUtilizator">
 							<div class="col-md-6">
-								<label for="selCompartiment" class="fw-bold">Roluri utilizator:</label><br>
+								<label class="fw-bold">Roluri utilizator:</label><br>
 								<div class="form-check" style="margin-left:40px;">
 									<input class="form-check-input" style="cursor:pointer;" type="checkbox" value="" id="ckAdministrator">
 									<label class="form-check-label" style="cursor:pointer;" for="ckAdministrator">Administrator aplicație</label>
@@ -94,7 +92,11 @@
 									<label class="form-check-label" style="cursor:pointer;" for="ckOpEvidentaCH">Operator Evidență copii handicap</label>
 								</div>
 							</div>
-							<div class="col-md-4"></div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3">
+								<label class="fw-bold" data-bs-toggle="tooltip" title="Se completează doar dacă trebuie schimbată">Parola (nouă)</label><br>
+								<input id="parola" class="form-control" data-bs-toggle="tooltip" title="Se completează doar dacă trebuie schimbată" placeholder="doar dacă trebuie schimbată">
+							</div>
 							<div class="col-md-2">
 								<label for="selStadiu" class="fw-bold">Stadiu utilizator</label><br>
 								<select id="selStadiu" class="w-100">
@@ -162,7 +164,7 @@
 						{extend: 'excelHtml5',
 							title: 'Administrare utilizatori ' + getTodayDate(),
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4]
+								columns: [0, 1, 2, 3, 4, 5]
 							}
 						},
 						{extend: 'pdfHtml5',
@@ -170,7 +172,7 @@
 							orientation: 'landscape',
                     		pageSize: 'A4',
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4]
+								columns: [0, 1, 2, 3, 4, 5]
 							}
                     	}
                     ]
@@ -198,6 +200,7 @@
 				{ data: "nume" },
 				{ data: "prenume" },
 				{ data: "compartiment" },
+				{ data: "stadiu" },
 				{ data: 
 					null, 
 					render: function (data, type, row, meta) {
@@ -235,7 +238,7 @@
 		$("#selCompartiment").val("").select2({
 			theme: "bootstrap-5", 
 			dropdownParent: $("#modalAdaugaUtilizator"), 
-			minimumResultsForSearch: -1
+			//minimumResultsForSearch: -1
 		});
 		$("#parola").val("");
 		$("#selCompartiment").empty();
@@ -351,7 +354,7 @@
 				$("#selCompartiment").val(utilizatorCurent.idCompartiment).select2({
 					theme: "bootstrap-5", 
 					dropdownParent: $("#modalAdaugaUtilizator"),
-					minimumResultsForSearch: -1
+					//minimumResultsForSearch: -1
 				});
 				
 				$("#modalAdaugaUtilizator").modal({backdrop: "static", keyboard: false}).modal("show");
