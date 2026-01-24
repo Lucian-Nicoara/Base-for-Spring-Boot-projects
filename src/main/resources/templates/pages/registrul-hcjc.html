@@ -57,6 +57,7 @@
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
 						<div id="titluModal" style="width:100%; text-align: center;">Adaugă o hotărâre CJC</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalAdaugaHCJC()"></button>
 					</div>
 					<div class="modal-body">
 						<div class="row mb-2">
@@ -119,6 +120,7 @@
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
 						<div id="titluModal" style="width:100%; text-align: center;">Adaugă fișier hotărâre CJC</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalAdaugaFisierHCJC()"></button>
 					</div>
 					<form method="POST" enctype="multipart/form-data" id="formFisierHotarareCJC">
 					<div class="modal-body">
@@ -166,11 +168,12 @@
 		<!-- End modal incarca fisier hotarareCJC-->
 		
 		<!-- Modal arata fisier hotarareCJC-->
-		<div class="modal fade" id="modalArataFisierHCJC" role="dialog" aria-labelledby="modalArataFisierHCJC">
+		<div class="modal fade" id="modalArataFisierHCJC" role="dialog" aria-labelledby="modalArataFisierHCJC" tabindex='-1'>
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
 						<div id="titluModal" style="width:100%; text-align: center;">Fișier hotărâre CJC</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalArataFisierHCJC()"></button>
 					</div>
 					<div class="modal-body" style="padding: 0px;">
 						<iframe id="embedFisierHCJC" class="w-100" style="height:600px;"></iframe>
@@ -190,6 +193,7 @@
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
 						<div id="titluModal" style="width:100%; text-align: center;">Notițe hotărâre CJC</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalNote()"></button>
 					</div>
 					<div class="modal-body" style="padding: 0px; max-height: 600px;">
 						<div style="padding: 15px; box-shadow: 0 8px 6px -6px #eee;">
@@ -255,6 +259,7 @@
 	var hotarareaCurenta = null;
 	
 	$(document).ready(function() {
+		hotarareaCurenta = null;
 		console.log("Registul hotarari CJC - ready!");
 		$("#divTitluPagina").html("Registrul Hotărâri CJC");
 		
@@ -279,6 +284,7 @@
 	function inchideModalHandleHtmlError(){
 		$("#divEroareHtml").html("");
 		$("#modalHandleHtmlError").modal("hide");
+		hotarareaCurenta = null;
 		window.location.reload();
 	}
 	
@@ -383,6 +389,7 @@
 	}
 	
 	function arataModalAdaugaInregHCJC(){
+		hotarareaCurenta = null;
 		$("#nrHotarare").val("");
 		$("#dataHotarare").val("");
 		$("#emitentHotarare").val("");
@@ -426,6 +433,7 @@
 	
 	function inchideModalAdaugaHCJC(){
 		$("#modalAdaugaHotarareCJC").modal("hide");
+		hotarareaCurenta = null;
 	}
 	
 	function verificaData(dataInput){
@@ -622,12 +630,12 @@
 	}
 
 	function inchideModalAdaugaFisierHCJC(){
+		hotarareaCurenta = null;
 		$("#fisierHotarareCJC").val("");
 		$("#modalAdaugaFisierHotarareCJC").modal("hide");
 	}
 	
 	function incarcaFisierul(rowIndex){
-		console.log("debug incarcaFisierul");
 		var form = $("#formFisierHotarareCJC")[0];
 		var data = new FormData(form);
 		data.append("idHotarare", hotarareaCurenta.id);
@@ -759,9 +767,11 @@
 							}else{
 								alert("Ștergerea nu a fost efectuată! Eroare de aplicație.");
 							}
+							hotarareaCurenta = null;
 						},
 						error: function(response){
 							handleHtmlError(response.responseText);
+							hotarareaCurenta = null;
 						}
 					});
 				}
@@ -774,7 +784,7 @@
 		$("#embedFisierHCJC").attr("src", "/hotarariCJC/arataFisier/"+hotarareaCurenta.id);
 		$("#linkBtnDescarcaFisierHCJC").attr("href", "/hotarariCJC/downloadFisier/"+hotarareaCurenta.id);
 		
-		$("#modalArataFisierHCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+		$("#modalArataFisierHCJC").modal("show");
 	}
 	
 	function inchideModalArataFisierHCJC(){

@@ -42,6 +42,19 @@ body {
 	text-shadow: #444 0 0 10px;
 }
 
+.buton-inchide{
+	padding-left:10px;
+	padding-right:10px;
+	cursor: pointer;
+	font-size: 22px;
+	color:red;
+	line-height:1;
+	transition: 0.3s;
+}
+.buton-inchide:hover{
+	text-shadow: red 0 0 10px;
+}
+
 #dt-search-0 {
 	width:400px;
 	margin-left: 10px;
