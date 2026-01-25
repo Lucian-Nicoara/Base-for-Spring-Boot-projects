@@ -590,7 +590,11 @@
 				data: JSON.stringify(copilHandicap),
 				success: function(response) {
 					inchideModalAdaugaCH();
-					dtEvidentaCH.ajax.reload(null, resetPaging);
+					if(!resetPaging){
+						dtEvidentaCH.ajax.reload(null, resetPaging);
+					}else{
+						location.reload();
+					}
 				},
 				error: function(response){
 					handleHtmlError(response.responseText);

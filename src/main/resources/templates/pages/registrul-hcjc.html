@@ -9,8 +9,6 @@
 					<th style="background-color: #ccc;">Emitent</th>
 					<th style="width:100px; background-color: #ccc;">Data comunicării</th>
 					<th style="background-color: #ccc;">Compartiment / Persoana / Data primirii</th>
-					<!-- <th style="background-color: #ccc;">Persoana care a primit-o</th>
-					<th style="width:100px; background-color: #ccc;">Data primirii</th> -->
 					<th style="width:100px; background-color: #ccc;">Stadiu</th>
 					<th style="width:190px; background-color: #ccc;">Operații</th>
 				</tr>
@@ -598,11 +596,6 @@
 					"dataHotarare": $("#dataHotarare").val(),
 					"emitent": $("#emitentHotarare").val(),
 					"dataComunicarii": $("#dataCom").val(),
-					"idCompartiment": $("#selCompartiment").val(),
-					"compartimentulAdresat": $('#selCompartiment').select2("data")[0].text,
-					"idPersoanaPrimire": $("#selPersoanaPrimire").val(),
-					"persoanaPrimire": $('#selPersoanaPrimire').select2("data")[0].text,
-					"dataPrimirii": $("#dataPrimirii").val(),
 					"listaPrimitori": primitoriHCJC,
 					"stadiu": $("#selStadiuHotarare").val(),
 				};
@@ -620,8 +613,11 @@
 				data: JSON.stringify(hotarareCJC),
 				success: function(response) {
 					inchideModalAdaugaHCJC();
-					//incarcaDtHotarariCJC();
-					dtHotarariCJC.ajax.reload(null, resetPaging);
+					if(!resetPaging){
+						dtHotarariCJC.ajax.reload(null, resetPaging);
+					}else{
+						location.reload();
+					}
 				},
 				error: function(response){
 					handleHtmlError(response.responseText);
@@ -650,12 +646,12 @@
 				for (const c of response.listaCompartimente) {
 					$("#selCompartiment").append('<option value="' + c.id + '">' + c.nume + '</option>');
 				}
-				$("#selCompartiment").val(hotarareaCurenta.idCompartiment).select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
+				$("#selCompartiment").val("").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
 
 				for (const p of response.listaPersoane) {
 					$("#selPersoanaPrimire").append('<option value="' + p.id + '">' + p.nume + ' ' + p.prenume + '</option>');
 				}
-				$("#selPersoanaPrimire").val(hotarareaCurenta.idPersoanaPrimire).select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
+				$("#selPersoanaPrimire").val("").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
 				
 				$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
 				setTimeout(function(){
@@ -670,7 +666,6 @@
 		$("#dataHotarare").val(hotarareaCurenta.dataHotarare);
 		$("#emitentHotarare").val(hotarareaCurenta.emitent);
 		$("#dataCom").val(hotarareaCurenta.dataComunicarii);
-		$("#dataPrimirii").val(hotarareaCurenta.dataPrimirii);
 		$("#selStadiuHotarare").val(hotarareaCurenta.stadiu).select2({
 			theme: "bootstrap-5", 
 			dropdownParent: $("#modalAdaugaHotarareCJC"),

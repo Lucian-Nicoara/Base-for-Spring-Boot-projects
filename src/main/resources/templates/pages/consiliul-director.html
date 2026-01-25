@@ -458,7 +458,11 @@
 				data: JSON.stringify(sedintaCD),
 				success: function(response) {
 					inchideModalAdaugaSCD();
-					dtConsiliulDirector.ajax.reload(null, resetPaging);
+					if(!resetPaging){
+						dtConsiliulDirector.ajax.reload(null, resetPaging);
+					}else{
+						location.reload();
+					}
 				},
 				error: function(response){
 					handleHtmlError(response.responseText);
