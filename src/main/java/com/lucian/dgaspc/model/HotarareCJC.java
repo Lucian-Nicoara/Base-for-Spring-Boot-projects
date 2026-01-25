@@ -1,6 +1,7 @@
 package com.lucian.dgaspc.model;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class HotarareCJC {
 	private String id;
@@ -14,9 +15,11 @@ public class HotarareCJC {
 	private String idPersoanaPrimire;
 	private String persoanaPrimire;
 	private String dataPrimirii;
+	private List<PrimitorHCJC> listaPrimitori;
 	private byte[] fisier;
 	private String numeFisier;
 	private String stadiu;
+	
 	
 	public String getId() {
 		return id;
@@ -84,6 +87,12 @@ public class HotarareCJC {
 	public void setDataPrimirii(String dataPrimirii) {
 		this.dataPrimirii = dataPrimirii;
 	}
+	public List<PrimitorHCJC> getListaPrimitori() {
+		return listaPrimitori;
+	}
+	public void setListaPrimitori(List<PrimitorHCJC> listaPrimitori) {
+		this.listaPrimitori = listaPrimitori;
+	}
 	public byte[] getFisier() {
 		return fisier;
 	}
@@ -104,6 +113,12 @@ public class HotarareCJC {
 	}
 	@Override
 	public String toString() {
-		return "HotarareCJC [id=" + id + ", nrHotarare=" + nrHotarare + ", dataHotarare=" + dataHotarare + ", emitent=" + emitent + ", dataComunicarii=" + dataComunicarii + ", idCompartiment=" + idCompartiment + ", compartiment=" + compartiment + ", compartimentulAdresat=" + compartimentulAdresat + ", idPersoanaPrimire=" + idPersoanaPrimire + ", persoanaPrimire=" + persoanaPrimire + ", dataPrimirii=" + dataPrimirii + ", fisier=" + Arrays.toString(fisier) + ", numeFisier=" + numeFisier + ", stadiu=" + stadiu + "]";
+		return "HotarareCJC [id=" + id + ", nrHotarare=" + nrHotarare + ", dataHotarare=" + dataHotarare + ", emitent="
+				+ emitent + ", dataComunicarii=" + dataComunicarii + ", idCompartiment=" + idCompartiment
+				+ ", compartiment=" + compartiment + ", compartimentulAdresat=" + compartimentulAdresat
+				+ ", idPersoanaPrimire=" + idPersoanaPrimire + ", persoanaPrimire=" + persoanaPrimire
+				+ ", dataPrimirii=" + dataPrimirii + ", listaPrimitori=" + listaPrimitori + ", fisier="
+				+ Arrays.toString(fisier) + ", numeFisier=" + numeFisier + ", stadiu=" + stadiu + "]";
 	}
+
 }

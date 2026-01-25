@@ -8,15 +8,13 @@
 					<th style="width:100px; background-color: #ccc;">Data</th>
 					<th style="background-color: #ccc;">Emitent</th>
 					<th style="width:100px; background-color: #ccc;">Data comunicării</th>
-					<th style="background-color: #ccc;">Compartimentul adresat</th>
-					<th style="background-color: #ccc;">Persoana care a primit-o</th>
-					<th style="width:100px; background-color: #ccc;">Data primirii</th>
+					<th style="background-color: #ccc;">Compartiment / Persoana / Data primirii</th>
+					<!-- <th style="background-color: #ccc;">Persoana care a primit-o</th>
+					<th style="width:100px; background-color: #ccc;">Data primirii</th> -->
 					<th style="width:100px; background-color: #ccc;">Stadiu</th>
 					<th style="width:190px; background-color: #ccc;">Operații</th>
 				</tr>
 				<tr>
-					<th data-dt-order="disable"></th>
-					<th data-dt-order="disable"></th>
 					<th data-dt-order="disable"></th>
 					<th data-dt-order="disable"></th>
 					<th data-dt-order="disable"></th>
@@ -69,29 +67,13 @@
 								<label for="dataHotarare" class="fw-bold">Dată hotărare</label><br>
 								<input id="dataHotarare" class="form-control" onchange="onChangeDataHotarare()">
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-4">
 								<label for="emitentHotarare" class="fw-bold">Emitent</label><br>
 								<input id="emitentHotarare" class="form-control">
 							</div>
-						</div>
-						<div class="row">
 							<div class="col-md-2">
 								<label for="dataCom" class="fw-bold">Data comunicării</label><br>
 								<input id="dataCom" class="form-control" onchange="onChangeDataComunicarii()">
-							</div>
-							<div class="col-md-3">
-								<label for="selCompartiment" class="fw-bold">Compartimentul adresat</label><br>
-								<select id="selCompartiment" class="w-100">
-								</select>
-							</div>
-							<div class="col-md-3">
-								<label for="selPersoanaPrimire" class="fw-bold">Persoana care a primit-o</label><br>
-								<select id="selPersoanaPrimire" class="w-100">
-								</select>
-							</div>
-							<div class="col-md-2">
-								<label for="dataPrimirii" class="fw-bold">Data primirii</label><br>
-								<input id="dataPrimirii" class="form-control" onchange="onChangeDataPrimirii()">
 							</div>
 							<div class="col-md-2">
 								<label for="selStadiuHotarare" class="fw-bold">Stadiu</label><br>
@@ -100,6 +82,46 @@
 									<option value="Rezolvată">Rezolvată</option>
 								</select>
 							</div>
+						</div>
+						<div class="row" style="margin-top:40px; background-color:darkslateblue;">
+							<div class="col-md-12" style="color:white; font-weight:bold;">Listă primitori:</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<label for="selPersoanaPrimire" class="fw-bold">Persoana care a primit-o</label><br>
+								<select id="selPersoanaPrimire" class="w-100" onChange = "onChangeSelPersoanaPrimire();">
+								</select>
+							</div>
+							<div class="col-md-5">
+								<label for="selCompartiment" class="fw-bold">Compartimentul adresat</label><br>
+								<select id="selCompartiment" class="w-100" onChange = "onChangeSelCompartiment();">
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label for="dataPrimirii" class="fw-bold">Data primirii</label><br>
+								<input id="dataPrimirii" class="form-control" onchange="onChangeDataPrimirii()">
+							</div>
+							<div class="col-md-2">
+								<button id="btnAdaugaPrimitor" type="button" class="btn btn-primary" style="margin-top:24px;" onclick="adaugaPrimitorHCJC()">Adaugă primitor</button>
+							</div>
+						</div>
+						<div class="row" style="margin-top:20px;">
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+								<table id="tabelPrimitori" class="table table-bordered">
+									<thead>
+										<tr>
+											<th>Persoana</th>
+											<th>Compartimentul adresat</th>
+											<th>Data primirii</th>
+											<th>Acțiuni</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-1"></div>
 						</div>
 						<div class="row">
 							<div id="divMesajAdaugaHotarare" class="col-md-12" style="color: red; font-weight: bold;"></div>
@@ -257,9 +279,13 @@
 	var mesajAdaugaHotarare = "";
 	var dtHotarariCJC = null;
 	var hotarareaCurenta = null;
+	var primitoriHCJC = [];
+	var listaPersoane = [];
+	var listaCompartimente = [];
 	
 	$(document).ready(function() {
 		hotarareaCurenta = null;
+		primitoriHCJC = [];
 		console.log("Registul hotarari CJC - ready!");
 		$("#divTitluPagina").html("Registrul Hotărâri CJC");
 		
@@ -317,7 +343,7 @@
 						{extend: 'excelHtml5',
 							title: 'DGASPC_Hotarari_CJC_' + getTodayDate(),
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4, 5, 6, 7]
+								columns: [0, 1, 2, 3, 4, 5]
 							}
 						},
 						{extend: 'pdfHtml5',
@@ -325,7 +351,7 @@
 							orientation: 'landscape',
                     		pageSize: 'A4',
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4, 5, 6, 7]
+								columns: [0, 1, 2, 3, 4, 5]
 							}
                     	}
                     ]
@@ -347,9 +373,24 @@
 				{ data: "dataHotarare" },
 				{ data: "emitent" },
 				{ data: "dataComunicarii" },
-				{ data: "compartimentulAdresat" },
-				{ data: "persoanaPrimire"},
-				{ data: "dataPrimirii"},
+				{ data: 
+					null, 
+					render: function (data, type, row, meta) {
+						if(data.listaPrimitori != null && data.listaPrimitori.length > 0){
+							var html = '<table style="width:100%; border: 1px solid grey">';
+							data.listaPrimitori.forEach(function(primitor){
+								html += '<tr> <td style="border: 1px solid #ccc">' + primitor.compartimentulAdresat + '</td> <td style="width:220px; border: 1px solid #ccc">' + primitor.persoanaPrimire + '</td> <td style="width:80px; border: 1px solid #ccc">' + primitor.dataPrimirii + '</td></tr>';
+							});
+							html += "</table>";
+							return html;
+						}else{
+							return "-";
+						}
+					}
+				},
+				//{ data: "compartimentulAdresat" },
+				//{ data: "persoanaPrimire"},
+				//{ data: "dataPrimirii"},
 				{ data: "stadiu"},
 				{ data: 
 					null, 
@@ -385,11 +426,14 @@
 	}
 	
 	function onClickReseteazaFiltre(){
-		incarcaDtHotarariCJC();
+		//incarcaDtHotarariCJC();
+		location.reload();
 	}
 	
 	function arataModalAdaugaInregHCJC(){
 		hotarareaCurenta = null;
+		primitoriHCJC = [];
+		$("#tabelPrimitori").hide();
 		$("#nrHotarare").val("");
 		$("#dataHotarare").val("");
 		$("#emitentHotarare").val("");
@@ -410,6 +454,9 @@
 			url: "/note/getLov",
 			type: "GET",
 			success: function(response) {
+				listaPersoane = response.listaPersoane;
+				listaCompartimente = response.listaCompartimente;
+				
 				for (const c of response.listaCompartimente) {
 					$("#selCompartiment").append('<option value="' + c.id + '">' + c.nume + '</option>');
 				}
@@ -434,6 +481,7 @@
 	function inchideModalAdaugaHCJC(){
 		$("#modalAdaugaHotarareCJC").modal("hide");
 		hotarareaCurenta = null;
+		primitoriHCJC = [];
 	}
 	
 	function verificaData(dataInput){
@@ -510,29 +558,40 @@
 		}
 		if(!$("#emitentHotarare").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul emitent");
+			$("#divMesajAdaugaHotarare").html("Completează câmpul: emitent");
 			return;
 		}
 		if(verificaData($("#dataCom").val()) != "ok"){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul data comunicării");
-			return;
-		}
-		if(!$("#selCompartiment").val()){
-			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul compartimentul adresat");
+			$("#divMesajAdaugaHotarare").html("Completează câmpul: data comunicării");
 			return;
 		}
 		if(!$("#selPersoanaPrimire").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul persoana primire");
+			$("#divMesajAdaugaHotarare").html("Completează câmpul: persoana primire");
+			return;
+		}
+		if(!$("#selCompartiment").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaHotarare").html("Completează câmpul: compartimentul adresat");
 			return;
 		}
 		if(verificaData($("#dataPrimirii").val()) != "ok"){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul data primirii");
+			$("#divMesajAdaugaHotarare").html("Completează câmpul: data primirii");
 			return;
 		}
+		if(primitoriHCJC == null || primitoriHCJC.length == 0){
+			if($("#selPersoanaPrimire").val() && $("#selCompartiment").val() && $("#dataPrimirii").val()){
+				adaugaPrimitorHCJC();
+			}else{
+				eroareValidare = true;
+				$("#divMesajAdaugaHotarare").html("Nu au fost adăugați primitori în listă!");
+				return;
+			}
+		}
+		
+		
 		if(!eroareValidare){
 			var hotarareCJC = {
 					"nrHotarare": $("#nrHotarare").val(),
@@ -544,6 +603,7 @@
 					"idPersoanaPrimire": $("#selPersoanaPrimire").val(),
 					"persoanaPrimire": $('#selPersoanaPrimire').select2("data")[0].text,
 					"dataPrimirii": $("#dataPrimirii").val(),
+					"listaPrimitori": primitoriHCJC,
 					"stadiu": $("#selStadiuHotarare").val(),
 				};
 			var resetPaging = true;
@@ -574,6 +634,7 @@
 	
 	function editareHotarareCJC(rowIndex){
 		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
+		$("#tabelPrimitori").hide();
 		$("#selCompartiment").empty();
 		$("#selCompartiment").append('<option value="">Alege...</option>');
 		$("#selPersoanaPrimire").empty();
@@ -583,6 +644,9 @@
 			url: "/note/getLov",
 			type: "GET",
 			success: function(response) {
+				listaPersoane = response.listaPersoane;
+				listaCompartimente = response.listaCompartimente;
+				
 				for (const c of response.listaCompartimente) {
 					$("#selCompartiment").append('<option value="' + c.id + '">' + c.nume + '</option>');
 				}
@@ -612,6 +676,12 @@
 			dropdownParent: $("#modalAdaugaHotarareCJC"),
 			minimumResultsForSearch: -1
 		});
+		
+		if(hotarareaCurenta.listaPrimitori != null && hotarareaCurenta.listaPrimitori.length > 0){
+			primitoriHCJC = [];
+			primitoriHCJC = primitoriHCJC.concat(hotarareaCurenta.listaPrimitori);
+			buildTabelPrimitori();
+		}
 		
 		$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
 	}
@@ -791,5 +861,52 @@
 		$("#modalArataFisierHCJC").modal("hide");
 		hotarareaCurenta = null;
 	}
+	
+	function adaugaPrimitorHCJC(){
+		if($("#selCompartiment").val() && $("#selPersoanaPrimire").val() && $("#dataPrimirii").val()){
+			primitor = {
+				"idCompartiment": $("#selCompartiment").val(),
+				"compartimentulAdresat": $('#selCompartiment').select2("data")[0].text,
+				"idPersoanaPrimire": $("#selPersoanaPrimire").val(),
+				"persoanaPrimire": $('#selPersoanaPrimire').select2("data")[0].text,
+				"dataPrimirii": $("#dataPrimirii").val()
+			}
+			primitoriHCJC.push(primitor);
+			buildTabelPrimitori();
+		}else{
+			bootbox.alert("Nu ați completat toate datele pentru primitor!");
+		}
+	}
+	
+	function buildTabelPrimitori(){
+		$("#tabelPrimitori tbody").empty();
+		if(primitoriHCJC != null && primitoriHCJC.length > 0){
+			$("#tabelPrimitori").show();
+			primitoriHCJC.forEach(function(p, index){
+				$("#tabelPrimitori tbody").append('<tr><td>' + p.persoanaPrimire + '</td><td>' + p.compartimentulAdresat + '</td><td>' + p.dataPrimirii + '</td> <td style="text-align:center;"><button class="btn btn-sm btn-danger" onclick="stergePrimitor(' + index + ')">Șterge</button></td></tr>');
+			});
+		}
+	}
+	
+	function stergePrimitor(index){
+		if(primitoriHCJC != null && primitoriHCJC.length > 0){
+			primitoriHCJC.splice(index, 1);
+			buildTabelPrimitori();
+		}
+	}
+	
+	function onChangeSelPersoanaPrimire(){
+		if($("#selPersoanaPrimire").val()){
+			console.log("debug1 " + $("#selPersoanaPrimire").val());
+			var persoana = null;
+			listaPersoane.forEach(function(p){
+				if(p.id == $("#selPersoanaPrimire").val()){
+					persoana = p;
+				}
+			});
+			$("#selCompartiment").val(persoana.idCompartiment).select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
+		}
+	}
+	
 	
 </script>

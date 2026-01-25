@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -22,6 +23,7 @@ public interface RegistrulHcjcMapper {
 	
 	@Insert("insert into registrul_hcjc(nrHotarare, dataHotarare, emitent, dataComunicarii, idCompartiment, compartimentulAdresat, idPersoanaPrimire, persoanaPrimire, dataPrimirii, fisier, numeFisier, stadiu)"
 			+ "values(#{nrHotarare}, STR_TO_DATE(#{dataHotarare}, '%d.%m.%Y'), #{emitent} , STR_TO_DATE(#{dataComunicarii}, '%d.%m.%Y'), #{idCompartiment}, #{compartimentulAdresat}, #{idPersoanaPrimire}, #{persoanaPrimire}, STR_TO_DATE(#{dataPrimirii}, '%d.%m.%Y'), null, null, #{stadiu})")
+	@Options(useGeneratedKeys=true, keyProperty="id")
 	Integer postHotarareCJC(HotarareCJC hotarareCJC);
 	
 	@Update("update registrul_hcjc set nrHotarare = #{nrHotarare}, dataHotarare = STR_TO_DATE(#{dataHotarare}, '%d.%m.%Y'), emitent = #{emitent}, dataComunicarii = STR_TO_DATE(#{dataComunicarii}, '%d.%m.%Y'), idCompartiment = #{idCompartiment}, compartimentulAdresat = #{compartimentulAdresat}, idPersoanaPrimire = #{idPersoanaPrimire}, persoanaPrimire = #{persoanaPrimire}, dataPrimirii = STR_TO_DATE(#{dataPrimirii}, '%d.%m.%Y'), stadiu = #{stadiu} where id = #{id}")
