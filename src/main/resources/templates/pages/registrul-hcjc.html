@@ -564,7 +564,7 @@
 			$("#divMesajAdaugaHotarare").html("Completează câmpul: data comunicării");
 			return;
 		}
-		if(!$("#selPersoanaPrimire").val()){
+		/* if(!$("#selPersoanaPrimire").val()){
 			eroareValidare = true;
 			$("#divMesajAdaugaHotarare").html("Completează câmpul: persoana primire");
 			return;
@@ -578,7 +578,7 @@
 			eroareValidare = true;
 			$("#divMesajAdaugaHotarare").html("Completează câmpul: data primirii");
 			return;
-		}
+		} */
 		if(primitoriHCJC == null || primitoriHCJC.length == 0){
 			if($("#selPersoanaPrimire").val() && $("#selCompartiment").val() && $("#dataPrimirii").val()){
 				adaugaPrimitorHCJC();
