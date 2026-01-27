@@ -46,7 +46,7 @@ public class MainController {
 		return "pages/consiliul-director";
 	}
 	
-	@PreAuthorize("hasAuthority('OpEvidentaCH')")
+	@PreAuthorize("hasAnyAuthority('OpEvidentaCH', 'ConsEvidentaCH')")
 	@GetMapping("/evidenta-ch")
 	public String evidentaCH(Model model) {
 		return "pages/evidenta-ch";

@@ -39,7 +39,7 @@
 				<li sec:authorize="hasAuthority('OpRegConsDir')" class="nav-item btnMenu">
 					<a id="menuEntryConsDir" class="nav-link" th:href="@{/consiliul-director}">Consiliul director</a>
 				</li>
-				<li sec:authorize="hasAuthority('OpEvidentaCH')" class="nav-item btnMenu">
+				<li sec:authorize="hasAnyAuthority('OpEvidentaCH', 'ConsEvidentaCH')" class="nav-item btnMenu">
 					<a id="menuEntryEvidentaCH" class="nav-link" th:href="@{/evidenta-ch}">Evidență copii handicap</a>
 				</li>
 				<li sec:authorize="hasAuthority('Administrator')" class="nav-item dropdown btnMenu">

@@ -16,13 +16,13 @@ import com.lucian.dgaspc.model.TableData;
 import com.lucian.dgaspc.service.EvidentaCHService;
 
 @RestController
-@PreAuthorize("hasAuthority('OpEvidentaCH')")
 @RequestMapping("/evidenta-ch")
 public class EvidentaCHController {
 	
 	@Autowired
 	private EvidentaCHService evidentaCHService;
-	
+
+	@PreAuthorize("hasAnyAuthority('OpEvidentaCH', 'ConsEvidentaCH')")
 	@GetMapping("/getEvidentaCH")
 	public TableData<CopilHandicap> getEvidentaCH(@RequestParam String filtruDataComisieStart, @RequestParam String filtruDataComisieEnd, @RequestParam String filtruVarstaStart, @RequestParam String filtruVarstaEnd) {
 		List<CopilHandicap> evidentaCH = evidentaCHService.getEvidentaCH(filtruDataComisieStart, filtruDataComisieEnd, filtruVarstaStart, filtruVarstaEnd);
@@ -31,12 +31,14 @@ public class EvidentaCHController {
 		return tableData;
 	}
 	
+	@PreAuthorize("hasAuthority('OpEvidentaCH')")
 	@GetMapping("/getCopilByCNP")
 	public CopilHandicap getCopilByCNP(@RequestParam String cnp) {
 		CopilHandicap copil = evidentaCHService.getCopilByCNP(cnp);
 		return copil;
 	}
 	
+	@PreAuthorize("hasAuthority('OpEvidentaCH')")
 	@PostMapping("/postCH")
 	public String postCopilHandicap(@RequestBody CopilHandicap copilHandicap) {
 		if(copilHandicap.getDataComisie() != null && !copilHandicap.getDataComisie().isEmpty()) {
@@ -45,6 +47,7 @@ public class EvidentaCHController {
 		return "ok";
 	}
 	
+	@PreAuthorize("hasAuthority('OpEvidentaCH')")
 	@PostMapping("/putCH")
 	public String putCopilHandicap(@RequestBody CopilHandicap copilHandicap) {
 		if(copilHandicap.getId() != null && !copilHandicap.getId().isEmpty()) {
@@ -53,6 +56,7 @@ public class EvidentaCHController {
 		return "ok";
 	}
 	
+	@PreAuthorize("hasAuthority('OpEvidentaCH')")
 	@PostMapping("/stergeCH")
 	public String stergeCopilHandicap(@RequestBody String id) {
 		if(id != null && !id.isEmpty()) {

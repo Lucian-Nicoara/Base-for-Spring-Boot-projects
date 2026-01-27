@@ -110,6 +110,7 @@
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
 						<div id="titluModal" style="width:100%; text-align: center;">Adaugă copil cu handicap</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalAdaugaCH()"></button>
 					</div>
 					<div class="modal-body">
 						<div class="row mb-2">
@@ -211,7 +212,7 @@
 						</div>
 					</div>
 					<div class="modal-footer" style="background-color: #EEE;">
-						<button id="btnSalveazaCH" type="button" class="btn btn-success" onclick="salveazaCH()">Salvează</button>
+						<button sec:authorize="hasAuthority('OpEvidentaCH')" id="btnSalveazaCH" type="button" class="btn btn-success" onclick="salveazaCH()">Salvează</button>
 						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaCH()">Închide</button>
 					</div>
 				</div>
@@ -225,6 +226,7 @@
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
 						<div id="titluModal" style="width:100%; text-align: center;">Notițe copil</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalNote()"></button>
 					</div>
 					<div class="modal-body" style="padding: 0px; max-height: 600px;">
 						<div style="padding: 15px; box-shadow: 0 8px 6px -6px #eee;">
@@ -258,7 +260,7 @@
 								</div>								
 							</div>
 							<div class="col-3" style="text-align: center;">
-								<div class="card text-dark bg-light mb-2 mt-2 shadow" style="text-align: center;">
+								<div sec:authorize="hasAuthority('OpEvidentaCH')" class="card text-dark bg-light mb-2 mt-2 shadow" style="text-align: center;">
 									<div class="card-header fw-bold">Adaugă notiță nouă</div>
 									<div class="card-body">
 										<textarea id="continutNota" class="form-control mb-2" style="width: 100%; height: 200px;" placeholder="Conținut notiță"></textarea>
@@ -333,7 +335,9 @@
 						{
 							text: 'Adaugă înregistrare nouă',
 							action: function (e, dt, node, config) {
-								arataModalAdaugaInregCH();
+								if([[${#authorization.expression('hasAuthority("OpEvidentaCH")')}]]){
+									arataModalAdaugaInregCH();
+								}
 							}
 						},
 						//"excel",
@@ -385,6 +389,9 @@
 				start: 3,
 				end: 1
 			}, */
+			/* columnDefs: [
+			    { targets: '_all', defaultContent: '-'}
+			], */
 			columns: [
 				{ data: "dataComisie" },
 				//{ data: "nume" },
@@ -420,10 +427,46 @@
 						return '<div style="max-height:30px; overflow:auto;" data-bs-toggle="tooltip" title="' + data.codCim + '">' + data.codCim + '</div>';
 					}
 				},
-				{ data: "tipHandicap" },
-				{ data: "gradHandicap" },
-				{ data: "insotitor" },
-				{ data: "scolarizat" },
+				//{ data: "tipHandicap" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						if(data.tipHandicap == null || data.tipHandicap == ""){
+							return "-";
+						}else{
+							return data.tipHandicap;
+						}
+					}
+				},
+				//{ data: "gradHandicap" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						if(data.gradHandicap == null || data.gradHandicap == ""){
+							return "-";
+						}else{
+							return data.gradHandicap;
+						}
+					}
+				},
+				//{ data: "insotitor" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						if(data.insotitor == null || data.insotitor == ""){
+							return "-";
+						}else{
+							return data.insotitor;
+						}
+					}
+				},
+				//{ data: "scolarizat"},
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						if(data.scolarizat == null || data.scolarizat == ""){
+							return "-";
+						}else{
+							return data.scolarizat;
+						}
+					}
+				},
 				{ data: "varsta" },
 				{ data: "cazNou" },
 				{ data: "locul" },
@@ -431,7 +474,16 @@
 				{ data: "valabilitateCertificat" },
 				{ data: "valabilInPrezent" },
 				{ data: "statusTransfer" },
-				{ data: "infoTransfer" },
+				//{ data: "infoTransfer" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						if(data.infoTransfer == null || data.infoTransfer == ""){
+							return "-";
+						}else{
+							return data.infoTransfer;
+						}
+					}
+				},
 				{ data: 
 					null, 
 					render: function (data, type, row, meta) {
@@ -439,10 +491,14 @@
 						if(data.totalNote != "0"){
 							noteIconColor = "blue";
 						}
+						var btnStergereHtml = "";
+						if([[${#authorization.expression('hasAuthority("OpEvidentaCH")')}]]){
+							btnStergereHtml = '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeCH(' + meta.row + ')"></i>';
+						}
 						return ''
-							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareCH(' + meta.row + ')"></i>'
+							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare / Vizualizare" onclick="editareCH(' + meta.row + ')"></i>'
 							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:' + noteIconColor + ';" data-bs-toggle="tooltip" title="Notițe ' + data.totalNote + '" onclick="arataModalNote(' + meta.row + ')"></i>'
-							+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeCH(' + meta.row + ')"></i>';
+							+ btnStergereHtml;
 					}
 				}
 			]
@@ -577,6 +633,9 @@
 					"infoTransfer": $("#infoTransfer").val(),
 				};
 			var resetPaging = true;
+			if(!$("#scolarizatCH").val() || $("#scolarizatCH").val().trim() == "" || $("#scolarizatCH").val().trim() == null){
+				copilHandicap.scolarizat = "NU";
+			}
 			if(copilCurent != null && copilCurent.id != null){
 				urlSalvare = "/evidenta-ch/putCH";
 				copilHandicap.id = copilCurent.id;
@@ -715,7 +774,7 @@
 		bootbox.confirm({
 			size: "large",
 			title: "Șterg?",
-			message: "Sunteți sigur că doriți ștergerea înregistrării aferente copilului: " + copilCurent.nume + " " + copilCurent.prenume + ", data comisie: " + copilCurent.dataComisie + " ?",
+			message: "Sunteți sigur că doriți ștergerea înregistrării aferente copilului:<br><b>" + copilCurent.nume + " " + copilCurent.prenume + ", data comisie: " + copilCurent.dataComisie + " ?</b>",
 			buttons: {
 				cancel: {
 					label: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',

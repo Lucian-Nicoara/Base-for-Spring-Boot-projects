@@ -273,6 +273,7 @@
 	}
 	
 	function incarcaDtConsiliulDirector(){
+		DataTable.datetime('DD.MM.YYYY');
 		if ($.fn.DataTable.isDataTable("#dtConsiliulDirector")) {
 			$("#dtConsiliulDirector").DataTable().clear().destroy();
 		}

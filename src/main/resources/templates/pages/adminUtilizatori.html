@@ -91,6 +91,10 @@
 									<input class="form-check-input" style="cursor:pointer;" type="checkbox" value="" id="ckOpEvidentaCH">
 									<label class="form-check-label" style="cursor:pointer;" for="ckOpEvidentaCH">Operator Evidență copii handicap</label>
 								</div>
+								<div class="form-check" style="margin-left:40px;">
+									<input class="form-check-input" style="cursor:pointer;" type="checkbox" value="" id="ckConsEvidentaCH">
+									<label class="form-check-label" style="cursor:pointer;" for="ckConsEvidentaCH">Consultare Evidență copii handicap <i>(fără drepturi de modificare a datelor)</i></label>
+								</div>
 							</div>
 							<div class="col-md-1"></div>
 							<div class="col-md-3">
@@ -317,6 +321,9 @@
 			if($("#ckOpEvidentaCH").is(":checked")){
 				utilizator.authorities.push({authority:"OpEvidentaCH"});
 			}
+			if($("#ckConsEvidentaCH").is(":checked")){
+				utilizator.authorities.push({authority:"ConsEvidentaCH"});
+			}
 			$.ajax({
 				url: urlSalvare,
 				type: "POST",
@@ -383,6 +390,8 @@
 				$("#ckOpRegConsDir").prop('checked', true);
 			}else if(rol.authority == "OpEvidentaCH"){
 				$("#ckOpEvidentaCH").prop('checked', true);
+			}else if(rol.authority == "ConsEvidentaCH"){
+				$("#ckConsEvidentaCH").prop('checked', true);
 			}
 		});
 		

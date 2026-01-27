@@ -230,14 +230,6 @@
 									<label class="fw-bold">Data comunicării</label><br>
 									<span id="divDataCom1"></span>
 								</div>
-								<div class="col-md-3">
-									<label class="fw-bold">Comp./pers. adresată</label><br>
-									<span id="divCompartimentul1"></span>
-								</div>
-								<div class="col">
-									<label class="fw-bold">Data primirii</label><br>
-									<span id="divDataPrimirii1"></span>
-								</div>
 								<div class="col">
 									<label class="fw-bold">Stadiu</label><br>
 									<span id="divStadiuHotarare1"></span>
@@ -321,6 +313,7 @@
 	}
 	
 	function incarcaDtHotarariCJC(){
+		DataTable.datetime('DD.MM.YYYY');
 		if ($.fn.DataTable.isDataTable("#dtHotarariCJC")) {
 			$("#dtHotarariCJC").DataTable().clear().destroy();
 		}
@@ -375,11 +368,11 @@
 					null, 
 					render: function (data, type, row, meta) {
 						if(data.listaPrimitori != null && data.listaPrimitori.length > 0){
-							var html = '<table style="width:100%; border: 1px solid grey">';
+							var html = '<div style="max-height:120px; overflow: auto;"><table style="width:100%; border: 1px solid grey">';
 							data.listaPrimitori.forEach(function(primitor){
 								html += '<tr> <td style="border: 1px solid #ccc">' + primitor.compartimentulAdresat + '</td> <td style="width:220px; border: 1px solid #ccc">' + primitor.persoanaPrimire + '</td> <td style="width:80px; border: 1px solid #ccc">' + primitor.dataPrimirii + '</td></tr>';
 							});
-							html += "</table>";
+							html += "</table></div>";
 							return html;
 						}else{
 							return "-";
@@ -733,8 +726,6 @@
 		$("#divNrHotarare1").html(hotarareaCurenta.nrHotarare + " / " + hotarareaCurenta.dataHotarare);
 		$("#divEmitentHotarare1").html(hotarareaCurenta.emitent);
 		$("#divDataCom1").html(hotarareaCurenta.dataComunicarii);
-		$("#divCompartimentul1").html(hotarareaCurenta.compartimentulAdresat + " / " + hotarareaCurenta.persoanaPrimire);
-		$("#divDataPrimirii1").html(hotarareaCurenta.dataPrimirii);
 		$("#divStadiuHotarare1").html(hotarareaCurenta.stadiu);
 		
 		incarcaNote(hotarareaCurenta.id, "registrulHCJC");
