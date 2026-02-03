@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.lucian.dgaspc.model.UserData;
 import com.lucian.dgaspc.service.UserDataService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class MainController {
 	
@@ -18,10 +20,11 @@ public class MainController {
 	private UserDataService userDataService;
 	
 	@GetMapping("/")
-	public String getIndex(Model model) {
+	public String getIndex(HttpServletRequest request, Model model) {
 		if(userDataService.getAuthUser() != null) {
-			user = userDataService.getAuthUser();
+			//user = userDataService.getAuthUser();
 			//System.out.println("debug authUser: " + user.toString());
+			//model.addAttribute("test", "test-value");
 			return "pages/homepage";
 		}else {
 			//System.out.println("debug no authUser");
@@ -48,7 +51,7 @@ public class MainController {
 	
 	@PreAuthorize("hasAnyAuthority('OpEvidentaCH', 'ConsEvidentaCH')")
 	@GetMapping("/evidenta-ch")
-	public String evidentaCH(Model model) {
+	public String evidentaCH(HttpServletRequest request, Model model) {
 		return "pages/evidenta-ch";
 	}
 	
@@ -57,4 +60,5 @@ public class MainController {
 	public String adminUtilizatori(Model model) {
 		return "pages/adminUtilizatori";
 	}
+	
 }

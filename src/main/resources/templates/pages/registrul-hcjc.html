@@ -387,12 +387,16 @@
 					null, 
 					render: function (data, type, row, meta) {
 						var arataBtnArataFisier = "";
+						var noteIconColor = "orange";
+						if(data.totalNote != "0"){
+							noteIconColor = "blue";
+						}
 						if(data.numeFisier != null && data.numeFisier != ""){
 							arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Afișează fișierul" onclick="arataModalArataFisierHCJC(' + meta.row + ')"></i>';
 						}
 						return ''
 						+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
-						+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:orange;" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
+						+ '<i id="btnNote_' + data.id + '" class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:' + noteIconColor + ';" data-bs-toggle="tooltip" title="Notițe ' + data.totalNote + '" onclick="arataModalNote(' + meta.row + ')"></i>'
 						+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
 						+ arataBtnArataFisier
 						+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeHotarareCJC(' + meta.row + ')"></i>';
@@ -778,6 +782,7 @@
 				success: function(response) {
 					if(response == "ok"){
 						$("#continutNota").val("");
+						$("#btnNote_" + hotarareaCurenta.id).css("color", "blue");
 						incarcaNote(hotarareaCurenta.id, "registrulHCJC");
 					}else{
 						alert("Nota nu a fost salvata! Eroare de aplicatie.");

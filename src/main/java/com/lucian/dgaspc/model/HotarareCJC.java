@@ -12,6 +12,8 @@ public class HotarareCJC {
 	private byte[] fisier;
 	private String numeFisier;
 	private String stadiu;
+	private String totalNote;
+	
 	public String getId() {
 		return id;
 	}
@@ -66,10 +68,17 @@ public class HotarareCJC {
 	public void setStadiu(String stadiu) {
 		this.stadiu = stadiu;
 	}
+	public String getTotalNote() {
+		return totalNote;
+	}
+	public void setTotalNote(String totalNote) {
+		this.totalNote = totalNote;
+	}
 	@Override
 	public String toString() {
 		return "HotarareCJC [id=" + id + ", nrHotarare=" + nrHotarare + ", dataHotarare=" + dataHotarare + ", emitent="
 				+ emitent + ", dataComunicarii=" + dataComunicarii + ", listaPrimitori=" + listaPrimitori
-				+ ", numeFisier=" + numeFisier + ", stadiu=" + stadiu + "]";
+				+ ", numeFisier=" + numeFisier + ", stadiu=" + stadiu + ", totalNote=" + totalNote + "]";
 	}
+	
 }

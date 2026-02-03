@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,13 +16,24 @@ import com.lucian.dgaspc.model.CopilHandicap;
 import com.lucian.dgaspc.model.TableData;
 import com.lucian.dgaspc.service.EvidentaCHService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/evidenta-ch")
 public class EvidentaCHController {
 	
 	@Autowired
 	private EvidentaCHService evidentaCHService;
-
+	
+	@GetMapping("/checkSession")
+	public String checkSession(HttpServletRequest request, Model model) {
+		if(request.getSession() != null) {
+			return "ok";
+		}else {
+			return "no-session";
+		}
+	}
+	
 	@PreAuthorize("hasAnyAuthority('OpEvidentaCH', 'ConsEvidentaCH')")
 	@GetMapping("/getEvidentaCH")
 	public TableData<CopilHandicap> getEvidentaCH(@RequestParam String filtruDataComisieStart, @RequestParam String filtruDataComisieEnd, @RequestParam String filtruVarstaStart, @RequestParam String filtruVarstaEnd) {
@@ -31,7 +43,7 @@ public class EvidentaCHController {
 		return tableData;
 	}
 	
-	@PreAuthorize("hasAuthority('OpEvidentaCH')")
+	@PreAuthorize("hasAnyAuthority('OpEvidentaCH', 'ConsEvidentaCH')")
 	@GetMapping("/getCopilByCNP")
 	public CopilHandicap getCopilByCNP(@RequestParam String cnp) {
 		CopilHandicap copil = evidentaCHService.getCopilByCNP(cnp);

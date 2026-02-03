@@ -497,7 +497,7 @@
 						}
 						return ''
 							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare / Vizualizare" onclick="editareCH(' + meta.row + ')"></i>'
-							+ '<i class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:' + noteIconColor + ';" data-bs-toggle="tooltip" title="Notițe ' + data.totalNote + '" onclick="arataModalNote(' + meta.row + ')"></i>'
+							+ '<i id="btnNote_' + data.id + '" class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:' + noteIconColor + ';" data-bs-toggle="tooltip" title="Notițe ' + data.totalNote + '" onclick="arataModalNote(' + meta.row + ')"></i>'
 							+ btnStergereHtml;
 					}
 				}
@@ -529,41 +529,56 @@
 	}
 	
 	function arataModalAdaugaInregCH(){
-		$("#divMesajAdaugaCH").html("");
-		$("#btnSalveazaCH").prop("disabled", false);
-		$("#divInfoTransfer").hide();
-		$("#dataComisieCH").val("");
-		$("#numeCH").val("");
-		$("#prenumeCH").val("");
-		$("#selSexCH").val("M").select2({
-			theme: "bootstrap-5", 
-			dropdownParent: $("#modalAdaugaCH"), 
-			minimumResultsForSearch: -1
+		$.ajax({
+			url: "/evidenta-ch/checkSession",
+			type: "GET",
+			success: function(response) {
+				if(response == "ok"){
+					$("#divMesajAdaugaCH").html("");
+					$("#btnSalveazaCH").prop("disabled", false);
+					$("#divInfoTransfer").hide();
+					$("#dataComisieCH").val("");
+					$("#numeCH").val("");
+					$("#prenumeCH").val("");
+					$("#selSexCH").val("M").select2({
+						theme: "bootstrap-5", 
+						dropdownParent: $("#modalAdaugaCH"), 
+						minimumResultsForSearch: -1
+					});
+					$("#dataNasteriiCH").val("");
+					$("#cnpCH").val("");
+					$("#domiciliuCH").val("");
+					$("#diagnosticCH").val("");
+					$("#codCimCH").val("");
+					$("#tipHandicapCH").val("");
+					$("#gradHandicapCH").val("");
+					$("#insotitorCH").val("");
+					$("#scolarizatCH").val("");
+					$("#cazNouCH").val("");
+					$("#loculCH").val("");
+					$("#categorieAfectiuneCH").val("");
+					$("#valabilitateCertificatCH").val("");
+					$("#selStatusTransfer").val("").select2({
+						theme: "bootstrap-5", 
+						dropdownParent: $("#modalAdaugaCH"), 
+						minimumResultsForSearch: -1
+					});
+					$("#infoTransfer").val("");
+					
+					$("#modalAdaugaCH").modal({backdrop: "static", keyboard: false}).modal("show");
+					setTimeout(function(){
+						$("#dataComisieCH").focus();
+					}, 200);
+				}else{
+					alert ("Sesiunea de lucru a expirat!");
+					location.reload();
+				}
+			},
+			error: function(response){
+				handleHtmlError(response.responseText);
+			}
 		});
-		$("#dataNasteriiCH").val("");
-		$("#cnpCH").val("");
-		$("#domiciliuCH").val("");
-		$("#diagnosticCH").val("");
-		$("#codCimCH").val("");
-		$("#tipHandicapCH").val("");
-		$("#gradHandicapCH").val("");
-		$("#insotitorCH").val("");
-		$("#scolarizatCH").val("");
-		$("#cazNouCH").val("");
-		$("#loculCH").val("");
-		$("#categorieAfectiuneCH").val("");
-		$("#valabilitateCertificatCH").val("");
-		$("#selStatusTransfer").val("").select2({
-			theme: "bootstrap-5", 
-			dropdownParent: $("#modalAdaugaCH"), 
-			minimumResultsForSearch: -1
-		});
-		$("#infoTransfer").val("");
 		
-		$("#modalAdaugaCH").modal({backdrop: "static", keyboard: false}).modal("show");
-		setTimeout(function(){
-			$("#dataComisieCH").focus();
-		}, 200);
 	}
 	
 	function inchideModalAdaugaCH(){
@@ -756,6 +771,7 @@
 					if(response == "ok"){
 						$("#continutNota").val("");
 						incarcaNote(copilCurent.id, "evidentaCH");
+						$("#btnNote_" + copilCurent.id).css("color", "blue");
 					}else{
 						alert("Nota nu a fost salvata! Eroare de aplicatie.");
 					}

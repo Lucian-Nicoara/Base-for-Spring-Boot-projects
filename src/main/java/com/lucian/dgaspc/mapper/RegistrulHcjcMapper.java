@@ -14,7 +14,7 @@ import com.lucian.dgaspc.model.HotarareCJC;
 @Mapper
 public interface RegistrulHcjcMapper {
 	
-	@Select("select id, nrHotarare, DATE_FORMAT(dataHotarare, '%d.%m.%Y') as dataHotarare, emitent, DATE_FORMAT(dataComunicarii, '%d.%m.%Y') as dataComunicarii, numeFisier, stadiu from registrul_hcjc where sters is null order by id desc")
+	@Select("select id, nrHotarare, DATE_FORMAT(dataHotarare, '%d.%m.%Y') as dataHotarare, emitent, DATE_FORMAT(dataComunicarii, '%d.%m.%Y') as dataComunicarii, numeFisier, stadiu, (select count(*) from note where idEntitate = r.id and entitate = 'registrulHCJC') as totalNote from registrul_hcjc r where sters is null order by id desc")
 	List<HotarareCJC> getHotarariCJC();
 	
 	@Select("select id, nrHotarare, DATE_FORMAT(dataHotarare, '%d.%m.%Y') as dataHotarare, emitent, DATE_FORMAT(dataComunicarii, '%d.%m.%Y') as dataComunicarii, numeFisier, stadiu from registrul_hcjc where id = #{id} and sters is null")
