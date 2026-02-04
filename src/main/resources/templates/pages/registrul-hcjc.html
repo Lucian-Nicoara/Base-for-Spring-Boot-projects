@@ -362,7 +362,12 @@
 			columns: [
 				{ data: "nrHotarare" },
 				{ data: "dataHotarare" },
-				{ data: "emitent" },
+				//{ data: "emitent" },
+				{ data:	null, 
+					render: function (data, type, row, meta) {
+						return '<div style="width:100%; cursor:pointer;" onclick="editareHotarareCJC(' + meta.row + ')"><a href="#" class = "text-decoration-none">' + data.emitent + '</a></div>';
+					}
+				},
 				{ data: "dataComunicarii" },
 				{ data: 
 					null, 

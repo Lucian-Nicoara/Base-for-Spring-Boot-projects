@@ -18,3 +18,9 @@ Deploy:
 	build: <folderul proiectului, ex. dgaspc> mvn clean install
 	Setup XAMPP: folder xampp > setup_xampp.bat
 	run: java -jar dgaspcapp.jar
+
+BACKUP:
+mysqldump.exe -u root --hex-blob --max_allowed_packet=512M dgaspc_app_db > dgaspc_app_db_3.sql
+
+RESTORE:
+mysql.exe -u root -p --max_allowed_packet=512M dgaspc_app_db < dgaspc_app_db_3.sql
