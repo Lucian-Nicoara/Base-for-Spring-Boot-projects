@@ -376,6 +376,9 @@
 					params.filtruDataComisieEnd = $("#filtruDataComisieEnd").val();
 					params.filtruVarstaStart = $("#filtruVarstaStart").val();
 					params.filtruVarstaEnd = $("#filtruVarstaEnd").val();
+				},
+				"error": function (xhr, error, code) {
+					handleHtmlError(xhr.responseJSON.error + "<br>" + xhr.responseJSON.trace);
 				}
 			},
 			//ajax: "/evidenta-ch/getEvidentaCH",
@@ -611,7 +614,7 @@
 		var urlSalvare = "/evidenta-ch/postCH";
 		if(verificaData($("#dataComisieCH").val()) != "ok"){
 			eroareValidare = true;
-			$("#divMesajAdaugaCH").html("Completează câmpul dată ședință");
+			$("#divMesajAdaugaCH").html("Completează câmpul data comisie");
 			return;
 		}
 		if(!$("#numeCH").val()){
@@ -624,7 +627,12 @@
 			$("#divMesajAdaugaCH").html("Completează câmpul prenume");
 			return;
 		}
-		
+		if(!$("#selStatusTransfer").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaCH").html("Completează câmpul status transfer");
+			return;
+		}
+				
 		if(!eroareValidare){
 			var copilHandicap = {
 					"dataComisie": $("#dataComisieCH").val(),

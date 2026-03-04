@@ -25,11 +25,11 @@ public class EvidentaCHService{
 				valabilInPrezent = "NU";
 			}
 			
-			if(c.getStatusTransfer().contentEquals("Transferat la")) {
+			if(c.getStatusTransfer() != null && c.getStatusTransfer().contentEquals("Transferat la")) {
 				valabilInPrezent = "NU";
 			}
 			
-			if(c.getValabilitateCertificat().contentEquals("0")) {
+			if(c.getValabilitateCertificat() != null && c.getValabilitateCertificat().contentEquals("0")) {
 				valabilInPrezent = "NU";
 			}
 			
