@@ -174,7 +174,18 @@
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Școlarizat</label><br>
-								<input id="scolarizatCH" class="form-control">
+								<!-- <input id="scolarizatCH" class="form-control"> -->
+								<select id="selScolarizatCH" class="w-100">
+									<option value="" selected>Alege...</option>
+									<option value="A doua sansa">A doua sansa</option>
+									<option value="Clasa speciala">Clasa speciala</option>
+									<option value="Grupa speciala">Grupa speciala</option>
+									<option value="Invatamant de masa">Invatamant de masa</option>
+									<option value="La domiciliu">La domiciliu</option>
+									<option value="Profesor de sprijin">Profesor de sprijin</option>
+									<option value="Scoala speciala">Scoala speciala</option>
+									<option value="NU">NU</option>
+								</select>
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Caz nou</label><br>
@@ -182,7 +193,15 @@
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Locul unde se află</label><br>
-								<input id="loculCH" class="form-control">
+								<!-- <input id="loculCH" class="form-control"> -->
+								<select id="selLoculCH" class="w-100">
+									<option value="" selected>Alege...</option>
+									<option value="Alte familii">Alte familii</option>
+									<option value="AMP">AMP</option>
+									<option value="Centru">Centru</option>
+									<option value="Familia biologica">Familia biologica</option>
+									<option value="Familia extinsa">Familia extinsa</option>
+								</select>
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Categorie afecțiune</label><br>
@@ -556,9 +575,17 @@
 					$("#tipHandicapCH").val("");
 					$("#gradHandicapCH").val("");
 					$("#insotitorCH").val("");
-					$("#scolarizatCH").val("");
+					$("#selScolarizatCH").val("").select2({
+						theme: "bootstrap-5", 
+						dropdownParent: $("#modalAdaugaCH"), 
+						minimumResultsForSearch: -1
+					});
 					$("#cazNouCH").val("");
-					$("#loculCH").val("");
+					$("#selLoculCH").val("").select2({
+						theme: "bootstrap-5", 
+						dropdownParent: $("#modalAdaugaCH"), 
+						minimumResultsForSearch: -1
+					});
 					$("#categorieAfectiuneCH").val("");
 					$("#valabilitateCertificatCH").val("");
 					$("#selStatusTransfer").val("").select2({
@@ -619,17 +646,27 @@
 		}
 		if(!$("#numeCH").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaCH").html("Completează câmpul nume");
+			$("#divMesajAdaugaCH").html("Completează câmpul: Nume");
 			return;
 		}
 		if(!$("#prenumeCH").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaCH").html("Completează câmpul prenume");
+			$("#divMesajAdaugaCH").html("Completează câmpul: Prenume");
+			return;
+		}
+		if(!$("#selLoculCH").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaCH").html("Completează câmpul: Locul unde se află");
+			return;
+		}
+		if(!$("#selScolarizatCH").val()){
+			eroareValidare = true;
+			$("#divMesajAdaugaCH").html("Completează câmpul: Școlarizat");
 			return;
 		}
 		if(!$("#selStatusTransfer").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaCH").html("Completează câmpul status transfer");
+			$("#divMesajAdaugaCH").html("Completează câmpul: Status transfer");
 			return;
 		}
 				
@@ -647,16 +684,16 @@
 					"tipHandicap": $("#tipHandicapCH").val(),
 					"gradHandicap": $("#gradHandicapCH").val(),
 					"insotitor": $("#insotitorCH").val(),
-					"scolarizat": $("#scolarizatCH").val(),
+					"scolarizat": $("#selScolarizatCH").val(),
 					"cazNou": $("#cazNouCH").val(),
-					"locul": $("#loculCH").val(),
+					"locul": $("#selLoculCH").val(),
 					"categoriiDeAfectiune": $("#categorieAfectiuneCH").val(),
 					"valabilitateCertificat": $("#valabilitateCertificatCH").val(),
 					"statusTransfer": $("#selStatusTransfer").val(),
 					"infoTransfer": $("#infoTransfer").val(),
 				};
 			var resetPaging = true;
-			if(!$("#scolarizatCH").val() || $("#scolarizatCH").val().trim() == "" || $("#scolarizatCH").val().trim() == null){
+			if(!$("#selScolarizatCH").val() || $("#selScolarizatCH").val().trim() == "" || $("#selScolarizatCH").val().trim() == null){
 				copilHandicap.scolarizat = "NU";
 			}
 			if(copilCurent != null && copilCurent.id != null){
@@ -707,9 +744,17 @@
 		$("#tipHandicapCH").val(copilCurent.tipHandicap);
 		$("#gradHandicapCH").val(copilCurent.gradHandicap);
 		$("#insotitorCH").val(copilCurent.insotitor);
-		$("#scolarizatCH").val(copilCurent.scolarizat);
+		$("#selScolarizatCH").val(copilCurent.scolarizat).select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaCH"),
+			minimumResultsForSearch: -1
+		});
 		$("#cazNouCH").val(copilCurent.cazNou);
-		$("#loculCH").val(copilCurent.locul);
+		$("#selLoculCH").val(copilCurent.locul).select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaCH"),
+			minimumResultsForSearch: -1
+		});
 		$("#categorieAfectiuneCH").val(copilCurent.categoriiDeAfectiune);
 		$("#valabilitateCertificatCH").val(copilCurent.valabilitateCertificat);
 		$("#selStatusTransfer").val(copilCurent.statusTransfer).select2({
@@ -858,9 +903,17 @@
 						$("#tipHandicapCH").val(response.tipHandicap);
 						$("#gradHandicapCH").val(response.gradHandicap);
 						$("#insotitorCH").val(response.insotitor);
-						$("#scolarizatCH").val(response.scolarizat);
+						$("#selScolarizatCH").val(response.scolarizat).select2({
+							theme: "bootstrap-5", 
+							dropdownParent: $("#modalAdaugaCH"),
+							minimumResultsForSearch: -1
+						});
 						$("#cazNouCH").val(response.cazNou);
-						$("#loculCH").val(response.locul);
+						$("#selLoculCH").val(response.locul).select2({
+							theme: "bootstrap-5", 
+							dropdownParent: $("#modalAdaugaCH"),
+							minimumResultsForSearch: -1
+						});
 						$("#categorieAfectiuneCH").val(response.categoriiDeAfectiune);
 						$("#valabilitateCertificatCH").val(response.valabilitateCertificat);
 						$("#selStatusTransfer").val(response.statusTransfer).select2({
