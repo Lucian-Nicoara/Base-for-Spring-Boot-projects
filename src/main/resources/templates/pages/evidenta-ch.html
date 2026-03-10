@@ -177,6 +177,7 @@
 								<!-- <input id="scolarizatCH" class="form-control"> -->
 								<select id="selScolarizatCH" class="w-100">
 									<option value="" selected>Alege...</option>
+									<option value="-"> - </option>
 									<option value="A doua sansa">A doua sansa</option>
 									<option value="Clasa speciala">Clasa speciala</option>
 									<option value="Grupa speciala">Grupa speciala</option>
@@ -196,6 +197,7 @@
 								<!-- <input id="loculCH" class="form-control"> -->
 								<select id="selLoculCH" class="w-100">
 									<option value="" selected>Alege...</option>
+									<option value="-"> - </option>
 									<option value="Alte familii">Alte familii</option>
 									<option value="AMP">AMP</option>
 									<option value="Centru">Centru</option>
@@ -205,7 +207,21 @@
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Categorie afecțiune</label><br>
-								<input id="categorieAfectiuneCH" class="form-control">
+								<!-- <input id="categorieAfectiuneCH" class="form-control"> -->
+								<select id="selCategorieAfectiuneCH" class="w-100">
+									<option value="" selected>Alege...</option>
+									<option value="-"> - </option>
+									<option value="Neurologica">Neurologica</option>
+									<option value="Psihiatrica">Psihiatrica</option>
+									<option value="Psihiatrica cu autism">Psihiatrica cu autism</option>
+									<option value="Locomotorie">Locomotorie</option>
+									<option value="Vizuala">Vizuala</option>
+									<option value="Auditiva">Auditiva</option>
+									<option value="HIV-SIDA">HIV-SIDA</option>
+									<option value="Down">Down</option>
+									<option value="Organica">Organica</option>
+									<option value="Altele">Altele</option>
+								</select>
 							</div>
 							<div class="col-md-2">
 								<label class="fw-bold">Valabilitate certificat</label><br>
@@ -586,7 +602,11 @@
 						dropdownParent: $("#modalAdaugaCH"), 
 						minimumResultsForSearch: -1
 					});
-					$("#categorieAfectiuneCH").val("");
+					$("#selCategorieAfectiuneCH").val("").select2({
+						theme: "bootstrap-5", 
+						dropdownParent: $("#modalAdaugaCH"), 
+						minimumResultsForSearch: -1
+					});
 					$("#valabilitateCertificatCH").val("");
 					$("#selStatusTransfer").val("").select2({
 						theme: "bootstrap-5", 
@@ -669,6 +689,11 @@
 			$("#divMesajAdaugaCH").html("Completează câmpul: Status transfer");
 			return;
 		}
+		if(!$("#valabilitateCertificatCH").val() || isNaN($("#valabilitateCertificatCH").val())){
+			eroareValidare = true;
+			$("#divMesajAdaugaCH").html("Completează câmpul: Valabilitate certificat. Dacă nu se acordă, se completează 0.");
+			return;
+		}
 				
 		if(!eroareValidare){
 			var copilHandicap = {
@@ -687,7 +712,7 @@
 					"scolarizat": $("#selScolarizatCH").val(),
 					"cazNou": $("#cazNouCH").val(),
 					"locul": $("#selLoculCH").val(),
-					"categoriiDeAfectiune": $("#categorieAfectiuneCH").val(),
+					"categoriiDeAfectiune": $("#selCategorieAfectiuneCH").val(),
 					"valabilitateCertificat": $("#valabilitateCertificatCH").val(),
 					"statusTransfer": $("#selStatusTransfer").val(),
 					"infoTransfer": $("#infoTransfer").val(),
@@ -755,7 +780,11 @@
 			dropdownParent: $("#modalAdaugaCH"),
 			minimumResultsForSearch: -1
 		});
-		$("#categorieAfectiuneCH").val(copilCurent.categoriiDeAfectiune);
+		$("#selCategorieAfectiuneCH").val(copilCurent.categoriiDeAfectiune).select2({
+			theme: "bootstrap-5", 
+			dropdownParent: $("#modalAdaugaCH"),
+			minimumResultsForSearch: -1
+		});
 		$("#valabilitateCertificatCH").val(copilCurent.valabilitateCertificat);
 		$("#selStatusTransfer").val(copilCurent.statusTransfer).select2({
 			theme: "bootstrap-5", 
@@ -914,7 +943,11 @@
 							dropdownParent: $("#modalAdaugaCH"),
 							minimumResultsForSearch: -1
 						});
-						$("#categorieAfectiuneCH").val(response.categoriiDeAfectiune);
+						$("#selCategorieAfectiuneCH").val(response.categoriiDeAfectiune).select2({
+							theme: "bootstrap-5", 
+							dropdownParent: $("#modalAdaugaCH"),
+							minimumResultsForSearch: -1
+						});
 						$("#valabilitateCertificatCH").val(response.valabilitateCertificat);
 						$("#selStatusTransfer").val(response.statusTransfer).select2({
 							theme: "bootstrap-5", 
