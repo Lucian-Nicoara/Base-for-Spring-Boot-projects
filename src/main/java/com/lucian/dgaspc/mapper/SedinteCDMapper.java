@@ -19,10 +19,10 @@ public interface SedinteCDMapper {
 	SedintaCD getSedintaCDById(String id);
 	
 	@Insert("insert into consiliul_director(sedinta, dataSedinta, subiect, noteDeFundamentare, hotarareAviz)"
-			+ "values(#{sedinta}, STR_TO_DATE(#{dataSedinta}, '%d.%m.%Y'), #{subiect} , #{noteDeFundamentare}, #{hotarareAviz})")
+			+ "values(#{sedinta}, STR_TO_DATE(#{dataSedinta}, '%d.%m.%Y'), '-' , #{noteDeFundamentare}, #{hotarareAviz})")
 	Integer postSedintaCD(SedintaCD sedintaCD);
 	
-	@Update("update consiliul_director set sedinta = #{sedinta}, dataSedinta = STR_TO_DATE(#{dataSedinta}, '%d.%m.%Y'), subiect = #{subiect}, noteDeFundamentare = #{noteDeFundamentare}, hotarareAviz = #{hotarareAviz} where id = #{id}")
+	@Update("update consiliul_director set sedinta = #{sedinta}, dataSedinta = STR_TO_DATE(#{dataSedinta}, '%d.%m.%Y'), subiect = '-', noteDeFundamentare = #{noteDeFundamentare}, hotarareAviz = #{hotarareAviz} where id = #{id}")
 	void putSedintaCD(SedintaCD sedintaCD);
 	
 	@Update("update consiliul_director set numeFisier = #{numeFisier}, fisier = #{continutFisier} where id = #{idSedintaCD}")

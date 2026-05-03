@@ -11,7 +11,7 @@
 									<tr>
 										<th style="width:100px; background-color: #ccc;">Ședință</th>
 										<th style="width:100px; background-color: #ccc;">Dată ședință</th>
-										<th style="width:200px; background-color: #ccc;">Subiect</th>
+										<!-- <th style="width:200px; background-color: #ccc;">Subiect</th> -->
 										<th style="background-color: #ccc;">Note de fundamentare</th>
 										<th style="width:100px; background-color: #ccc;">Hotărâre aviz</th>
 										<th style="width:190px; background-color: #ccc;">Operații</th>
@@ -19,7 +19,7 @@
 									<tr>
 										<th data-dt-order="disable"></th>
 										<th data-dt-order="disable"></th>
-										<th data-dt-order="disable"></th>
+										<!-- <th data-dt-order="disable"></th> -->
 										<th data-dt-order="disable"></th>
 										<th data-dt-order="disable"></th>
 										<th data-dt-order="disable"></th>
@@ -52,23 +52,24 @@
 								<input id="dataSedintaCD" class="form-control" onchange="onChangeDataSedintaCD()">
 							</div>
 							<div class="col-md-8">
-								<label class="fw-bold">Subiect</label><br>
-								<input id="subiectSedintaCD" class="form-control">
+								<!-- <label class="fw-bold">Subiect</label><br>
+								<input id="subiectSedintaCD" class="form-control"> -->
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<label class="fw-bold">Note de fundamentare</label><br>
 								<input id="noteSCD" class="form-control">
 							</div>
-							<div class="col-md-2">
-								<label class="fw-bold">Hotărâre/Aviz</label><br>
-								<select id="selHotarareSedinta" class="w-100">
+							<div class="col-md-3">
+								<label class="fw-bold">Hotărâre/Aviz/Decizie</label><br>
+								<input id="selHotarareSedinta" class="form-control">
+								<!-- <select id="selHotarareSedinta" class="w-100">
 									<option value="În lucru" selected>În lucru</option>
 									<option value="Avizată" selected>Avizată</option>
 									<option value="Optiunea1">Optiunea1</option>
 									<option value="Optiunea2">Optiunea2</option>
-								</select>
+								</select> -->
 							</div>
 						</div>
 						<div class="row">
@@ -104,8 +105,8 @@
 									<span id="divDataSedintaCD"></span>
 								</div>
 								<div class="col">
-									<label class="fw-bold">Subiect</label><br>
-									<span id="divSubiectSedintaCD"></span>
+									<!-- <label class="fw-bold">Subiect</label><br>
+									<span id="divSubiectSedintaCD"></span> -->
 								</div>
 								<div class="col-md-3">
 									<label class="fw-bold">Note de fundamentare</label><br>
@@ -170,8 +171,8 @@
 									<span id="divDataSedintaCD1"></span>
 								</div>
 								<div class="col">
-									<label class="fw-bold">Subiect</label><br>
-									<span id="divSubiectSedintaCD1"></span>
+									<!-- <label class="fw-bold">Subiect</label><br>
+									<span id="divSubiectSedintaCD1"></span> -->
 								</div>
 								<div class="col-md-3">
 									<label class="fw-bold">Note de fundamentare</label><br>
@@ -300,11 +301,11 @@
 				});
 			},
 			columns: [
-			        { data: "sedinta" },
-			        { data: "dataSedinta" },
-			        { data: "subiect" },
-			        { data: "noteDeFundamentare" },
-			        { data: "hotarareAviz" },
+					{ data: "sedinta" },
+					{ data: "dataSedinta" },
+					/* { data: "subiect" }, */
+					{ data: "noteDeFundamentare" },
+					{ data: "hotarareAviz" },
 					{ data: 
 						null, 
 						render: function (data, type, row, meta) {
@@ -349,13 +350,13 @@
 	function arataModalAdaugaInregSCD(){
 		$("#sedintaCD").val("");
 		$("#dataSedintaCD").val("");
-		$("#subiectSedintaCD").val("");
+		/* $("#subiectSedintaCD").val(""); */
 		$("#noteSCD").val("");
-		$("#selHotarareSedinta").val("În lucru").select2({
+		/* $("#selHotarareSedinta").val("În lucru").select2({
 			theme: "bootstrap-5", 
 			dropdownParent: $("#modalAdaugaSedintaCD"), 
 			minimumResultsForSearch: -1
-		});
+		}); */
 		$("#modalAdaugaSedintaCD").modal({backdrop: "static", keyboard: false}).modal("show");
 		setTimeout(function(){
 			$("#sedintaCD").focus();
@@ -364,32 +365,6 @@
 	
 	function inchideModalAdaugaSCD(){
 		$("#modalAdaugaSedintaCD").modal("hide");
-	}
-	
-	function verificaData(dataInput){
-		var dateArray = dataInput.split(".");
-		var ziuaOk = false;
-		var lunaOk = false;
-		var anulOk = false;
-		if(dateArray.length == 3){
-			if(parseInt(dateArray[0]) > 0 && parseInt(dateArray[0]) <= 31){
-				ziuaOk = true;
-			}
-			if(parseInt(dateArray[1]) > 0 && parseInt(dateArray[1]) <= 12){
-				lunaOk = true;
-			}
-			if(dateArray[2].length == 4 && parseInt(dateArray[2]) > 1900 && parseInt(dateArray[2]) <= 2199){
-				anulOk = true;
-			}
-		}else{
-			return "notok";
-		}
-		
-		if(!ziuaOk || !lunaOk || !anulOk){
-			return "notok";
-		}else{
-			return "ok";
-		}
 	}
 	
 	function onChangeDataSedintaCD(){
@@ -415,17 +390,17 @@
 			$("#divMesajAdaugaSedinta").html("Completează câmpul dată ședință");
 			return;
 		}
-		if(!$("#subiectSedintaCD").val()){
+		/* if(!$("#subiectSedintaCD").val()){
 			eroareValidare = true;
 			$("#divMesajAdaugaSedinta").html("Completează câmpul subiect");
 			return;
-		}
+		} */
 		
 		if(!eroareValidare){
 			var sedintaCD = {
 					"sedinta": $("#sedintaCD").val(),
 					"dataSedinta": $("#dataSedintaCD").val(),
-					"subiect": $("#subiectSedintaCD").val(),
+					/* "subiect": $("#subiectSedintaCD").val(), */
 					"noteDeFundamentare": $("#noteSCD").val(),
 					"hotarareAviz": $("#selHotarareSedinta").val()
 				};
@@ -463,13 +438,14 @@
 		
 		$("#sedintaCD").val(sedintaCdCurenta.sedinta);
 		$("#dataSedintaCD").val(sedintaCdCurenta.dataSedinta);
-		$("#subiectSedintaCD").val(sedintaCdCurenta.subiect);
+		/* $("#subiectSedintaCD").val(sedintaCdCurenta.subiect); */
 		$("#noteSCD").val(sedintaCdCurenta.noteDeFundamentare);
-		$("#selHotarareSedinta").val(sedintaCdCurenta.hotarareAviz).select2({
+		$("#selHotarareSedinta").val(sedintaCdCurenta.hotarareAviz);
+		/* .select2({
 			theme: "bootstrap-5", 
 			dropdownParent: $("#modalAdaugaSedintaCD"),
 			minimumResultsForSearch: -1
-		});
+		}); */
 		
 		$("#modalAdaugaSedintaCD").modal({backdrop: "static", keyboard: false}).modal("show");
 	}
@@ -478,7 +454,7 @@
 		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
 		$("#divSedintaCD").html(sedintaCdCurenta.sedinta);
 		$("#divDataSedintaCD").html(sedintaCdCurenta.dataSedinta);
-		$("#divSubiectSedintaCD").html(sedintaCdCurenta.subiect);
+		/* $("#divSubiectSedintaCD").html(sedintaCdCurenta.subiect); */
 		$("#divNoteSedintaCD").html(sedintaCdCurenta.noteDeFundamentare);
 		$("#divHotarareSedintaCD").html(sedintaCdCurenta.hotarareAviz);
 		
@@ -521,7 +497,7 @@
 		sedintaCdCurenta = dtConsiliulDirector.row(rowIndex).data();
 		$("#divSedintaCD1").html(sedintaCdCurenta.sedinta);
 		$("#divDataSedintaCD1").html(sedintaCdCurenta.dataSedinta);
-		$("#divSubiectSedintaCD1").html(sedintaCdCurenta.subiect);
+		/* $("#divSubiectSedintaCD1").html(sedintaCdCurenta.subiect); */
 		$("#divNoteSedintaCD1").html(sedintaCdCurenta.noteDeFundamentare);
 		$("#divHotarareSedintaCD1").html(sedintaCdCurenta.hotarareAviz);
 		
