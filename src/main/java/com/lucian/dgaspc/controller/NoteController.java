@@ -42,6 +42,12 @@ public class NoteController {
 		return noteService.postNota(nota);
 	}
 	
+	@PostMapping("/stergeNota")
+	public String stergeNota(@RequestBody String idNota) {
+		System.out.println(idNota);
+		return noteService.stergeNota(idNota);
+	}
+	
 	@GetMapping("/getCompartimente")
 	public List<Compartiment> getCompartiment() {
 		List<Compartiment> listaCompartimente = compartimenteMapper.getCompartimente();

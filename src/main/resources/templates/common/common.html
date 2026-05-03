@@ -1,0 +1,171 @@
+<div th:fragment="common">
+		<!-- Modal handle HTML Error -->
+		<div class="modal fade" id="modalHandleHtmlError" role="dialog" aria-labelledby="modalHandleHtmlError">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 5px; background-color: #F00;  font-weight: bold; color:#FFF;">
+						<div id="titluModal" style="width:100%; text-align: center;">Eroare de aplicatie!</div>
+					</div>
+					<div class="modal-body">
+						<span style="font-weight: bold; margin-bottom: 20px;">Vă rugăm să transmiteți această eroare administratorului IT</span>
+						<button class="btn btn-sm btn-success" style="margin-left: 20px;" onclick="copiazaEroarea()"> Copiază eroarea (similar CTRL+C) </button>
+						<br>
+						<div id="divEroareHtml" style="max-height: 400px; overflow: auto; margin-top:20px; padding-left: 30px; padding-right: 30px; background-color: #EEE;"></div>
+					</div>
+					<div class="modal-footer" style="background-color: #EEE;">
+						<button type="button" class="btn btn-danger" onclick="inchideModalHandleHtmlError()">Închide</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End modal handle HTML Error -->
+		
+		<script th:inline="javascript">
+			var totalNotePozitiaCurenta = 0;
+			function handleHtmlError(htmlError){
+				$(".modal").modal("hide");
+				$("#divEroareHtml").html(htmlError);
+				$("#modalHandleHtmlError").modal({backdrop: "static", keyboard: false}).modal("show");
+			}
+			
+			function inchideModalHandleHtmlError(){
+				$("#divEroareHtml").html("");
+				$("#modalHandleHtmlError").modal("hide");
+				hotarareaCurenta = null;
+				window.location.reload();
+			}
+			
+			function copiazaEroarea(){
+				navigator.clipboard.writeText($("#divEroareHtml").html()).then(function () {
+				    alert("Textul a fost copiat. Poti folosi CTRL+V")
+				}, function () {
+				    alert("Textul nu a putut fi copiat. Trebuie selectat si copiat manual.")
+				});
+			}
+			
+			function verificaData(dataInput){
+				var dateArray = dataInput.split(".");
+				var ziuaOk = false;
+				var lunaOk = false;
+				var anulOk = false;
+				if(dateArray.length == 3){
+					if(parseInt(dateArray[0]) > 0 && parseInt(dateArray[0]) <= 31){
+						ziuaOk = true;
+					}
+					if(parseInt(dateArray[1]) > 0 && parseInt(dateArray[1]) <= 12){
+						lunaOk = true;
+					}
+					if(dateArray[2].length == 4 && parseInt(dateArray[2]) > 1900 && parseInt(dateArray[2]) <= 2199){
+						anulOk = true;
+					}
+				}else{
+					return "notok";
+				}
+				
+				if(!ziuaOk || !lunaOk || !anulOk){
+					return "notok";
+				}else{
+					return "ok";
+				}
+			}
+			
+			function incarcaNote(idEntitate, entitate){
+				$.ajax({
+					url: "/note/getNote?id=" + idEntitate + "&entitate=" + entitate,
+					type: "GET",
+					success: function(response) {
+						var htmlNote = "";
+						for (const nota of response) {
+							htmlNote += '<div class="card text-dark bg-light mb-3 shadow" style="max-width: 18rem; margin-right: 20px;">'
+								+ '<div class="card-header fw-bold ">' + nota.data + ' ' + nota.persoana.prenume + ' ' + nota.persoana.nume + ':<div class="float-end" style="color:red; margin-left:10px; cursor:pointer;" onClick="stergeNota(`' + nota.id + '`,`' + idEntitate + '`,`' + entitate + '`)"><i class="bi bi-trash"></i></div></div>'
+								+ '<div class="card-body">'
+								+	'<p class="card-text">' + nota.text + '</p>'
+								+ '</div>'
+							+'</div>';
+						}
+						totalNotePozitiaCurenta = response.length;
+						$("#divNote").html(htmlNote);
+						$("#modalNote").modal({backdrop: "static", keyboard: false}).modal("show");
+					},
+					error: function(response){
+						handleHtmlError(response.responseText);
+					}
+				});
+			}
+			
+			function adaugaNota(entitate){
+				if($("#continutNota").val()){
+					var idEntitate = null;
+					if(entitate == "registrulHCJC"){
+						idEntitate = hotarareaCurenta.id;
+					}else if(entitate == "registrulXYZ.."){
+					}
+					var nota = {
+							"idEntitate": idEntitate,
+							"entitate": entitate, //"registrulHCJC", ..
+							"text": $("#continutNota").val(),
+						};
+					$.ajax({
+						url: "/note/postNota",
+						type: "POST",
+						headers: {"X-CSRF-TOKEN": token},
+						contentType: "application/json",
+						data: JSON.stringify(nota),
+						success: function(response) {
+							if(response == "ok"){
+								$("#continutNota").val("");
+								$("#btnNote_" + idEntitate).css("color", "blue");
+								incarcaNote(idEntitate, entitate);
+							}else{
+								alert("Nota nu a fost salvată! Eroare de aplicație.");
+							}
+						},
+						error: function(response){
+							handleHtmlError(response.responseText);
+						}
+					});
+				}else{
+					alert("Completați conținutul! Nota nu a fost salvată.");
+				}
+			}
+			
+			function stergeNota(idNota, idEntitate, entitate){
+				bootbox.confirm({
+					title: "Șterg?",
+					message: "Sunteți sigur că doriți ștergerea notiței ?",
+					buttons: {
+						confirm: {
+							label: 'Da',
+							className: 'btn-success'
+						},
+						cancel: {
+							label: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+							className: 'btn-danger'
+						}
+					},
+					swapButtonOrder: true,
+					callback: function(confirmare){
+						if(confirmare){
+							$.ajax({
+								url: "/note/stergeNota",
+								type: "POST",
+								headers: {"X-CSRF-TOKEN": token},
+								contentType: "text/plain",
+								data: idNota,
+								success: function(response) {
+									if(response != "ok"){
+										alert("Ștergerea nu a fost efectuată! Eroare de aplicație.");
+									}else{
+										incarcaNote(idEntitate, entitate);
+									}
+								},
+								error: function(response){
+									handleHtmlError(response.responseText);
+								}
+							});
+						}
+					}
+				});
+			}
+		</script>
+</div>

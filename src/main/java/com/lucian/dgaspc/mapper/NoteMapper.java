@@ -2,6 +2,7 @@ package com.lucian.dgaspc.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -15,4 +16,7 @@ public interface NoteMapper {
 	
 	@Insert("insert into note(idUser, idEntitate, entitate, text) values(#{idUser}, #{idEntitate}, #{entitate} , #{text})")
 	Integer postNota(Nota nota);
+	
+	@Delete("delete from note where id = #{idNota}")
+	void deleteNota(String idNota);
 }

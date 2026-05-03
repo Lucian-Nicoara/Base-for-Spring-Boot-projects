@@ -47,6 +47,19 @@ public class NoteService {
 		}else {
 			return "eroare";
 		}
-		
+	}
+	
+	public String stergeNota(String idNota) {
+		if(idNota != null && !idNota.isEmpty()) {
+			UserData user = userDataService.getAuthUser();
+			if(user != null) {
+				noteMapper.deleteNota(idNota);
+				return "ok";
+			}else {
+				return "fara-drepturi";
+			}
+		}else {
+			return "eroare";
+		}
 	}
 }
