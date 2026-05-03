@@ -82,28 +82,7 @@
 			<tbody style="font-size:12px;">
 			</tbody>
 		</table>
-		
-		<!-- Modal handle HTML Error -->
-		<div class="modal fade" id="modalHandleHtmlError" role="dialog" aria-labelledby="modalHandleHtmlError">
-			<div class="modal-dialog modal-xl" role="document">
-				<div class="modal-content">
-					<div class="modal-header" style="padding: 5px; background-color: #F00;  font-weight: bold; color:#FFF;">
-						<div id="titluModal" style="width:100%; text-align: center;">Eroare de aplicatie!</div>
-					</div>
-					<div class="modal-body">
-						<span style="font-weight: bold; margin-bottom: 20px;">Vă rugăm să transmiteți această eroare administratorului IT</span>
-						<button class="btn btn-sm btn-success" style="margin-left: 20px;" onclick="copiazaEroarea()"> Copiază eroarea (similar CTRL+C) </button>
-						<br>
-						<div id="divEroareHtml" style="max-height: 400px; overflow: auto; margin-top:20px; padding-left: 30px; padding-right: 30px; background-color: #EEE;"></div>
-					</div>
-					<div class="modal-footer" style="background-color: #EEE;">
-						<button type="button" class="btn btn-danger" onclick="inchideModalHandleHtmlError()">Închide</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End modal HTML Error-->
-		
+
 		<!-- Modal adaugare-->
 		<div class="modal fade" id="modalAdaugaCH" role="dialog" aria-labelledby="modalAdaugaCH">
 			<div class="modal-dialog modal-xl" role="document">
@@ -299,7 +278,7 @@
 									<div class="card-header fw-bold">Adaugă notiță nouă</div>
 									<div class="card-body">
 										<textarea id="continutNota" class="form-control mb-2" style="width: 100%; height: 200px;" placeholder="Conținut notiță"></textarea>
-										<button id="btnSalveazaNota" type="button" class="btn btn-light shadow" onclick="adaugaNota()">Salvează notița</button>
+										<button id="btnSalveazaNota" type="button" class="btn btn-light shadow" onclick="adaugaNota('evidentaCH')">Salvează notița</button>
 									</div>
 								</div>
 							</div>
@@ -334,26 +313,6 @@
 		$("#menuEntryEvidentaCH").addClass("btn-primary fw-bold");
 		incarcaDtEvidentaCH();
 	});
-	
-	function handleHtmlError(htmlError){
-		$(".modal").modal("hide");
-		$("#divEroareHtml").html(htmlError);
-		$("#modalHandleHtmlError").modal({backdrop: "static", keyboard: false}).modal("show");
-	}
-	
-	function inchideModalHandleHtmlError(){
-		$("#divEroareHtml").html("");
-		$("#modalHandleHtmlError").modal("hide");
-		window.location.reload();
-	}
-	
-	function copiazaEroarea(){
-		navigator.clipboard.writeText($("#divEroareHtml").html()).then(function () {
-		    alert("Textul a fost copiat. Poti folosi CTRL+V")
-		}, function () {
-		    alert("Textul nu a putut fi copiat. Trebuie selectat si copiat manual.")
-		});
-	}
 	
 	function incarcaDtEvidentaCH(){
 		DataTable.datetime('DD.MM.YYYY');
@@ -535,7 +494,7 @@
 						}
 						return ''
 							+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare / Vizualizare" onclick="editareCH(' + meta.row + ')"></i>'
-							+ '<i id="btnNote_' + data.id + '" class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:' + noteIconColor + ';" data-bs-toggle="tooltip" title="Notițe ' + data.totalNote + '" onclick="arataModalNote(' + meta.row + ')"></i>'
+							+ '<i id="btnNote_' + data.id + '" class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:' + noteIconColor + ';" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
 							+ btnStergereHtml;
 					}
 				}
@@ -804,67 +763,17 @@
 		$("#divDiagnosticCH").html(copilCurent.diagnostic);
 		incarcaNote(copilCurent.id, "evidentaCH");
 	}
-	
-	function incarcaNote(id, entitate){
-		$.ajax({
-			url: "/note/getNote?id=" + id + "&entitate=" + entitate,
-			type: "GET",
-			success: function(response) {
-				var htmlNote = "";
-				for (const nota of response) {
-					htmlNote += '<div class="card text-dark bg-light mb-3 shadow" style="max-width: 18rem; margin-right: 20px;">'
-						+ '<div class="card-header fw-bold ">' + nota.data + ' ' + nota.persoana.prenume + ' ' + nota.persoana.nume + ':</div>'
-						+ '<div class="card-body">'
-						+	'<p class="card-text">' + nota.text + '</p>'
-						+ '</div>'
-					+'</div>';
-				}
-				
-				$("#divNote").html(htmlNote);
-				$("#modalNote").modal({backdrop: "static", keyboard: false}).modal("show");
-			},
-			error: function(response){
-				handleHtmlError(response.responseText);
-			}
-		});
-	}
-	
+
 	function inchideModalNote(){
 		$("#divNote").html("");
 		$("#continutNota").val("");
 		$("#modalNote").modal("hide");
-		copilCurent = null;
-	}
-	
-	function adaugaNota(){
-		if($("#continutNota").val()){
-			var nota = {
-					"idEntitate": copilCurent.id,
-					"entitate": "evidentaCH",
-					"text": $("#continutNota").val(),
-				};
-			$.ajax({
-				url: "/note/postNota",
-				type: "POST",
-				headers: {"X-CSRF-TOKEN": token},
-				contentType: "application/json",
-				data: JSON.stringify(nota),
-				success: function(response) {
-					if(response == "ok"){
-						$("#continutNota").val("");
-						incarcaNote(copilCurent.id, "evidentaCH");
-						$("#btnNote_" + copilCurent.id).css("color", "blue");
-					}else{
-						alert("Nota nu a fost salvata! Eroare de aplicatie.");
-					}
-				},
-				error: function(response){
-					handleHtmlError(response.responseText);
-				}
-			});
+		if(totalNotePozitiaCurenta != null && totalNotePozitiaCurenta > 0){
+			$("#btnNote_" + copilCurent.id).css("color", "blue");
 		}else{
-			alert("Completați conținutul! Nota nu a fost salvată.");
+			$("#btnNote_" + copilCurent.id).css("color", "orange");
 		}
+		copilCurent = null;
 	}
 	
 	function stergeCH(rowIndex){

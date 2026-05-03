@@ -1,14 +1,5 @@
-function getTodayDate(){
-	const today = new Date();
-	const yyyy = today.getFullYear();
-	let mm = today.getMonth() + 1; // Months start at 0!
-	let dd = today.getDate();
-
-	if (dd < 10) dd = '0' + dd;
-	if (mm < 10) mm = '0' + mm;
-
-	return dd + '.' + mm + '.' + yyyy;
-}
+/*
+A fost eliminat, intrucat se dubla in common.html
 
 function verificaData(dataInput){
 	var dateArray = dataInput.split(".");
@@ -54,3 +45,4 @@ function copiazaEroarea(){
 	    alert("Textul nu a putut fi copiat. Trebuie selectat si copiat manual.")
 	});
 }
+*/

@@ -22,6 +22,7 @@
 		
 		<script th:inline="javascript">
 			var totalNotePozitiaCurenta = 0;
+			
 			function handleHtmlError(htmlError){
 				$(".modal").modal("hide");
 				$("#divEroareHtml").html(htmlError);
@@ -41,6 +42,18 @@
 				}, function () {
 				    alert("Textul nu a putut fi copiat. Trebuie selectat si copiat manual.")
 				});
+			}
+			
+			function getTodayDate(){
+				const today = new Date();
+				const yyyy = today.getFullYear();
+				let mm = today.getMonth() + 1; // Months start at 0!
+				let dd = today.getDate();
+
+				if (dd < 10) dd = '0' + dd;
+				if (mm < 10) mm = '0' + mm;
+
+				return dd + '.' + mm + '.' + yyyy;
 			}
 			
 			function verificaData(dataInput){
@@ -100,12 +113,16 @@
 						idEntitate = hotarareaCurenta.id;
 					}else if(entitate == "registrulSCD"){
 						idEntitate = sedintaCdCurenta.id;
+					}else if(entitate == "evidentaCH"){
+						idEntitate = copilCurent.id;
 					}
+					
 					var nota = {
-							"idEntitate": idEntitate,
-							"entitate": entitate, //"registrulHCJC", ..
-							"text": $("#continutNota").val(),
-						};
+									"idEntitate": idEntitate,
+									"entitate": entitate, //"registrulHCJC", ..
+									"text": $("#continutNota").val(),
+								};
+					
 					$.ajax({
 						url: "/note/postNota",
 						type: "POST",

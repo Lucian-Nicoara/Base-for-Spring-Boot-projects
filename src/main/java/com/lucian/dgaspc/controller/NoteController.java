@@ -44,7 +44,6 @@ public class NoteController {
 	
 	@PostMapping("/stergeNota")
 	public String stergeNota(@RequestBody String idNota) {
-		System.out.println(idNota);
 		return noteService.stergeNota(idNota);
 	}
 	
