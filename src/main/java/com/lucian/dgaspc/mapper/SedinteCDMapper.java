@@ -2,7 +2,6 @@ package com.lucian.dgaspc.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -13,7 +12,7 @@ import com.lucian.dgaspc.model.SedintaCD;
 @Mapper
 public interface SedinteCDMapper {
 	
-	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz, numeFisier from consiliul_director where sters is null order by id desc")
+	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz, numeFisier, (select count(*) from note where idEntitate = c.id and entitate = 'registrulSCD') as totalNote from consiliul_director c where sters is null order by id desc")
 	List<SedintaCD> getSedinteCD();
 	
 	@Select("select id, sedinta, DATE_FORMAT(dataSedinta, '%d.%m.%Y') as dataSedinta, subiect, noteDeFundamentare, hotarareAviz, numeFisier from consiliul_director where id = #{id} and sters is null ")

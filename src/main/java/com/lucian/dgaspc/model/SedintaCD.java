@@ -10,6 +10,7 @@ public class SedintaCD {
 	private String hotarareAviz;
 	private byte[] fisier;
 	private String numeFisier;
+	private String totalNote;
 	
 	public String getId() {
 		return id;
@@ -59,10 +60,16 @@ public class SedintaCD {
 	public void setNumeFisier(String numeFisier) {
 		this.numeFisier = numeFisier;
 	}
+	public String getTotalNote() {
+		return totalNote;
+	}
+	public void setTotalNote(String totalNote) {
+		this.totalNote = totalNote;
+	}
 	@Override
 	public String toString() {
 		return "SedintaCD [id=" + id + ", sedinta=" + sedinta + ", dataSedinta=" + dataSedinta + ", subiect=" + subiect
 				+ ", noteDeFundamentare=" + noteDeFundamentare + ", hotarareAviz=" + hotarareAviz + ", numeFisier="
-				+ numeFisier + "]";
+				+ numeFisier + ", totalNote=" + totalNote + "]";
 	}
 }
