@@ -84,6 +84,10 @@
 									<label class="form-check-label" style="cursor:pointer;" for="ckOpRegHCJC">Operator Registrul Hotărâri CJC</label>
 								</div>
 								<div class="form-check" style="margin-left:40px; cursor:pointer;">
+									<input class="form-check-input" style="cursor:pointer;" type="checkbox" value="" id="ckOpRegDispozitii">
+									<label class="form-check-label" style="cursor:pointer;" for="ckOpRegDispozitii">Operator Registrul Dispoziții</label>
+								</div>
+								<div class="form-check" style="margin-left:40px; cursor:pointer;">
 									<input class="form-check-input" style="cursor:pointer;" type="checkbox" value="" id="ckOpRegConsDir">
 									<label class="form-check-label" style="cursor:pointer;" for="ckOpRegConsDir">Operator Ședințe Consiliul Director</label>
 								</div>
@@ -314,6 +318,9 @@
 			}
 			if($("#ckOpRegHCJC").is(":checked")){
 				utilizator.authorities.push({authority:"OpRegHCJC"});
+			}
+			if($("#ckOpRegDispozitii").is(":checked")){
+				utilizator.authorities.push({authority:"OpRegDispozitii"});
 			}
 			if($("#ckOpRegConsDir").is(":checked")){
 				utilizator.authorities.push({authority:"OpRegConsDir"});

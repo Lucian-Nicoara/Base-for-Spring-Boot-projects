@@ -1,7 +1,7 @@
 <!doctype html>
 <html layout:decorate="template" lang="en" data-bs-theme="light">
 	<div id="main" layout:fragment="content">
-		<table id="dtHotarariCJC" class="display" style="width: 100%;">
+		<table id="dtDispozitii" class="display" style="width: 100%;">
 			<thead>
 				<tr>
 					<th style="width:100px; background-color: #ccc;">Nr.</th>
@@ -26,35 +26,35 @@
 			</tbody>
 		</table>
 
-		<!-- Modal adaugare hotarareCJC-->
-		<div class="modal fade" id="modalAdaugaHotarareCJC" role="dialog" aria-labelledby="modalAdaugaHotarareCJC">
+		<!-- Modal adaugare dispozitie-->
+		<div class="modal fade" id="modalAdaugaDispozitie" role="dialog" aria-labelledby="modalAdaugaDispozitie">
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
-						<div id="titluModal" style="width:100%; text-align: center;">Adaugă o hotărâre CJC</div>
-						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalAdaugaHCJC()"></button>
+						<div id="titluModal" style="width:100%; text-align: center;">Adaugă o dispoziție</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalAdaugaDispozitie()"></button>
 					</div>
 					<div class="modal-body">
 						<div class="row mb-2">
 							<div class="col-md-2">
-								<label for="nrHotarare" class="fw-bold">Nr. hotărare</label><br>
-								<input id="nrHotarare" class="form-control">
+								<label for="nrDispozitie" class="fw-bold">Nr. dispoziție</label><br>
+								<input id="nrDispozitie" class="form-control">
 							</div>
 							<div class="col-md-2">
-								<label for="dataHotarare" class="fw-bold">Dată hotărare</label><br>
-								<input id="dataHotarare" class="form-control" onchange="onChangeDataHotarare()">
+								<label for="dataDispozitie" class="fw-bold">Dată dispoziție</label><br>
+								<input id="dataDispozitie" class="form-control" onchange="onChangeDataDispozitie()">
 							</div>
 							<div class="col-md-4">
-								<label for="emitentHotarare" class="fw-bold">Emitent</label><br>
-								<input id="emitentHotarare" class="form-control">
+								<label for="emitentDispozitie" class="fw-bold">Emitent</label><br>
+								<input id="emitentDispozitie" class="form-control">
 							</div>
 							<div class="col-md-2">
 								<label for="dataCom" class="fw-bold">Data comunicării</label><br>
 								<input id="dataCom" class="form-control" onchange="onChangeDataComunicarii()">
 							</div>
 							<div class="col-md-2">
-								<label for="selStadiuHotarare" class="fw-bold">Stadiu</label><br>
-								<select id="selStadiuHotarare" class="w-100">
+								<label for="selStadiuDispozitie" class="fw-bold">Stadiu</label><br>
+								<select id="selStadiuDispozitie" class="w-100">
 									<option value="În lucru" selected>În lucru</option>
 									<option value="Rezolvată">Rezolvată</option>
 								</select>
@@ -79,7 +79,7 @@
 								<input id="dataPrimirii" class="form-control" onchange="onChangeDataPrimirii()">
 							</div>
 							<div class="col-md-2">
-								<button id="btnAdaugaPrimitor" type="button" class="btn btn-primary" style="margin-top:24px;" onclick="adaugaPrimitorHCJC()">Adaugă primitor</button>
+								<button id="btnAdaugaPrimitor" type="button" class="btn btn-primary" style="margin-top:24px;" onclick="adaugaPrimitorDispozitie()">Adaugă primitor</button>
 							</div>
 						</div>
 						<div class="row" style="margin-top:20px;">
@@ -101,37 +101,37 @@
 							<div class="col-md-1"></div>
 						</div>
 						<div class="row">
-							<div id="divMesajAdaugaHotarare" class="col-md-12" style="color: red; font-weight: bold;"></div>
+							<div id="divMesajAdaugaDispozitie" class="col-md-12" style="color: red; font-weight: bold;"></div>
 						</div>
 					</div>
 					<div class="modal-footer" style="background-color: #EEE;">
-						<button id="btnSalveazaHotarare" type="button" class="btn btn-success" onclick="salveazaHotarareCJC()">Salvează</button>
-						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaHCJC()">Închide</button>
+						<button id="btnSalveazaDispozitie" type="button" class="btn btn-success" onclick="salveazaDispozitie()">Salvează</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaDispozitie()">Închide</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- End modal adaugare hotarareCJC-->
+		<!-- End modal adaugare Dispozitie-->
 		
-		<!-- Modal incarca fisier hotarareCJC-->
-		<div class="modal fade" id="modalAdaugaFisierHotarareCJC" role="dialog" aria-labelledby="modalAdaugaFisierHotarareCJC">
+		<!-- Modal incarca fisier Dispozitie-->
+		<div class="modal fade" id="modalAdaugaFisierDispozitie" role="dialog" aria-labelledby="modalAdaugaFisierDispozitie">
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
-						<div id="titluModal" style="width:100%; text-align: center;">Adaugă fișier hotărâre CJC</div>
-						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalAdaugaFisierHCJC()"></button>
+						<div id="titluModal" style="width:100%; text-align: center;">Adaugă fișier dispoziție</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalAdaugaFisierDispozitie()"></button>
 					</div>
-					<form method="POST" enctype="multipart/form-data" id="formFisierHotarareCJC">
+					<form method="POST" enctype="multipart/form-data" id="formFisierDispozitie">
 					<div class="modal-body">
 						<div style="padding: 15px; box-shadow: 0 8px 6px -6px #eee;">
 							<div class="row mb-2">
 								<div class="col">
-									<label class="fw-bold">Nr. hotărare</label><br>
-									<span id="divNrHotarare2"></span>
+									<label class="fw-bold">Nr. dispoziție</label><br>
+									<span id="divNrDispozitie2"></span>
 								</div>
 								<div class="col">
 									<label class="fw-bold">Emitent</label><br>
-									<span id="divEmitentHotarare2"></span>
+									<span id="divEmitentDispozitie2"></span>
 								</div>
 								<div class="col">
 									<label class="fw-bold">Data comunicării</label><br>
@@ -147,63 +147,63 @@
 								</div>
 								<div class="col">
 									<label class="fw-bold">Stadiu</label><br>
-									<span id="divStadiuHotarare2"></span>
+									<span id="divStadiuDispozitie2"></span>
 								</div>
 							</div>
 						</div>
 						<div style="width: 100%; text-align: center; padding: 30px;">
 							<label class="fw-bold">Alege fișierul:</label>
-							<input type="file" id="fisierHotarareCJC" name="fisierHotarareCJC" style="width: 400px;"/>	
+							<input type="file" id="fisierDispozitie" name="fisierDispozitie" style="width: 400px;"/>	
 						</div>
 					</div>
 					</form>
 					<div class="modal-footer" style="background-color: #EEE;">
-						<button id="btnSalveazaHotarare" type="button" class="btn btn-success" onclick="incarcaFisierul()">Salvează</button>
-						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaFisierHCJC()">Închide</button>
+						<button id="btnSalveazaDispozitie" type="button" class="btn btn-success" onclick="incarcaFisierul()">Salvează</button>
+						<button type="button" class="btn btn-danger" onclick="inchideModalAdaugaFisierDispozitie()">Închide</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- End modal incarca fisier hotarareCJC-->
+		<!-- End modal incarca fisier Dispozitie-->
 		
-		<!-- Modal arata fisier hotarareCJC-->
-		<div class="modal fade" id="modalArataFisierHCJC" role="dialog" aria-labelledby="modalArataFisierHCJC" tabindex='-1'>
+		<!-- Modal arata fisier Dispozitie-->
+		<div class="modal fade" id="modalArataFisierDispozitie" role="dialog" aria-labelledby="modalArataFisierDispozitie" tabindex='-1'>
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
-						<div id="titluModal" style="width:100%; text-align: center;">Fișier hotărâre CJC</div>
-						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalArataFisierHCJC()"></button>
+						<div id="titluModal" style="width:100%; text-align: center;">Fișier dispoziție</div>
+						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalArataFisierDispozitie()"></button>
 					</div>
 					<div class="modal-body" style="padding: 0px;">
-						<iframe id="embedFisierHCJC" class="w-100" style="height:600px;"></iframe>
+						<iframe id="embedFisierDispozitie" class="w-100" style="height:600px;"></iframe>
 					</div>
 					<div class="modal-footer" style="background-color: #EEE;">
-						<a id="linkBtnDescarcaFisierHCJC" href="" ><button id="btnDescarcaFisierHCJC" type="button" class="btn btn-success">Descarcă fișierul</button></a>
-						<button type="button" class="btn btn-danger" onclick="inchideModalArataFisierHCJC()">Închide</button>
+						<a id="linkBtnDescarcaFisierDispozitie" href="" ><button id="btnDescarcaFisierDispozitie" type="button" class="btn btn-success">Descarcă fișierul</button></a>
+						<button type="button" class="btn btn-danger" onclick="inchideModalArataFisierDispozitie()">Închide</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- End modal arata fisier hotarareCJC-->
+		<!-- End modal arata fisier Dispozitie-->
 		
 		<!-- Modal note-->
 		<div class="modal fade" id="modalNote" role="dialog" aria-labelledby="modalNote">
 			<div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header" style="padding: 5px; background-color: #EEE;  font-weight: bold;">
-						<div id="titluModal" style="width:100%; text-align: center;">Notițe hotărâre CJC</div>
+						<div id="titluModal" style="width:100%; text-align: center;">Notițe dispoziție</div>
 						<button type="button" class="btn-close" style="margin-right:1px; padding:5px;" onclick="inchideModalNote()"></button>
 					</div>
 					<div class="modal-body" style="padding: 0px; max-height: 600px;">
 						<div style="padding: 15px; box-shadow: 0 8px 6px -6px #eee;">
 							<div class="row mb-2">
 								<div class="col">
-									<label class="fw-bold">Nr. hotărare</label><br>
-									<span id="divNrHotarare1"></span>
+									<label class="fw-bold">Nr. dispoziție</label><br>
+									<span id="divNrDispozitie1"></span>
 								</div>
 								<div class="col">
 									<label class="fw-bold">Emitent</label><br>
-									<span id="divEmitentHotarare1"></span>
+									<span id="divEmitentDispozitie1"></span>
 								</div>
 								<div class="col">
 									<label class="fw-bold">Data comunicării</label><br>
@@ -211,7 +211,7 @@
 								</div>
 								<div class="col">
 									<label class="fw-bold">Stadiu</label><br>
-									<span id="divStadiuHotarare1"></span>
+									<span id="divStadiuDispozitie1"></span>
 								</div>
 							</div>
 						</div>
@@ -226,7 +226,7 @@
 									<div class="card-header fw-bold">Adaugă notiță nouă</div>
 									<div class="card-body">
 										<textarea id="continutNota" class="form-control mb-2" style="width: 100%; height: 200px;" placeholder="Conținut notiță"></textarea>
-										<button id="btnSalveazaNota" type="button" class="btn btn-light shadow" onclick="adaugaNota('registrulHCJC')">Salvează notița</button>
+										<button id="btnSalveazaNota" type="button" class="btn btn-light shadow" onclick="adaugaNota('registrulDispozitii')">Salvează notița</button>
 									</div>
 								</div>
 								
@@ -245,18 +245,18 @@
 </html>
 <script th:inline="javascript">
 	var token = $("meta[name='_csrf']").attr("content");
-	var mesajAdaugaHotarare = "";
-	var dtHotarariCJC = null;
-	var hotarareaCurenta = null;
-	var primitoriHCJC = [];
+	var mesajAdaugaDispozitie = "";
+	var dtDispozitii = null;
+	var dispozitiaCurenta = null;
+	var primitoriDispozitie = [];
 	var listaPersoane = [];
 	var listaCompartimente = [];
 	
 	$(document).ready(function() {
-		hotarareaCurenta = null;
-		primitoriHCJC = [];
-		console.log("Registul hotarari CJC - ready!");
-		$("#divTitluPagina").html("Registrul Hotărâri CJC");
+		dispozitiaCurenta = null;
+		primitoriDispozitie = [];
+		console.log("Registrul dispoziții - ready!");
+		$("#divTitluPagina").html("Registrul Dispoziții");
 		
 		<!--Activare bootstrap tooltips-->
 		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -265,17 +265,17 @@
 		});
 			
 		$(".btnMenu").removeClass("btn-primary");
-		$("#menuEntryRegHotCJC").removeClass("btn-light");
-		$("#menuEntryRegHotCJC").addClass("btn-primary  fw-bold");
-		incarcaDtHotarariCJC();
+		$("#menuEntryRegDispozitii").removeClass("btn-light");
+		$("#menuEntryRegDispozitii").addClass("btn-primary  fw-bold");
+		incarcaDtDispozitii();
 	});
 
-	function incarcaDtHotarariCJC(){
+	function incarcaDtDispozitii(){
 		DataTable.datetime('DD.MM.YYYY');
-		if ($.fn.DataTable.isDataTable("#dtHotarariCJC")) {
-			$("#dtHotarariCJC").DataTable().clear().destroy();
+		if ($.fn.DataTable.isDataTable("#dtDispozitii")) {
+			$("#dtDispozitii").DataTable().clear().destroy();
 		}
-		dtHotarariCJC = $("#dtHotarariCJC").DataTable({
+		dtDispozitii = $("#dtDispozitii").DataTable({
 			language: {
 				url: 'https://cdn.datatables.net/plug-ins/2.3.3/i18n/ro.json',
 			},
@@ -285,18 +285,18 @@
 						{
 							text: 'Adaugă înregistrare nouă',
 							action: function (e, dt, node, config) {
-								arataModalAdaugaInregHCJC();
+								arataModalAdaugaInregDispozitie();
 							}
 						},
 						//"excel",
 						{extend: 'excelHtml5',
-							title: 'DGASPC_Hotarari_CJC_' + getTodayDate(),
+							title: 'DGASPC_Dispozitii_' + getTodayDate(),
 							exportOptions: {
 								columns: [0, 1, 2, 3, 4, 5]
 							}
 						},
 						{extend: 'pdfHtml5',
-							title: 'DGASPC_Hotarari_CJC_' + getTodayDate(),
+							title: 'DGASPC_Dispozitii_' + getTodayDate(),
 							orientation: 'landscape',
                     		pageSize: 'A4',
 							exportOptions: {
@@ -310,7 +310,7 @@
 			paging: true,
 			order: false,
 			lengthChange: false,
-			ajax: "/hotarariCJC/getHotarariCJC",
+			ajax: "/registrul-dispozitii/getDispozitii",
 			drawCallback:function(){
 				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -318,12 +318,12 @@
 				});
 			},
 			columns: [
-				{ data: "nrHotarare" },
-				{ data: "dataHotarare" },
+				{ data: "nrDispozitie" },
+				{ data: "dataDispozitie" },
 				//{ data: "emitent" },
 				{ data:	null, 
 					render: function (data, type, row, meta) {
-						return '<div style="width:100%; cursor:pointer;" onclick="editareHotarareCJC(' + meta.row + ')"><a href="#" class = "text-decoration-none">' + data.emitent + '</a></div>';
+						return '<div style="width:100%; cursor:pointer;" onclick="editareDispozitie(' + meta.row + ')"><a href="#" class = "text-decoration-none">' + data.emitent + '</a></div>';
 					}
 				},
 				{ data: "dataComunicarii" },
@@ -355,51 +355,51 @@
 							noteIconColor = "blue";
 						}
 						if(data.numeFisier != null && data.numeFisier != ""){
-							arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Afișează fișierul" onclick="arataModalArataFisierHCJC(' + meta.row + ')"></i>';
+							arataBtnArataFisier = '<i class="fa-button bi bi-file-earmark-text" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Afișează fișierul" onclick="arataModalArataFisierDispozitie(' + meta.row + ')"></i>';
 						}
 						return ''
-						+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareHotarareCJC(' + meta.row + ')"></i>'
+						+ '<i class="fa-button bi bi-pencil-square" style="margin-right:15px; color:green;" data-bs-toggle="tooltip" title="Editare" onclick="editareDispozitie(' + meta.row + ')"></i>'
 						+ '<i id="btnNote_' + data.id + '" class="fa-button bi bi-chat-left-text" style="margin-right:15px; color:' + noteIconColor + ';" data-bs-toggle="tooltip" title="Notițe" onclick="arataModalNote(' + meta.row + ')"></i>'
-						+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Încarcă fișier" onclick="arataModalAdaugaFisierHCJC(' + meta.row + ')"></i>'
+						+ '<i class="fa-button bi bi-file-earmark-arrow-up" style="margin-right:15px; color:purple;" data-bs-toggle="tooltip" title="Încarcă fișier" onclick="arataModalAdaugaFisierDispozitie(' + meta.row + ')"></i>'
 						+ arataBtnArataFisier
-						+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeHotarareCJC(' + meta.row + ')"></i>';
+						+ '<i class="fa-button bi bi-trash" style="margin-right:15px; color:red;" data-bs-toggle="tooltip" title="Șterge înregistrarea" onclick="stergeDispozitie(' + meta.row + ')"></i>';
 					}
 				}
 			]
 		});
 		//adauga filtre coloane
-		$("#dtHotarariCJC thead tr:eq(1) th").each(function(i){
-			if(i < ($("#dtHotarariCJC thead tr:eq(1) th").length - 1)){
-				var title = $("#dtHotarariCJC thead th").eq($(this).index()).text();
+		$("#dtDispozitii thead tr:eq(1) th").each(function(i){
+			if(i < ($("#dtDispozitii thead tr:eq(1) th").length - 1)){
+				var title = $("#dtDispozitii thead th").eq($(this).index()).text();
 				$(this).html('<input class="filtru-coloane w-100" type="text" placeholder="' + title + '" data-index="' + i + '" />');	
 			}
-			if(i == $("#dtHotarariCJC thead tr:eq(1) th").length -1){
+			if(i == $("#dtDispozitii thead tr:eq(1) th").length -1){
 				$(this).html('<button id="btnResetareFiltre" type="button" class="w-100" onclick="onClickReseteazaFiltre();">Resetează</button>');
 			}
 		});
 		
 		$("#main .filtru-coloane").on("keyup", function(){
-			dtHotarariCJC.column($(this).data('index')).search(this.value).draw();
+			dtDispozitii.column($(this).data('index')).search(this.value).draw();
 		});
 	}
 	
 	function onClickReseteazaFiltre(){
-		//incarcaDtHotarariCJC();
+		//incarcaDtDispozitii();
 		location.reload();
 	}
 	
-	function arataModalAdaugaInregHCJC(){
-		hotarareaCurenta = null;
-		primitoriHCJC = [];
+	function arataModalAdaugaInregDispozitie(){
+		dispozitiaCurenta = null;
+		primitoriDispozitie = [];
 		$("#tabelPrimitori").hide();
-		$("#nrHotarare").val("");
-		$("#dataHotarare").val("");
-		$("#emitentHotarare").val("");
+		$("#nrDispozitie").val("");
+		$("#dataDispozitie").val("");
+		$("#emitentDispozitie").val("");
 		$("#dataCom").val("");
 		$("#dataPrimirii").val("");
-		$("#selStadiuHotarare").val("În lucru").select2({
+		$("#selStadiuDispozitie").val("În lucru").select2({
 			theme: "bootstrap-5", 
-			dropdownParent: $("#modalAdaugaHotarareCJC"), 
+			dropdownParent: $("#modalAdaugaDispozitie"), 
 			minimumResultsForSearch: -1
 		});
 		
@@ -418,16 +418,16 @@
 				for (const c of response.listaCompartimente) {
 					$("#selCompartiment").append('<option value="' + c.id + '">' + c.nume + '</option>');
 				}
-				$("#selCompartiment").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
+				$("#selCompartiment").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaDispozitie")});
 
 				for (const p of response.listaPersoane) {
 					$("#selPersoanaPrimire").append('<option value="' + p.id + '">' + p.nume + ' ' + p.prenume + '</option>');
 				}
-				$("#selPersoanaPrimire").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
+				$("#selPersoanaPrimire").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaDispozitie")});
 				
-				$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+				$("#modalAdaugaDispozitie").modal({backdrop: "static", keyboard: false}).modal("show");
 				setTimeout(function(){
-					$("#nrHotarare").focus();
+					$("#nrDispozitie").focus();
 				}, 200);
 			},
 			error: function(response){
@@ -436,107 +436,107 @@
 		});
 	}
 	
-	function inchideModalAdaugaHCJC(){
-		$("#modalAdaugaHotarareCJC").modal("hide");
-		hotarareaCurenta = null;
-		primitoriHCJC = [];
+	function inchideModalAdaugaDispozitie(){
+		$("#modalAdaugaDispozitie").modal("hide");
+		dispozitiaCurenta = null;
+		primitoriDispozitie = [];
 	}
 	
-	function onChangeDataHotarare(){
-		if(verificaData($("#dataHotarare").val()) != "ok"){
-			//$("#dataHotarare").val("dd.mm.yyyy");
-			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul dată hotărâre trebuie să fie în formatul dd.mm.yyyy!");
-			$("#btnSalveazaHotarare").prop("disabled", true);
+	function onChangeDataDispozitie(){
+		if(verificaData($("#dataDispozitie").val()) != "ok"){
+			//$("#dataDispozitie").val("dd.mm.yyyy");
+			$("#divMesajAdaugaDispozitie").html("Eroare!<br>Câmpul dată dispoziție trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaDispozitie").prop("disabled", true);
 		}else{
-			$("#divMesajAdaugaHotarare").html("");
-			$("#btnSalveazaHotarare").prop("disabled", false);
+			$("#divMesajAdaugaDispozitie").html("");
+			$("#btnSalveazaDispozitie").prop("disabled", false);
 		}
 	}
 	
 	function onChangeDataComunicarii(){
 		if(verificaData($("#dataCom").val()) != "ok"){
 			//$("#dataCom").val("dd.mm.yyyy");
-			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul data comunicării trebuie să fie în formatul dd.mm.yyyy!");
-			$("#btnSalveazaHotarare").prop("disabled", true);
+			$("#divMesajAdaugaDispozitie").html("Eroare!<br>Câmpul data comunicării trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaDispozitie").prop("disabled", true);
 		}else{
-			$("#divMesajAdaugaHotarare").html("");
-			$("#btnSalveazaHotarare").prop("disabled", false);
+			$("#divMesajAdaugaDispozitie").html("");
+			$("#btnSalveazaDispozitie").prop("disabled", false);
 		}
 	}
 	
 	function onChangeDataPrimirii(){
 		if(verificaData($("#dataPrimirii").val()) != "ok"){
 			//$("#dataPrimirii").val("dd.mm.yyyy");
-			$("#divMesajAdaugaHotarare").html("Eroare!<br>Câmpul data primirii trebuie să fie în formatul dd.mm.yyyy!");
-			$("#btnSalveazaHotarare").prop("disabled", true);
+			$("#divMesajAdaugaDispozitie").html("Eroare!<br>Câmpul data primirii trebuie să fie în formatul dd.mm.yyyy!");
+			$("#btnSalveazaDispozitie").prop("disabled", true);
 		}else{
-			$("#divMesajAdaugaHotarare").html("");
-			$("#btnSalveazaHotarare").prop("disabled", false);
+			$("#divMesajAdaugaDispozitie").html("");
+			$("#btnSalveazaDispozitie").prop("disabled", false);
 		}
 	}
 
-	function salveazaHotarareCJC(){
+	function salveazaDispozitie(){
 		var eroareValidare = false;
-		var urlSalvare = "/hotarariCJC/postHotarareCJC";
-		if(!$("#nrHotarare").val()){
+		var urlSalvare = "/registrul-dispozitii/postDispozitie";
+		if(!$("#nrDispozitie").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul nr. hotărâre");
+			$("#divMesajAdaugaDispozitie").html("Completează câmpul nr. dispoziție");
 			return;
 		}
-		if(verificaData($("#dataHotarare").val()) != "ok"){
+		if(verificaData($("#dataDispozitie").val()) != "ok"){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul dată hotărâre");
+			$("#divMesajAdaugaDispozitie").html("Completează câmpul dată dispoziție");
 			return;
 		}
-		if(!$("#emitentHotarare").val()){
+		if(!$("#emitentDispozitie").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul: emitent");
+			$("#divMesajAdaugaDispozitie").html("Completează câmpul: emitent");
 			return;
 		}
 		if(verificaData($("#dataCom").val()) != "ok"){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul: data comunicării");
+			$("#divMesajAdaugaDispozitie").html("Completează câmpul: data comunicării");
 			return;
 		}
 		/* if(!$("#selPersoanaPrimire").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul: persoana primire");
+			$("#divMesajAdaugaDispozitie").html("Completează câmpul: persoana primire");
 			return;
 		}
 		if(!$("#selCompartiment").val()){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul: compartimentul adresat");
+			$("#divMesajAdaugaDispozitie").html("Completează câmpul: compartimentul adresat");
 			return;
 		}
 		if(verificaData($("#dataPrimirii").val()) != "ok"){
 			eroareValidare = true;
-			$("#divMesajAdaugaHotarare").html("Completează câmpul: data primirii");
+			$("#divMesajAdaugaDispozitie").html("Completează câmpul: data primirii");
 			return;
 		} */
-		if(primitoriHCJC == null || primitoriHCJC.length == 0){
+		if(primitoriDispozitie == null || primitoriDispozitie.length == 0){
 			if($("#selPersoanaPrimire").val() && $("#selCompartiment").val() && $("#dataPrimirii").val()){
-				adaugaPrimitorHCJC();
+				adaugaPrimitorDispozitie();
 			}else{
 				eroareValidare = true;
-				$("#divMesajAdaugaHotarare").html("Nu au fost adăugați primitori în listă!");
+				$("#divMesajAdaugaDispozitie").html("Nu au fost adăugați primitori în listă!");
 				return;
 			}
 		}
 		
 		
 		if(!eroareValidare){
-			var hotarareCJC = {
-					"nrHotarare": $("#nrHotarare").val(),
-					"dataHotarare": $("#dataHotarare").val(),
-					"emitent": $("#emitentHotarare").val(),
+			var dispozitie = {
+					"nrDispozitie": $("#nrDispozitie").val(),
+					"dataDispozitie": $("#dataDispozitie").val(),
+					"emitent": $("#emitentDispozitie").val(),
 					"dataComunicarii": $("#dataCom").val(),
-					"listaPrimitori": primitoriHCJC,
-					"stadiu": $("#selStadiuHotarare").val(),
+					"listaPrimitori": primitoriDispozitie,
+					"stadiu": $("#selStadiuDispozitie").val(),
 				};
 			var resetPaging = true;
-			if(hotarareaCurenta != null && hotarareaCurenta.id != null){
-				urlSalvare = "/hotarariCJC/putHotarareCJC";
-				hotarareCJC.id = hotarareaCurenta.id;
+			if(dispozitiaCurenta != null && dispozitiaCurenta.id != null){
+				urlSalvare = "/registrul-dispozitii/putDispozitie";
+				dispozitie.id = dispozitiaCurenta.id;
 				resetPaging = false;
 			}
 			$.ajax({
@@ -544,11 +544,11 @@
 				type: "POST",
 				headers: {"X-CSRF-TOKEN": token},
 				contentType: "application/json",
-				data: JSON.stringify(hotarareCJC),
+				data: JSON.stringify(dispozitie),
 				success: function(response) {
-					inchideModalAdaugaHCJC();
+					inchideModalAdaugaDispozitie();
 					if(!resetPaging){
-						dtHotarariCJC.ajax.reload(null, resetPaging);
+						dtDispozitii.ajax.reload(null, resetPaging);
 					}else{
 						location.reload();
 					}
@@ -562,8 +562,8 @@
 		}
 	}
 	
-	function editareHotarareCJC(rowIndex){
-		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
+	function editareDispozitie(rowIndex){
+		dispozitiaCurenta = dtDispozitii.row(rowIndex).data();
 		$("#tabelPrimitori").hide();
 		$("#selCompartiment").empty();
 		$("#selCompartiment").append('<option value="">Alege...</option>');
@@ -580,67 +580,67 @@
 				for (const c of response.listaCompartimente) {
 					$("#selCompartiment").append('<option value="' + c.id + '">' + c.nume + '</option>');
 				}
-				$("#selCompartiment").val("").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
+				$("#selCompartiment").val("").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaDispozitie")});
 
 				for (const p of response.listaPersoane) {
 					$("#selPersoanaPrimire").append('<option value="' + p.id + '">' + p.nume + ' ' + p.prenume + '</option>');
 				}
-				$("#selPersoanaPrimire").val("").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
+				$("#selPersoanaPrimire").val("").select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaDispozitie")});
 				
-				$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+				$("#modalAdaugaDispozitie").modal({backdrop: "static", keyboard: false}).modal("show");
 				setTimeout(function(){
-					$("#nrHotarare").focus();
+					$("#nrDispozitie").focus();
 				}, 200);
 			},
 			error: function(response){
 				handleHtmlError(response.responseText);
 			}
 		});
-		$("#nrHotarare").val(hotarareaCurenta.nrHotarare);
-		$("#dataHotarare").val(hotarareaCurenta.dataHotarare);
-		$("#emitentHotarare").val(hotarareaCurenta.emitent);
-		$("#dataCom").val(hotarareaCurenta.dataComunicarii);
-		$("#selStadiuHotarare").val(hotarareaCurenta.stadiu).select2({
+		$("#nrDispozitie").val(dispozitiaCurenta.nrDispozitie);
+		$("#dataDispozitie").val(dispozitiaCurenta.dataDispozitie);
+		$("#emitentDispozitie").val(dispozitiaCurenta.emitent);
+		$("#dataCom").val(dispozitiaCurenta.dataComunicarii);
+		$("#selStadiuDispozitie").val(dispozitiaCurenta.stadiu).select2({
 			theme: "bootstrap-5", 
-			dropdownParent: $("#modalAdaugaHotarareCJC"),
+			dropdownParent: $("#modalAdaugaDispozitie"),
 			minimumResultsForSearch: -1
 		});
 		
-		if(hotarareaCurenta.listaPrimitori != null && hotarareaCurenta.listaPrimitori.length > 0){
-			primitoriHCJC = [];
-			primitoriHCJC = primitoriHCJC.concat(hotarareaCurenta.listaPrimitori);
+		if(dispozitiaCurenta.listaPrimitori != null && dispozitiaCurenta.listaPrimitori.length > 0){
+			primitoriDispozitie = [];
+			primitoriDispozitie = primitoriDispozitie.concat(dispozitiaCurenta.listaPrimitori);
 			buildTabelPrimitori();
 		}
 		
-		$("#modalAdaugaHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+		$("#modalAdaugaDispozitie").modal({backdrop: "static", keyboard: false}).modal("show");
 	}
 	
-	function arataModalAdaugaFisierHCJC(rowIndex){
-		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
-		$("#divNrHotarare2").html(hotarareaCurenta.nrHotarare + " / " + hotarareaCurenta.dataHotarare);
-		$("#divEmitentHotarare2").html(hotarareaCurenta.emitent);
-		$("#divDataCom2").html(hotarareaCurenta.dataComunicarii);
-		//$("#divCompartimentul2").html(hotarareaCurenta.compartimentulAdresat + " / " + hotarareaCurenta.persoanaPrimire);
-		$("#divDataPrimirii2").html(hotarareaCurenta.dataPrimirii);
-		$("#divStadiuHotarare2").html(hotarareaCurenta.stadiu);
+	function arataModalAdaugaFisierDispozitie(rowIndex){
+		dispozitiaCurenta = dtDispozitii.row(rowIndex).data();
+		$("#divNrDispozitie2").html(dispozitiaCurenta.nrDispozitie + " / " + dispozitiaCurenta.dataDispozitie);
+		$("#divEmitentDispozitie2").html(dispozitiaCurenta.emitent);
+		$("#divDataCom2").html(dispozitiaCurenta.dataComunicarii);
+		//$("#divCompartimentul2").html(dispozitiaCurenta.compartimentulAdresat + " / " + dispozitiaCurenta.persoanaPrimire);
+		$("#divDataPrimirii2").html(dispozitiaCurenta.dataPrimirii);
+		$("#divStadiuDispozitie2").html(dispozitiaCurenta.stadiu);
 		
-		$("#fisierHotarareCJC").val("");
-		$("#modalAdaugaFisierHotarareCJC").modal({backdrop: "static", keyboard: false}).modal("show");
+		$("#fisierDispozitie").val("");
+		$("#modalAdaugaFisierDispozitie").modal({backdrop: "static", keyboard: false}).modal("show");
 	}
 
-	function inchideModalAdaugaFisierHCJC(){
-		hotarareaCurenta = null;
-		$("#fisierHotarareCJC").val("");
-		$("#modalAdaugaFisierHotarareCJC").modal("hide");
+	function inchideModalAdaugaFisierDispozitie(){
+		dispozitiaCurenta = null;
+		$("#fisierDispozitie").val("");
+		$("#modalAdaugaFisierDispozitie").modal("hide");
 	}
 	
 	function incarcaFisierul(rowIndex){
-		var form = $("#formFisierHotarareCJC")[0];
+		var form = $("#formFisierDispozitie")[0];
 		var data = new FormData(form);
-		data.append("idHotarare", hotarareaCurenta.id);
+		data.append("idDispozitie", dispozitiaCurenta.id);
 
 		$.ajax({
-			url : "/hotarariCJC/incarcaFisier",
+			url : "/registrul-dispozitii/incarcaFisier",
 			headers: {"X-CSRF-TOKEN": token},
 			type : "POST",
 			data: data,
@@ -650,9 +650,9 @@
 			cache: false,
 			success : function(data) {
 				if(data == "ok"){
-					inchideModalAdaugaFisierHCJC();
-					dtHotarariCJC.ajax.reload(null, false);
-					//incarcaDtHotarariCJC();
+					inchideModalAdaugaFisierDispozitie();
+					dtDispozitii.ajax.reload(null, false);
+					//incarcaDtDispozitii();
 				}
 			},
 			error: function(response) {
@@ -663,13 +663,13 @@
 	}
 	
 	function arataModalNote(rowIndex){
-		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
-		$("#divNrHotarare1").html(hotarareaCurenta.nrHotarare + " / " + hotarareaCurenta.dataHotarare);
-		$("#divEmitentHotarare1").html(hotarareaCurenta.emitent);
-		$("#divDataCom1").html(hotarareaCurenta.dataComunicarii);
-		$("#divStadiuHotarare1").html(hotarareaCurenta.stadiu);
+		dispozitiaCurenta = dtDispozitii.row(rowIndex).data();
+		$("#divNrDispozitie1").html(dispozitiaCurenta.nrDispozitie + " / " + dispozitiaCurenta.dataDispozitie);
+		$("#divEmitentDispozitie1").html(dispozitiaCurenta.emitent);
+		$("#divDataCom1").html(dispozitiaCurenta.dataComunicarii);
+		$("#divStadiuDispozitie1").html(dispozitiaCurenta.stadiu);
 		
-		incarcaNote(hotarareaCurenta.id, "registrulHCJC");
+		incarcaNote(dispozitiaCurenta.id, "registrulDispozitii");
 	}
 	
 	function inchideModalNote(){
@@ -677,19 +677,19 @@
 		$("#continutNota").val("");
 		$("#modalNote").modal("hide");
 		if(totalNotePozitiaCurenta != null && totalNotePozitiaCurenta > 0){
-			$("#btnNote_" + hotarareaCurenta.id).css("color", "blue");
+			$("#btnNote_" + dispozitiaCurenta.id).css("color", "blue");
 		}else{
-			$("#btnNote_" + hotarareaCurenta.id).css("color", "orange");
+			$("#btnNote_" + dispozitiaCurenta.id).css("color", "orange");
 		}
-		hotarareaCurenta = null;
+		dispozitiaCurenta = null;
 	}
 
-	function stergeHotarareCJC(rowIndex){
-		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
+	function stergeDispozitie(rowIndex){
+		dispozitiaCurenta = dtDispozitii.row(rowIndex).data();
 		bootbox.confirm({
 			size: "large",
 			title: "Șterg?",
-			message: "Sunteți sigur că doriți ștergerea hotărârii nr. " + hotarareaCurenta.nrHotarare + " / " + hotarareaCurenta.dataHotarare + " ?",
+			message: "Sunteți sigur că doriți ștergerea dispoziției nr. " + dispozitiaCurenta.nrDispozitie + " / " + dispozitiaCurenta.dataDispozitie + " ?",
 			buttons: {
 				confirm: {
 					label: 'Da',
@@ -704,22 +704,22 @@
 			callback: function(confirmare){
 				if(confirmare){
 					$.ajax({
-						url: "/hotarariCJC/stergeHotarareCJC",
+						url: "/registrul-dispozitii/stergeDispozitie",
 						type: "POST",
 						headers: {"X-CSRF-TOKEN": token},
 						contentType: "application/json",
-						data: hotarareaCurenta.id,
+						data: dispozitiaCurenta.id,
 						success: function(response) {
 							if(response == "ok"){
-								dtHotarariCJC.ajax.reload(null, false);
+								dtDispozitii.ajax.reload(null, false);
 							}else{
 								alert("Ștergerea nu a fost efectuată! Eroare de aplicație.");
 							}
-							hotarareaCurenta = null;
+							dispozitiaCurenta = null;
 						},
 						error: function(response){
 							handleHtmlError(response.responseText);
-							hotarareaCurenta = null;
+							dispozitiaCurenta = null;
 						}
 					});
 				}
@@ -727,20 +727,20 @@
 		});
 	}
 	
-	function arataModalArataFisierHCJC(rowIndex){
-		hotarareaCurenta = dtHotarariCJC.row(rowIndex).data();
-		$("#embedFisierHCJC").attr("src", "/hotarariCJC/arataFisier/"+hotarareaCurenta.id);
-		$("#linkBtnDescarcaFisierHCJC").attr("href", "/hotarariCJC/downloadFisier/"+hotarareaCurenta.id);
+	function arataModalArataFisierDispozitie(rowIndex){
+		dispozitiaCurenta = dtDispozitii.row(rowIndex).data();
+		$("#embedFisierDispozitie").attr("src", "/registrul-dispozitii/arataFisier/"+dispozitiaCurenta.id);
+		$("#linkBtnDescarcaFisierDispozitie").attr("href", "/registrul-dispozitii/downloadFisier/"+dispozitiaCurenta.id);
 		
-		$("#modalArataFisierHCJC").modal("show");
+		$("#modalArataFisierDispozitie").modal("show");
 	}
 	
-	function inchideModalArataFisierHCJC(){
-		$("#modalArataFisierHCJC").modal("hide");
-		hotarareaCurenta = null;
+	function inchideModalArataFisierDispozitie(){
+		$("#modalArataFisierDispozitie").modal("hide");
+		dispozitiaCurenta = null;
 	}
 	
-	function adaugaPrimitorHCJC(){
+	function adaugaPrimitorDispozitie(){
 		if($("#selCompartiment").val() && $("#selPersoanaPrimire").val() && $("#dataPrimirii").val()){
 			primitor = {
 				"idCompartiment": $("#selCompartiment").val(),
@@ -749,7 +749,7 @@
 				"persoanaPrimire": $('#selPersoanaPrimire').select2("data")[0].text,
 				"dataPrimirii": $("#dataPrimirii").val()
 			}
-			primitoriHCJC.push(primitor);
+			primitoriDispozitie.push(primitor);
 			buildTabelPrimitori();
 		}else{
 			bootbox.alert("Nu ați completat toate datele pentru primitor!");
@@ -758,17 +758,17 @@
 	
 	function buildTabelPrimitori(){
 		$("#tabelPrimitori tbody").empty();
-		if(primitoriHCJC != null && primitoriHCJC.length > 0){
+		if(primitoriDispozitie != null && primitoriDispozitie.length > 0){
 			$("#tabelPrimitori").show();
-			primitoriHCJC.forEach(function(p, index){
+			primitoriDispozitie.forEach(function(p, index){
 				$("#tabelPrimitori tbody").append('<tr><td>' + p.persoanaPrimire + '</td><td>' + p.compartimentulAdresat + '</td><td>' + p.dataPrimirii + '</td> <td style="text-align:center;"><button class="btn btn-sm btn-danger" onclick="stergePrimitor(' + index + ')">Șterge</button></td></tr>');
 			});
 		}
 	}
 	
 	function stergePrimitor(index){
-		if(primitoriHCJC != null && primitoriHCJC.length > 0){
-			primitoriHCJC.splice(index, 1);
+		if(primitoriDispozitie != null && primitoriDispozitie.length > 0){
+			primitoriDispozitie.splice(index, 1);
 			buildTabelPrimitori();
 		}
 	}
@@ -782,7 +782,7 @@
 					persoana = p;
 				}
 			});
-			$("#selCompartiment").val(persoana.idCompartiment).select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaHotarareCJC")});
+			$("#selCompartiment").val(persoana.idCompartiment).select2({theme: "bootstrap-5", dropdownParent: $("#modalAdaugaDispozitie")});
 		}
 	}
 	

@@ -36,6 +36,9 @@
 				<li sec:authorize="hasAuthority('OpRegHCJC')" class="nav-item btnMenu">
 					<a id="menuEntryRegHotCJC" class="nav-link" th:href="@{/registrul-hcjc}">Registrul hotărâri CJC</a>
 				</li>
+				<li sec:authorize="hasAuthority('OpRegDispozitii')" class="nav-item btnMenu">
+					<a id="menuEntryRegDispozitii" class="nav-link" th:href="@{/registrul-dispozitii}">Registrul dispoziții</a>
+				</li>
 				<li sec:authorize="hasAuthority('OpRegConsDir')" class="nav-item btnMenu">
 					<a id="menuEntryConsDir" class="nav-link" th:href="@{/consiliul-director}">Consiliul director</a>
 				</li>

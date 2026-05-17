@@ -43,6 +43,12 @@ public class MainController {
 		return "pages/registrul-hcjc";
 	}
 	
+	@PreAuthorize("hasAuthority('OpRegDispozitii')")
+	@GetMapping("/registrul-dispozitii")
+	public String registrulDispozitii(Model model) {
+		return "pages/registrul-dispozitii";
+	}
+	
 	@PreAuthorize("hasAuthority('OpRegConsDir')")
 	@GetMapping("/consiliul-director")
 	public String consiliulDirector(Model model) {
